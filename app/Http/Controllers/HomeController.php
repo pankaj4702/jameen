@@ -454,4 +454,8 @@ class HomeController extends Controller
         ->where('title', 'like', '%' . $searchValue . '%')->get();
         return response()->json($mediaData);
     }
+
+    public function companyProfile(){
+        return view('frontend.about.companyProfile');
+    }
 }

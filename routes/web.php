@@ -12,6 +12,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\FestivalGreetingController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\SiteMapController;
 use Spatie\Sitemap\SitemapGenerator;
 
 
@@ -158,11 +159,10 @@ Route::get('/search-insight',[HomeController::class,'InsightSearch'])->name('Ins
 Route::get('/search-blog',[HomeController::class,'BlogSearch'])->name('BlogSearch');
 Route::get('/search-media',[HomeController::class,'MediaSearch'])->name('MediaSearch');
 
-// Route::get('/generate-sitemap', function () {
-//     $baseUrl = url('/');
-//     SitemapGenerator::create($baseUrl)
-//     ->add()
-//     ->writeToFile(public_path('sitemap.xml'));
-//     return 'Sitemap generated successfully!';
-// });
+
+// About
+Route::prefix('/about')->group(function () {
+Route::get('/company-profile',[HomeController::class,'companyProfile'])->name('companyProfile');
+});
+Route::get('/sitemap',[SiteMapController::class,'index']);
 
