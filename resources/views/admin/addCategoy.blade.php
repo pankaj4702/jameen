@@ -15,9 +15,9 @@
                     </ol>
                 </div>
             </div>
-            <div style="text-align: end;">
+            {{-- <div style="text-align: end;">
                 <a href=""><button class="btn btn-primary">Show All</button></a>
-            </div>
+            </div> --}}
         </div>
     </section>
     <section class="content">
@@ -51,7 +51,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Category Name</label>
                                     <input type="" name="title" autocomplete="off" class="form-control"
-                                        id="title" placeholder="Enter Name">
+                                        id="title" placeholder="Enter Name" value="{{ old('title') }}">
                                     <span id="error-title" style="color:rgb(218, 129, 129);"></span>
                                 </div>
                             </div>
@@ -118,6 +118,37 @@
                         </div>
                     </div>
                 </div>
+
+{{-- table --}}
+@if($cat_data)
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-primary">
+                            <table class="table" id="mytable">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Sno.</th>
+                                        <th scope="col"> Title</th>
+                                        <th scope="col"> Main Category</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($cat_data as $data)
+                                <tr>
+                                    <th scope="row">{{$loop->iteration}}</th>
+                                    <td>{{ $data->category_name }}</td>
+                                    <td>{{ $data->title }}</td>
+                                    <td><a href="{{route('deleteCategory',['id' => encrypt($data->id)])}}"><button class="btn btn-primary">Delete</button></a></td>
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+@endif
             </div>
 
         </div>

@@ -1732,6 +1732,8 @@ footer {
 
 .property-mangement-right-inner .property-main img {
     border-radius: 220px 0px 220px 220px;
+    height: 494px;
+    width: 100%;
 }
 
 .property-dot-shape {
@@ -3373,7 +3375,7 @@ footer {
 }
 
 .logout-btn:hover {
-    background: ;
+    /* background: ; */
     color: #f16b60;
 }
 

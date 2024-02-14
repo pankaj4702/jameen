@@ -25,27 +25,37 @@ Route::prefix('/admin')->group(function () {
     Route::get('/add-project',[AdminController::class,'add_project'])->name('addProject')->middleware('checkAdminAuth');
     Route::post('/sell-property',[AdminController::class,'sell_property_store'])->name('sell_property_store');
     Route::get('/properties',[AdminController::class,'all_property'])->name('property');
+    Route::get('/project-detail/{id}',[AdminController::class,'project_detail'])->name('project_detail');
+    Route::get('/project-delete/{id}',[AdminController::class,'project_delete'])->name('project_delete');
     Route::get('/add-property-attributes',[AdminController::class,'property_attribute'])->name('property_attribute');
+    Route::get('/delete-status/{id}',[AdminController::class,'deleteStatus'])->name('deleteStatus');
+    Route::get('/delete-source/{id}',[AdminController::class,'deleteSource'])->name('deleteSource');
     Route::post('/store-attributes',[AdminController::class,'store_attributes'])->name('store_attribute');
     Route::get('/add-configuration',[AdminController::class,'configuration'])->name('addconfiguration');
     Route::post('/store-configuration',[AdminController::class,'store_configuration'])->name('store_configuration');
     Route::get('/get-configuration',[AdminController::class,'getconfiguration'])->name('configuration');
     Route::get('/add-city',[AdminController::class,'addCity'])->name('addCity');
     Route::post('/store-city',[AdminController::class,'store_city'])->name('storeCity');
+    Route::get('/delete-city/{id}',[AdminController::class,'deleteCity'])->name('deleteCity');
     Route::get('/add-post-user',[AdminController::class,'addPostUser'])->name('addPostUser');
+    Route::get('/delete-post-user/{id}',[AdminController::class,'deletePostUser'])->name('deletePostUser');
     Route::post('/store-post-user',[AdminController::class,'storePostUser'])->name('storePostUser');
-    Route::get('/project-detail/{id}',[AdminController::class,'project_detail'])->name('project_detail');
     Route::get('/add-asset-management',[AdminController::class,'getAssetManagement'])->name('getAssetManagement');
     Route::post('/store-asset-management',[AdminController::class,'storeAsset'])->name('storeAsset');
     Route::get('/asset-delete/{id}',[AdminController::class,'removeAsset'])->name('removeAsset');
-    Route::get('/testimonial',[AdminController::class,'addTestimonial'])->name('addTestimonial');
+    Route::get('/add-testimonial',[AdminController::class,'addTestimonial'])->name('addTestimonial');
+    Route::get('/testimonials',[AdminController::class,'allTestimonial'])->name('Testimonials');
     Route::post('/store-testimonial',[AdminController::class,'storeTestimonial'])->name('storeTestimonial');
+    Route::get('/delete-testimonial/{id}',[AdminController::class,'deleteTestimonial'])->name('deleteTestimonial');
+    Route::get('/approve-testimonial/{id}',[AdminController::class,'approveTestimonial'])->name('approveTestimonial');
     Route::get('/inquiryData',[AdminController::class,'inquiryData'])->name('inquiryData');
     Route::get('/add-category',[AdminController::class,'addCategory'])->name('addCategory');
+    Route::get('/delete-category/{id}',[AdminController::class,'deleteCategory'])->name('deleteCategory');
     Route::post('/store-category',[AdminController::class,'storeCategory'])->name('storeCategory');
     Route::get('/add-feature&amenities',[AdminController::class,'addFeatureAmenities'])->name('addFeatureAmenities');
-    Route::post('/store-feature&amenities',[AdminController::class,'storeFeatureAmenities'])->name('storeFeatureAmenities');
+    Route::post('/store-featureamenities',[AdminController::class,'storeFeatureAmenities'])->name('storeFeatureAmenities');
     Route::get('/get-cate',[AdminController::class,'getCategory'])->name('getCategory');
+
 
 });
 
@@ -60,19 +70,39 @@ Route::prefix('/admin/service')->group(function () {
 
 
 });
+//Admin about section
+Route::prefix('/admin/about')->group(function () {
+    Route::get('/add-profile',[AdminController::class,'getCompanyProfile'])->name('getCompanyProfile');
+    Route::post('/store-profile',[AdminController::class,'storeCompanyProfile'])->name('storeCompanyProfile');
+    Route::get('/ceo-message',[AdminController::class,'getCompanyMessageCeo'])->name('getCompanyMessageCeo');
+    Route::get('/chairman-message',[AdminController::class,'getCompanyMessageChairman'])->name('getCompanyMessageChairman');
+    Route::get('/edit-message/{id}',[AdminController::class,'editCompanyMessage'])->name('editCompanyMessage');
+    Route::post('/update-message',[AdminController::class,'updateCompanyMessage'])->name('updateCompanyMessage');
+    Route::get('/add-corporate-team',[AdminController::class,'addCorporateTeam'])->name('addCorporateTeam');
+    Route::post('/store-corporate-team',[AdminController::class,'storeCorporateTeam'])->name('storeCorporateTeam');
+
+});
 
 // admin market trends
 Route::prefix('/admin/market-trend')->group(function () {
-    Route::get('/add-news',[AdminController::class,'getNews'])->name('getNews');
+    Route::get('/add-news',[AdminController::class,'getNews'])->name('addNews');
+    Route::get('/News',[AdminController::class,'News'])->name('getNews');
+    Route::get('/delete-news/{id}',[AdminController::class,'deleteNews'])->name('deleteNews');
     Route::post('/store-news',[AdminController::class,'storeNews'])->name('storeNews');
 
-    Route::get('/add-media',[AdminController::class,'getMedia'])->name('getMedia');
+    Route::get('/add-media',[AdminController::class,'getMedia'])->name('addMedia');
+    Route::get('/media',[AdminController::class,'Media'])->name('getMedia');
+    Route::get('/delete-media/{id}',[AdminController::class,'deleteMedia'])->name('deleteMedia');
     Route::post('/store-media',[AdminController::class,'storeMedia'])->name('storeMedia');
 
-    Route::get('/add-blog',[AdminController::class,'getBlog'])->name('getBlog');
+    Route::get('/add-blog',[AdminController::class,'getBlog'])->name('addBlog');
+    Route::get('/blog',[AdminController::class,'Blog'])->name('getBlog');
+    Route::get('/delete-blog/{id}',[AdminController::class,'deleteBlog'])->name('deleteBlog');
     Route::post('/store-blog',[AdminController::class,'storeBlog'])->name('storeBlog');
 
-    Route::get('/add-property-insight',[AdminController::class,'getInsight'])->name('getInsight');
+    Route::get('/add-property-insight',[AdminController::class,'getInsight'])->name('addInsight');
+    Route::get('/insight',[AdminController::class,'Insight'])->name('getInsight');
+    Route::get('/delete-insight/{id}',[AdminController::class,'deleteInsight'])->name('deleteInsight');
     Route::post('/store-insight',[AdminController::class,'storeInsight'])->name('storeInsight');
 });
 
@@ -163,6 +193,10 @@ Route::get('/search-media',[HomeController::class,'MediaSearch'])->name('MediaSe
 // About
 Route::prefix('/about')->group(function () {
 Route::get('/company-profile',[HomeController::class,'companyProfile'])->name('companyProfile');
+Route::get('/chairman-message',[HomeController::class,'chairmanMessage'])->name('chairmanMessage');
+Route::get('/ceo-message',[HomeController::class,'ceoMessage'])->name('ceoMessage');
+Route::get('/corporate-team',[HomeController::class,'corporateTeam'])->name('corporateTeam');
+
 });
 Route::get('/sitemap',[SiteMapController::class,'index']);
 

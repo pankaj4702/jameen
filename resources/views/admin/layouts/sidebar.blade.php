@@ -107,7 +107,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('addTestimonial')}}"  class="nav-link {{ request()->is('admin/add-city') ? 'active' : '' }}">
+                <a href="{{route('addTestimonial')}}"  class="nav-link {{ request()->is('admin/testimonial') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Testimonial </p>
                 </a>
@@ -136,36 +136,75 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-church"></i>
               <p>
-               Add Market Trends
+               Market Trends
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
 
               <li class="nav-item">
-                <a href="{{ route('getNews') }}" class="nav-link">
+                <a href="{{ route('getNews') }}" class="nav-link {{ request()->is('admin/market-trend/News') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p> Add News</p>
+                  <p>News</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('getMedia') }}" class="nav-link">
+                <a href="{{ route('getMedia') }}" class="nav-link {{ request()->is('admin/market-trend/media') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p> Add Media</p>
+                  <p> Media</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('getBlog') }}" class="nav-link">
+                <a href="{{ route('getBlog') }}" class="nav-link {{ request()->is('admin/market-trend/blog') ? 'active' : '' }}"">
                   <i class="far fa-circle nav-icon"></i>
-                  <p> Add Blog</p>
+                  <p>Blog</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('getInsight') }}" class="nav-link">
+                <a href="{{ route('getInsight') }}" class="nav-link {{ request()->is('admin/market-trend/insight') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p> Add Insight</p>
+                  <p>Insight</p>
                 </a>
               </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-edit"></i>
+              <p>
+               About
+               <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+
+              <li class="nav-item">
+                <a href="{{ route('getCompanyProfile') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p> Company Profile</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ route('getCompanyMessageCeo') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ceo Message</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('getCompanyMessageChairman') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Chairman Message</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ route('addCorporateTeam') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Corporate Team</p>
+                </a>
+              </li>
+
             </ul>
           </li>
           <li class="nav-item">

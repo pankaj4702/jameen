@@ -7,9 +7,9 @@
                         <h2>About Us</h2>
                         <ul class="footer-menu">
                             <li><a href="{{ route('companyProfile') }}">Company Profile</a></li>
-                            <li><a href="javascript::">Chairman’s Message</a></li>
-                            <li><a href="javascript::">CEO Message</a></li>
-                            <li><a href="javascript::">Corporate Team</a></li>
+                            <li><a href="{{ route('chairmanMessage') }}">Chairman’s Message</a></li>
+                            <li><a href="{{ route('ceoMessage') }}">CEO Message</a></li>
+                            <li><a href="{{ route('corporateTeam') }}">Corporate Team</a></li>
                             <li><a href="{{ route('reviews') }}">Client Reviews</a></li>
                         </ul>
                     </div>

@@ -20,7 +20,7 @@
                         @foreach($buyPropertyTypes as $buyPropertyType)
                         <li><a class="dropdown-item" href="{{ route('BuyPropertyList',['id'=>encrypt($buyPropertyType->id)]) }}">{{ $buyPropertyType->category_name}}</a></li>
                         @endforeach
-                        <li><a class="dropdown-item" href="#">View All</a></li>
+                        {{-- <li><a class="dropdown-item" href="#">View All</a></li> --}}
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -35,7 +35,7 @@
                         @foreach($rentPropertyTypes as $rentPropertyTypes)
                         <li><a class="dropdown-item" href="{{ route('RentPropertyList',['id'=>encrypt($rentPropertyTypes->id)]) }}">{{ $rentPropertyTypes->category_name	 }}</a></li>
                         @endforeach
-                        <li><a class="dropdown-item" href="#">View All</a></li>
+                        {{-- <li><a class="dropdown-item" href="#">View All</a></li> --}}
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -50,7 +50,7 @@
                         @foreach($pgPropertyTypes as $pgPropertyTypes)
                         <li><a class="dropdown-item" href="{{ route('PgPropertyList',['id'=>encrypt($pgPropertyTypes->id)]) }}">{{ $pgPropertyTypes->category_name	 }}</a></li>
                         @endforeach
-                        <li><a class="dropdown-item" href="#">View All</a></li>
+                        {{-- <li><a class="dropdown-item" href="#">View All</a></li> --}}
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -65,7 +65,7 @@
                         @foreach($commPropertyTypes as $commPropertyTypes)
                         <li><a class="dropdown-item" href="{{ route('PgPropertyList',['id'=>encrypt($commPropertyTypes->id)]) }}">{{ $commPropertyTypes->category_name	 }}</a></li>
                         @endforeach
-                        <li><a class="dropdown-item" href="#">View All</a></li>
+                        {{-- <li><a class="dropdown-item" href="#">View All</a></li> --}}
                     </ul>
                 </li>
                 <li class="nav-item ">
@@ -74,7 +74,7 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="company-profile.html">
+                    <a class="nav-link" href="{{ route('companyProfile') }}">
                         About
                     </a>
                 </li>

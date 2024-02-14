@@ -26,7 +26,7 @@
               <h3 class="card-title">Add Post User</h3>
             </div>
             @if (count($errors) > 0)
-       <div class = "alert alert-danger">
+       <div class = "alert admin-alert">
           <ul class="title_count1">
              @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
@@ -35,7 +35,7 @@
        </div>
     @endif
     @if (session('success'))
-  <div class="alert alert-danger">
+  <div class="alert admin-alert">
           <ul>
               <li> {{ session('success') }}</li>
           </ul>
@@ -52,9 +52,29 @@
             </form>
           </div>
           </div>
-        <div class="col-md-6">
-        </div>
       </div>
+      <div class="col-md-6">
+        <div class="card card-primary">
+            <table class="table" id="mytable">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Sno.</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($postUsers as $user)
+                    <tr>
+                        <th scope="row">{{$loop->iteration}}</th>
+                        <td>{{ $user->name }}</td>
+                        <td><a href="{{route('deletePostUser',['id' => encrypt($user->id)])}}"><button class="btn btn-primary">Delete</button></a></td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
     </div>
   </section>
 @endsection

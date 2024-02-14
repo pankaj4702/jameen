@@ -54,11 +54,14 @@
                                 @elseif($property->category_status == 4)
                                 <td>Commercial</td>
                                 @endif
+
                                 <td>
                                     @php
                                     $encryptedId = encrypt($property->id);
                                     @endphp
-                                    <a href="{{route('project_detail',['id' => $encryptedId])}}"><button class="btn btn-primary">detail</button></a></td>
+                                    <a href="{{route('project_detail',['id' => $encryptedId])}}"><button class="btn btn-primary">detail</button></a>
+                                    <a href="{{route('project_delete',['id' => $encryptedId])}}"><button class="btn btn-primary">delete</button></a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

@@ -62,7 +62,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Category Name</label>
-                                    <select class="form-control" name="property_cat" id="property_cat">
+                                    <select class="form-control" name="category_name" id="property_cat">
                                       {{-- <option value = "">Choose a value</option>
                                       @foreach($pro_categories as $category )
                                     <option value="{{ $category->id }}">{{ $category->category_name }}</option>
@@ -76,9 +76,12 @@
                                     <!-- Dynamic fields will be added here -->
                                 </div>
                                 </div>
-                                <div>
-                                <button type="button" class="btn btn-primary" onclick="addFeature()">Add Feature</button>
-                                <button type="submit" class="btn btn-primary">Save Features</button>
+                                <div style="display: flex; justify-content:space-between; width:17em;">
+                                    <div>
+                                        <button type="button" class="btn btn-primary" onclick="addFeature()">Add Feature</button>
+                                    </div>
+                                    <div id="submit">
+                                    </div>
                                 </div>
                                 {{-- <input type="submit" class="btn btn-primary" value="Submit"> --}}
                             </div>
@@ -92,6 +95,9 @@
     {{-- <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script> --}}
     <script>
         function addFeature() {
+            $('#submit').append(`
+            <button type="submit" class="btn btn-primary " id="submit">Save Features</button>
+            `);
             var container = document.getElementById('featureContainer');
             var featureCount = container.children.length / 2 + 1; // Counting existing pairs
 

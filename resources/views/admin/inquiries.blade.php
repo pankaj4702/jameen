@@ -33,7 +33,6 @@
                                 <th scope="col"> Email</th>
                                 <th scope="col">Phone(+91)</th>
                                 <th scope="col">Message</th>
-                                <th scope="col">Property</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,11 +43,7 @@
                                 <td>{{ $inquiry->email }}</td>
                                 <td>{{ $inquiry->phone }}</td>
                                 <td>{{ $inquiry->description }}</td>
-                                <td>
-                                    @php
-                                    $encryptedId = encrypt($inquiry->property_id);
-                                    @endphp
-                                    <a href="{{route('project_detail',['id' => $encryptedId])}}"><button>detail</button></a></td>
+
                             </tr>
                             @endforeach
                         </tbody>

@@ -15,7 +15,9 @@
                     </ol>
                 </div>
             </div>
-
+            <div style="text-align: end;">
+                <a href="{{ route('getInsight') }}"><button class="btn btn-primary">Show Insight</button></a>
+            </div>
         </div>
     </section>
     <section class="content">

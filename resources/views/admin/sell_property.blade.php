@@ -323,45 +323,7 @@
             });
         }
     </script>
-    <script>
-        function save_rent_list() {
-            var csrfToken = $('meta[name="csrf-token"]').attr('content');
-            var formData = new FormData($('#rent-form')[0]);
-            formData.append('_token', csrfToken);
-            var dataValue = $('#pills-sell-tab').data('value');
-            formData.append('seller_value', 2);
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('sell_property_store') }}",
-                data: formData,
-                dataType: 'json',
-                processData: false,
-                contentType: false,
-                success: function(data) {
-                    if (data.status == 1) {
-                        alert('data add successfully');
-                        location.reload();
-                    }
-                    else if(data.status == 0){
-                        $('.error-rent-' + data.key).html('');
-                        $('.error-rent-' + data.key).append(data.error);
 
-                }
-            },
-                error: function(xhr, status, error) {
-                    if (xhr.responseJSON && xhr.responseJSON.errors) {
-                        $.each(xhr.responseJSON.errors, function(key, value) {
-                            var field = key.replace(/\./g, '_');
-                            $('.error-rent-' + field).html('');
-                            $('.error-rent-' + field).append(value);
-                        });
-                    } else {
-                        console.error(error);
-                    }
-                }
-            });
-        }
-    </script>
     <script>
         function checkSelectionSell(element) {
             $('.error-span-' + element).html('');

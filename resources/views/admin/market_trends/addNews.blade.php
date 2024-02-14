@@ -15,7 +15,9 @@
                     </ol>
                 </div>
             </div>
-
+            <div style="text-align: end;">
+                <a href="{{ route('getNews') }}"><button class="btn btn-primary">Show News</button></a>
+            </div>
         </div>
     </section>
     <section class="content">
@@ -56,7 +58,7 @@
                                 <div class="mb-3">
                                     <label for="formFile" class="form-label">Image  <span style="font-size: 11px;"><i>(image of this news)*</i></span></label>
                                     <input class="form-control" type="file" id="image" name="image">
-                                </div>  
+                                </div>
 
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Description <span style="font-size: 11px;"><i></i></span></label>

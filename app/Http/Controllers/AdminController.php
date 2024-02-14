@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use App\Models\{User,Project,Property_Type,Property_source,Property_status,Property,Configuration,City,PostUser,Service,Testimonial,ServiceCategory,Community,Feature,Bedroom,Subscriber,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight};
+use App\Models\{User,Project,Property_Type,Property_source,Property_status,Property,Configuration,City,PostUser,Service,Testimonial,ServiceCategory,Community,Feature,Bedroom,Subscriber,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam};
 use GuzzleHttp\Client;
 use DB;
 use Hash;
@@ -89,7 +89,6 @@ class AdminController extends Controller
     }
 
     public function sell_property_store(Request $request){
-        // dd($request->all());
         $request->validate([
             // 'property_type' => 'required',
             'property_cat'=>'required',
@@ -102,7 +101,7 @@ class AdminController extends Controller
             'price'=>'required|max:9',
             'property_source'=>'required',
             'property_status'=>'required',
-            'seller_message' => 'required|min:10|max:350',
+            'seller_message' => 'required|min:10',
             'image'=>'required',
             'post_user'=>'required',
         ],[
@@ -193,11 +192,34 @@ class AdminController extends Controller
     }
 
     public function property_attribute(){
-        $configurations = DB::table('configurations')->get();
-        return view('admin.propertyAttribute',compact('configurations'));
+        $property_status = Property_status::all();
+        $property_source = Property_source::all();
+        return view('admin.propertyAttribute',compact('property_status','property_source'));
     }
 
+    public function deleteStatus($ecryptedId){
+        $id = decrypt($ecryptedId);
+        $property_status = Property_status::where('id',$id)->first();
+        if ($property_status) {
+            $property_status->delete();
+            return redirect()->back()->with('success', 'Property Status Deleted Successfully.');
+        }
+    }
+
+    public function deleteSource($ecryptedId){
+        $id = decrypt($ecryptedId);
+        $property_source = Property_source::where('id',$id)->first();
+        if ($property_source) {
+            $property_source->delete();
+            return redirect()->back()->with('success', 'Property Source Deleted Successfully.');
+        }
+        }
+
     public function store_attributes(Request $request){
+        $request->validate([
+            'status' => 'max:50',
+            'source'=>'max:50',
+          ]);
             $checkboxValues = $request->input('config', []);
             $configuration = implode(',',$checkboxValues);
             $request->validate([
@@ -205,19 +227,34 @@ class AdminController extends Controller
                 'source' => 'max:35',
             ]);
 
-            if(isset($request->source) ){
+            if(isset($request->source) && !isset($request->status) ){
             $property_type = Property_source::create([
                 'name'=>$request->source,
                 'category'=>1,
             ]);
+            return redirect()->back()->with('success', 'Data Saved Successfully.');
             }
-            if(isset($request->status) ){
+            if(isset($request->status) && !isset($request->source) ){
             $property_type = Property_status::create([
                 'name'=>$request->status,
                 'category'=>1
             ]);
-            }
             return redirect()->back()->with('success', 'Data Saved Successfully.');
+            }
+            if(isset($request->source) && isset($request->status) ){
+                $property_type = Property_source::create([
+                    'name'=>$request->source,
+                    'category'=>1,
+                ]);
+                $property_type = Property_status::create([
+                    'name'=>$request->status,
+                    'category'=>1
+                ]);
+                return redirect()->back()->with('success', 'Data Saved Successfully.');
+
+            }
+            return redirect()->back()->with('success', 'Please submit atleast one value.');
+
 
     }
 
@@ -232,6 +269,15 @@ class AdminController extends Controller
               ->where('properties.id', $id)
               ->first(['properties.id','property_categories.category_name as type','property_sources.name as source','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price']);
            return view('admin.projectDetail',compact('property','images'));
+        }
+
+        public function project_delete($ecryptedId){
+            $id = decrypt($ecryptedId);
+            $property = Property::where('id',$id)->first();
+            if ($property) {
+                $property->delete();
+                return redirect()->back();
+            }
         }
 
         public function configuration(){
@@ -253,41 +299,61 @@ class AdminController extends Controller
         }
 
         public function  addCity(){
-            return view('admin.addFilterCity');
+            $cities = City::all();
+            return view('admin.addFilterCity',compact('cities'));
         }
 
         public function store_city(Request $request){
             $request->validate([
-                'city' => 'required|max:20',
+                'city' => 'required|max:40',
             ]);
             $city = City::create([
                 'name'=> ucfirst($request->city),
             ]);
             if($city){
-                return redirect()->back();
+                return redirect()->back()->with('success', 'Data Saved Successfully.');
+            }
+        }
+
+        public function deleteCity($ecryptedId){
+            $id = decrypt($ecryptedId);
+            $city = City::where('id',$id)->first();
+            if ($city) {
+                $city->delete();
+                return redirect()->back()->with('success', 'City Deleted Successfully.');
             }
         }
 
         public function addPostUser(){
-            return view('admin.addPostUser');
+            $postUsers = PostUser::all();
+            return view('admin.addPostUser',compact('postUsers'));
         }
 
         public function storePostUser(Request $request){
-            // dd($request->all());
             $request->validate([
-                'post_user' => 'required|max:20',
+                'post_user' => 'required|max:40',
             ]);
             $postuser = PostUser::create([
                 'name'=> ucfirst($request->post_user),
                 'slug'=> $request->post_user,
             ]);
             if($postuser){
-                return redirect()->back();
+                return redirect()->back()->with('success', 'Data Saved Successfully.');
+            }
+        }
+
+        public function deletePostUser($ecryptedId){
+            $id = decrypt($ecryptedId);
+            $postUser = PostUser::where('id',$id)->first();
+            if ($postUser) {
+                $postUser->delete();
+                return redirect()->back()->with('success', 'Post User Deleted Successfully.');
             }
         }
 
         public function getService(){
-            $assets = Service::where('status', 1)->get();
+            $assets = Service::where('status', 1)
+            ->get();
             $service_categories = ServiceCategory::get();
             return view('admin.services.Services',compact('assets','service_categories'));
         }
@@ -354,6 +420,29 @@ class AdminController extends Controller
             }
         }
 
+        public function allTestimonial(){
+          $testimonials = Testimonial::orderBy('id','desc')->get();
+          return view('admin.allTestmonials',compact('testimonials'));
+        }
+
+        public function approveTestimonial($ecryptedId){
+            $id = decrypt($ecryptedId);
+            $testimonial = Testimonial::where('id',$id)->first();
+            $testimonial->update([
+                'status' =>1,
+            ]);
+            return redirect()->back();
+        }
+
+        public function deleteTestimonial($ecryptedId){
+            $id = decrypt($ecryptedId);
+            $testimonial = Testimonial::where('id',$id)->first();
+            if ($testimonial) {
+                $testimonial->delete();
+                return redirect()->back();
+            }
+        }
+
 
         public function allServices(){
             $services = Service::join('service_categories','services.category','service_categories.id')
@@ -365,6 +454,11 @@ class AdminController extends Controller
 
         public function getNews(){
             return view('admin.market_trends.addNews');
+        }
+
+        public function News(){
+            $news = News::orderBy('id','desc')->get();
+            return view('admin.market_trends.news',compact('news'));
         }
 
         public function storeNews(Request $request){
@@ -392,8 +486,21 @@ class AdminController extends Controller
             }
         }
 
+        public function deleteNews($ecryptedId){
+            $id = decrypt($ecryptedId);
+            $news = News::where('id',$id)->first();
+            if ($news) {
+                $news->delete();
+                return redirect()->back();
+            }
+        }
+
         public function getMedia(){
             return view('admin.market_trends.addMedia');
+        }
+        public function Media(){
+            $media = Media::orderBy('id','desc')->get();
+            return view('admin.market_trends.media',compact('media'));
         }
 
         public function storeMedia(Request $request){
@@ -419,9 +526,22 @@ class AdminController extends Controller
                 return redirect()->back()->with('success', 'Data Saved Successfully.');
             }
         }
+        public function deleteMedia($ecryptedId){
+            $id = decrypt($ecryptedId);
+            $media = Media::where('id',$id)->first();
+            if ($media) {
+                $media->delete();
+                return redirect()->back();
+            }
+        }
 
         public function getBlog(){
             return view('admin.market_trends.addBlog');
+        }
+
+        public function Blog(){
+            $blogs = Blog::orderBy('id','desc')->get();
+            return view('admin.market_trends.blog',compact('blogs'));
         }
 
         public function storeBlog(Request $request){
@@ -446,6 +566,20 @@ class AdminController extends Controller
             if($assets){
                 return redirect()->back()->with('success', 'Data Saved Successfully.');
             }
+        }
+
+        public function deleteBlog($ecryptedId){
+            $id = decrypt($ecryptedId);
+            $blog = Blog::where('id',$id)->first();
+            if ($blog) {
+                $blog->delete();
+                return redirect()->back();
+            }
+        }
+
+        public function Insight(){
+            $insights = Insight::orderBy('id','desc')->get();
+            return view('admin.market_trends.insight',compact('insights'));
         }
 
         public function getInsight(){
@@ -478,30 +612,43 @@ class AdminController extends Controller
 
 
         function inquiryData(){
-            $inquiries = InquiryData::all();
+            $inquiries = InquiryData::orderBy('id','desc')->get();
          return view('admin.inquiries',compact('inquiries'));
         }
 
         public function addCategory(){
             $configurations = DB::table('configurations')->get();
-            return view('admin.addCategoy',compact('configurations'));
+            $cat_data = PropertyCategory::join('main_categories','property_categories.status','main_categories.id')
+            ->select('property_categories.id','category_name','title')
+            ->get();
+            return view('admin.addCategoy',compact('configurations','cat_data'));
+        }
+
+        public function deleteCategory($ecryptedId){
+            $id = decrypt($ecryptedId);
+            $propertyCate = PropertyCategory::where('id',$id)->first();
+            if ($propertyCate) {
+                $propertyCate->delete();
+                return redirect()->back();
+            }
         }
 
         public function storeCategory(Request $request){
-            // dd($request->all());
-            //   $request->validate([
-            //     'title' =>'required|string|max:50|unique:property_categories,category_name',
-            // ]);
+              $request->validate([
+                'title' =>'required|string|max:50',
+                'category'=>'required',
+            ]);
+            if(isset($request->config)){
             $configuration =implode(',',$request->config);
-            // $quantity =implode(',',$request->quantity);
-
-                // dd($configuration);
-            $category = PropertyCategory::create([
+            }
+            $categoryData =[
                 'category_name'=>$request->title,
                 'status'=>$request->category,
-                'configuration'=>$configuration,
-                // 'config_count'=>$quantity,
-            ]);
+            ];
+            if (isset($configuration)) {
+                $categoryData['configuration'] = $configuration;
+            }
+            $category = PropertyCategory::create($categoryData);
             if($category){
                 return redirect()->back()->with('success', 'Data Saved Successfully.');
             }
@@ -513,8 +660,10 @@ class AdminController extends Controller
         }
 
         public function storeFeatureAmenities(Request $request){
+            // dd($request->all());
             $request->validate([
                 'category' =>'required',
+                'category_name'=>'required',
                 'feature_name.*'=>'required',
                 'feature_image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
@@ -530,7 +679,7 @@ class AdminController extends Controller
             // $f_image = implode(',',$images);
             foreach($features as $key => $value){
             $category = FeatureAmenities::create([
-                'category_id'=>$request->property_cat,
+                'category_id'=>$request->category_name,
                 'feature'=>$value,
                 'image'=>$images[$key],
                 'status'=>'1',
@@ -558,6 +707,118 @@ class AdminController extends Controller
         public function getCategory(Request $request){
             $cat_status= PropertyCategory::where('status', $request->typeValue)->get();
             return response()->json($cat_status);
+
+        }
+
+        public function getCompanyProfile(){
+            return view('admin.about.addCompanyProfile');
+        }
+
+        public function storeCompanyProfile(Request $request){
+            $request->validate([
+                'title' => [
+                    'required',
+                ],
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'description'=>'required',
+            ]);
+            $image = $request->file('image');
+            $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
+            $media_image = $image->storeAs('uploads', $tempName, 'public');
+            $profileData = [
+                'title' => $request->title,
+                'description' => $request->description,
+                'image' => $media_image,
+            ];
+
+            if ($request->category == 1) {
+                $profileData['status'] = 1;
+            } elseif ($request->category == 2) {
+                $profileData['status'] = 2;
+            }
+            $profile = CompanyProfile::create($profileData);
+
+            if($profile){
+                return redirect()->back()->with('success', 'Data Saved Successfully.');
+            }
+        }
+
+        public function getCompanyMessageCeo(){
+            $message = CompanyMessage::where('status',1)->first();
+            return view('admin.about.Message',compact('message'));
+                }
+
+        public function getCompanyMessageChairman(){
+            $message = CompanyMessage::where('status',2)->first();
+            return view('admin.about.Message',compact('message'));
+                }
+
+        public function editCompanyMessage($id){
+            $mainId = decrypt($id);
+            $profile = CompanyMessage::where('status',$mainId)->first();
+            return view('admin.about.editMessage',compact('profile'));
+        }
+
+        public function updateCompanyMessage(Request $request){
+            $request->validate([
+                'name' => [
+                    'required',
+                ],
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'message'=>'required',
+            ]);
+            $category = CompanyMessage::where('status', $request->status)->first();
+            if(isset($request->image)){
+                $image = $request->file('image');
+            $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
+            $image = $image->storeAs('uploads', $tempName, 'public');
+            }
+            else{
+                $image = $category->image;
+            }
+            if ($category) {
+                $profile = $category->update([
+                    'name' =>$request->name,
+                    'image'=>$image,
+                    'message'=>$request->message,
+                    'status' =>$request->status,
+                ]);
+                if($profile){
+                    return redirect()->back()->with('success', 'Update Successfully.');
+                }
+            }
+            else{
+                return redirect()->back()->with('success', 'Someting went wrong.');
+            }
+        }
+
+        public function addCorporateTeam(){
+            return view('admin.about.addCorporateTeam');
+        }
+
+        public function storeCorporateTeam(Request $request){
+            // dd($request->all());
+            $request->validate([
+                'name' => [
+                    'required',
+                ],
+                'role'=>'required',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            $image = $request->file('image');
+            $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
+            $media_image = $image->storeAs('uploads', $tempName, 'public');
+            $teamData = [
+                'name' => $request->name,
+                'role' => $request->role,
+                'image' => $media_image,
+                'status'=>1,
+            ];
+            $profile = CorporateTeam::create($teamData);
+
+            if($profile){
+                return redirect()->back()->with('success', 'Data Saved Successfully.');
+            }
 
         }
 

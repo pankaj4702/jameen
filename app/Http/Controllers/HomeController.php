@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-use App\Models\{Project, Property_source, Property_status, Property_Type, Bedroom, Property,City,PostUser,Subscriber,Testimonial,Service,Community,Feature,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight};
+use App\Models\{Project, Property_source, Property_status, Property_Type, Bedroom, Property,City,PostUser,Subscriber,Testimonial,Service,Community,Feature,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam};
 use Session;
 use GuzzleHttp\Client;
 use DB;
@@ -330,7 +330,8 @@ class HomeController extends Controller
     }
 
     public function reviews(){
-        $testimonials = Testimonial::get();
+        $testimonials = Testimonial::where('status', 1)->get();
+        
         return view('frontend.reviews',compact('testimonials'));
     }
 
@@ -456,6 +457,21 @@ class HomeController extends Controller
     }
 
     public function companyProfile(){
-        return view('frontend.about.companyProfile');
+        $profiles = CompanyProfile::where('status',1)->get();
+        $features = CompanyProfile::where('status',2)->get();
+        return view('frontend.about.companyProfile',compact('profiles','features'));
+    }
+    public function chairmanMessage(){
+        $profile = CompanyMessage::where('status',2)->first();
+        return view('frontend.about.chairmanMessage',compact('profile'));
+    }
+    public function ceoMessage(){
+        $profile = CompanyMessage::where('status',1)->first();
+       return view('frontend.about.ceoMessage',compact('profile'));
+    }
+    public function corporateTeam(){
+        $teams = CorporateTeam::where('status',1)->get();
+        return view('frontend.about.corporateTeam',compact('teams'));
+
     }
 }

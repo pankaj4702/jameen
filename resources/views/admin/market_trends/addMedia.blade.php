@@ -15,6 +15,9 @@
                     </ol>
                 </div>
             </div>
+            <div style="text-align: end;">
+                <a href="{{ route('getMedia') }}"><button class="btn btn-primary">Show Media</button></a>
+            </div>
         </div>
     </section>
     <section class="content">

@@ -15,7 +15,9 @@
                     </ol>
                 </div>
             </div>
-
+            <div style="text-align: end;">
+                <a href="{{ route('getBlog') }}"><button class="btn btn-primary">Show Blog</button></a>
+            </div>
         </div>
     </section>
     <section class="content">

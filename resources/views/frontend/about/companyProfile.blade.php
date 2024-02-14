@@ -11,6 +11,8 @@
             </div>
         </section>
         <!--Property-Management-section-->
+  @foreach($profiles as $key => $profile)
+    @if ($key % 2 == 0)
         <section class="property-mangement">
             <div class="container">
                 <div class="property-mangement-inner">
@@ -19,14 +21,9 @@
                             <div class="property-mangement-left">
                                 <div class="property-mangement-left-inner">
                                     <h3>Who We Are</h3>
-                                    <h2>About Jameen Online </h2>
+                                    <h2>{{ $profile->title }} </h2>
                                     <p>
-                                        With nearly a decade’s experience in the Hisar Jameen online market, Jameen Properties is an acclaimed, award-winning firm and one of the leading brokerage companies in India. This outstanding reputation
-                                        is earned and attained through consistent hard work and positive outcome for clients via a network of exceptionally talented, professional, and multilingual Jameen online agents.<br />
-                                        Over the years, Jameen Properties has developed and expanded from excelling exclusively in the off-plan sector, into a multicultural holding company called Bayari Holding with several, prosperous
-                                        divisions - Jameen Properties, Jameen Investments & Advisory, Jameen Luxury, REAL (Jameen online Asset Leaders), RECE (Jameen online Commercial Experts), and Homes & Beyond (Holiday Homes).<br />
-                                        Jameen Properties is led by professionals who believe in building relationships based on trust and transparency with all clients, which is reflected in the company's success and milestones achieved since
-                                        2015.
+                                        {!! $profile->description !!}
                                     </p>
                                 </div>
                             </div>
@@ -35,10 +32,10 @@
                             <div class="property-mangement-right">
                                 <div class="property-mangement-right-inner">
                                     <figure class="property-main">
-                                        <img src="images/db-about.png" />
+                                        <img src="{{ asset('storage/' . $profile->image) }}" />
                                     </figure>
                                     <figure class="property-dot-shape">
-                                        <img src="images/property-shape.png" />
+                                        <img src="{{ asset('images/property-shape.png') }}" />
                                     </figure>
                                 </div>
                             </div>
@@ -47,7 +44,7 @@
                 </div>
             </div>
         </section>
-        <!--Financial-Management-section-->
+    @elseif($key % 2 != 0)
         <section class="financial-mangement">
             <div class="container">
                 <div class="financial-mangement-inner">
@@ -56,10 +53,10 @@
                             <div class="financial-mangement-right">
                                 <div class="financial-mangement-right-inner">
                                     <figure class="facility-main">
-                                        <img src="images/db-mission.png" />
+                                        <img src="{{ asset('storage/' . $profile->image) }}" />
                                     </figure>
                                     <figure class="financial-dot-shape">
-                                        <img src="images/property-shape.png" />
+                                        <img src="{{ asset('images/property-shape.png') }}" />
                                     </figure>
                                 </div>
                             </div>
@@ -67,13 +64,9 @@
                         <div class="col-md-6">
                             <div class="financial-mangement-left">
                                 <div class="financial-mangement-left-inner">
-                                    <h2>Jameen Mission</h2>
+                                    <h2>{{ $profile->title }} </h2>
                                     <p>
-                                        Our mission is to offer innovative services through our trusted expertise, and aiding our clients find valuable solutions to their Jameen online requirements. We recognize that clients are not just
-                                        looking for property to buy, but a home to make memories in, whether that be for residential or commercial purposes. Our job is to locate the right premise and ensure the process is as smooth and
-                                        enjoyable for the client is as possible. Our mission is to offer innovative services through our trusted expertise, and aiding our clients find valuable solutions to their Jameen online requirements.
-                                        We recognize that clients are not just looking for property to buy, but a home to make memories in, whether that be for residential or commercial purposes. Our job is to locate the right premise and
-                                        ensure the process is as smooth and enjoyable for the client is as possible.
+                                        {!! $profile->description !!}
                                     </p>
                                 </div>
                             </div>
@@ -82,43 +75,11 @@
                 </div>
             </div>
         </section>
-        <!--Property-Management-section-->
-        <section class="property-mangement">
-            <div class="container">
-                <div class="property-mangement-inner">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="property-mangement-left">
-                                <div class="property-mangement-left-inner">
-                                    <h2>Jameen Vision</h2>
-                                    <p>
-                                        Our vision is to position Jameen Properties as the number one Jameen online firm in India, recognized for our integrity, professionalism, and reputation. Our team places great emphasis on valued and
-                                        trusted relationships over any other transactions. We aim to continue expanding the company into innovative divisions that meet our client’s demand. Our vision is to position Jameen Properties as the
-                                        number one Jameen online firm in India, recognized for our integrity, professionalism, and reputation. Our team places great emphasis on valued and trusted relationships over any other transactions.
-                                        We aim to continue expanding the company into innovative divisions that meet our client’s demand.Our vision is to position Jameen Properties as the number one Jameen online firm in India, recognized for
-                                        our integrity, professionalism, and reputation. Our team places great emphasis on valued and trusted relationships over any other transactions. We aim to continue expanding the company into innovative
-                                        divisions that meet our client’s demand.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="property-mangement-right">
-                                <div class="property-mangement-right-inner">
-                                    <figure class="property-main">
-                                        <img src="images/db-vision.png" />
-                                    </figure>
-                                    <figure class="property-dot-shape">
-                                        <img src="images/property-shape.png" />
-                                    </figure>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    @endif
+        @endforeach
+
         <!--Comprehensive-Services-section-->
+        @if($features)
         <section class="comprehensive-services">
             <div class="container">
                 <div class="comprehensive-services-inner">
@@ -128,22 +89,24 @@
                     </div>
                     <div class="comprehensive-services-bottom">
                         <div class="row comprehensive-services-wapper">
+                            @foreach($features as $feature)
                             <div class="col-md-6">
                                 <div class="comprehensive-services-left">
                                     <div class="comprehensive-services-bottom-inner">
                                         <div class="comprehensive-services-icon">
                                             <figure class="increased-bg">
-                                                <img src="images/core-one.png" />
+                                                <img src="{{ asset('storage/' . $feature->image) }}" />
                                             </figure>
                                         </div>
                                         <div class="comprehensive-services-content">
-                                            <h4>Integrity</h4>
-                                            <p>Our honesty reflects in our everyday connections with all our valued stakeholders.</p>
+                                            <h4>{{ $feature->title }}</h4>
+                                            {!! $feature->description !!}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            @endforeach
+                            {{-- <div class="col-md-6">
                                 <div class="comprehensive-services-left">
                                     <div class="comprehensive-services-bottom-inner">
                                         <div class="comprehensive-services-icon">
@@ -202,13 +165,13 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
+        @endif
         <!--Bottom-white-space-->
         <div class="bottom-white-space"></div>
         <!--Footer-section-->

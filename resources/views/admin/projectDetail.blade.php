@@ -84,7 +84,7 @@
               </div>
 
 
-              <div class="mt-4 product-share">
+              {{-- <div class="mt-4 product-share">
                 <h4 class="mt-3">Additional Detail </h4>
                 @if(isset($property->bedroom))
                 <a href="#" class="text-white">
@@ -97,14 +97,14 @@
                 </a>
                 @endif
 
-              </div>
+              </div> --}}
 
             </div>
           </div>
           <div class="row mt-4">
                 <div>
                     <h3>Description</h3>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate quidem magni nobis, reprehenderit laborum ipsa praesentium at corporis mollitia. Modi laboriosam ipsum impedit accusantium aliquam minima inventore. Repellat, ex ullam.</p>
+                    <p>{{ $property->description }}</p>
                 </div>
 
             </div>
