@@ -19,18 +19,18 @@
                 <div class="form-container">
                     <div> <h1>Login Admin</h1></div>&nbsp;
                     @if (count($errors) > 0)
-                    <div  class = "alert alert-danger">
-                        <ul>
+                    <div  class = "alert admin-alert">
+                        <ul style="list-style: none;">
                         @foreach ($errors->all() as $error)
-                             <li id="mydiv" style="color:red;">{{ $error }}</li>
+                             <li id="mydiv" style="color:rgb(233, 103, 103);">{{ $error }}</li>
                         @endforeach
                         </ul>
                     </div>
                     @endif
                     @if (session('error'))
-    <div class="alert alert-danger">
-            <ul>
-                <li style="color:red;"> {{ session('error') }}</li>
+            <div class="alert admin-alert">
+            <ul style="list-style:none;">
+                <li style="color:rgb(233, 103, 103);"> {{ session('error') }}</li>
             </ul>
 
     </div>
@@ -38,7 +38,7 @@
       &nbsp;&nbsp;&nbsp;
                     <form action="{{route('loginAdmin')}}" method="POST">
                         @csrf
-                    <input type="text" name="email" class="input-login" placeholder="Email address" autocomplete="off">
+                    <input type="text" name="email" class="input-login" placeholder="Email address" autocomplete="off" value="{{ old('email') }}">
                     <input type="password" name="password" class="input-login" placeholder="Password">
                     <input type="submit" class="btn-login" value="login" >
                     <a class="back-btn" href="{{url('/')}}">Back</a>

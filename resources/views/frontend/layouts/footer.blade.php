@@ -136,7 +136,7 @@
                                  }
                                 });
                             }
-                    else if(response.status == 3){
+                    else if(response.status == 0){
                         Swal.fire({
                             title: 'This User Already Subscriber',
                             icon: 'warning',

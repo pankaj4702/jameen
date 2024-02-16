@@ -12,26 +12,21 @@ use Session;
 class MailController extends Controller
 {
     public function index(Request $request){
-        // $mail_data = Subscriber::where('email_address',$request->mail_address)->first();
-
-        // if(!isset($mail_data)){
-
-            $sendMail =  Mail::to ($request->mail_address)->send(new MailNotify());
-            dd($sendMail);
-            if($sendMail){
-
-                $subscribe = Subscriber::create([
-                    'email_address'=>$request->mail_address,
-                ]);
-                return response()->json(['status'=>1, 'message'=>"Mail send successfully"]);
+            $mail_add  = Subscriber::where('email_id',$request->mail_address)->first();
+            if(isset($mail_add)){
+                return response()->json(['status'=>0, 'message'=>"already subscribe"]);
             }
+            else{
+                $sendMail =  Mail::to ($request->mail_address)->send(new MailNotify());
+                if($sendMail){
 
-    // }
-    //     else{
+                    $subscribe = Subscriber::create([
+                        'email_id'=>$request->mail_address,
+                        'status'=>1,
+                    ]);
 
-    //         return response()->json(['status'=>3, 'message'=>"This User Already Subscriber"]);
-    //      }
-
+                    return response()->json(['status'=>1, 'message'=>"Mail send successfully"]);
+                }
+            }
     }
-
 }

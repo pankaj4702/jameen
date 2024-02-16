@@ -136,146 +136,14 @@
                                                     <span class="facts-bottom-content">{{ $value[0] }}</span>
                                                 </li>
                                             @endforeach
-                                            {{-- <li>
-                                                    <img src="images/facts-three.png" />
-                                                    <span class="facts-bottom-content">6 Fan</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/facts-four.png" />
-                                                    <span class="facts-bottom-content">1 Exhaust Fan</span>
-                                                </li> --}}
-                                            {{-- <li>
-                                                    <img src="images/facts-five.png" />
-                                                    <span class="facts-bottom-content">4 Geyser</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/facts-six.png" />
-                                                    <span class="facts-bottom-content">17 Light</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/facts-seven.png" />
-                                                    <span class="facts-bottom-content">5 AC</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/facts-eight.png" />
-                                                    <span class="facts-bottom-content">1 Modular Kitchen</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/facts-nine.png" />
-                                                    <span class="facts-bottom-content">1 Chimney</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/facts-ten.png" />
-                                                    <span class="facts-bottom-content">No Bed</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/facts-eleven.png" />
-                                                    <span class="facts-bottom-content">No Dining Table</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/facts-twelfth.png" />
-                                                    <span class="facts-bottom-content">No Fridge</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/facts-thirty.png" />
-                                                    <span class="facts-bottom-content">No Sofa</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/facts-forty.png" />
-                                                    <span class="facts-bottom-content">No Stove</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/facts-fifty.png" />
-                                                    <span class="facts-bottom-content">No TV</span>
-                                                </li> --}}
                                         </ul>
                                     </div>
-                                    {{-- <div class="facts-bottom">
-                                            <ul class="facts-bottom-inner">
-                                                <li>
-                                                    <img src="images/item-one.png" />
-                                                    <span class="facts-bottom-content">Security / Fire Alarm</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/item-two.png" />
-                                                    <span class="facts-bottom-content">Feng Shui / Vaastu Compliant</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/item-three.png" />
-                                                    <span class="facts-bottom-content">Private Garden / Terrace</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/item-four.png" />
-                                                    <span class="facts-bottom-content">Intercom Facility</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/item-five.png" />
-                                                    <span class="facts-bottom-content">Water purifier</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/item-six.png" />
-                                                    <span class="facts-bottom-content">Lift(s)</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/item-seven.png" />
-                                                    <span class="facts-bottom-content">Maintenance Staff</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/item-eight.png" />
-                                                    <span class="facts-bottom-content">Water Storage</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/item-nine.png" />
-                                                    <span class="facts-bottom-content">Bank Attached Property</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/item-ten.png" />
-                                                    <span class="facts-bottom-content">Piped-gas</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/item-eleven.png" />
-                                                    <span class="facts-bottom-content">Park</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/item-twelfth.png" />
-                                                    <span class="facts-bottom-content">Security Personnel</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/item-thirty.png" />
-                                                    <span class="facts-bottom-content">Natural Light</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/item-thirty.png" />
-                                                    <span class="facts-bottom-content">Airy Rooms</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/item-thirty.png" />
-                                                    <span class="facts-bottom-content">Spacious Interiors</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/item-forty.png" />
-                                                    <span class="facts-bottom-content">Waste Disposal</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/item-fifty.png" />
-                                                    <span class="facts-bottom-content">Rain Water Harvesting</span>
-                                                </li>
-                                                <li>
-                                                    <img src="images/item-sixty.png" />
-                                                    <span class="facts-bottom-content">Club house / Community Center</span>
-                                                </li>
-                                            </ul>
-                                        </div> --}}
                                 </div>
                             </div>
                         </div>
 
                     </div>
                     <div class="col-md-3">
-                        {{-- <div style="font-size: 100px;
-                            float: right;">
-                            <a href="" style="color: #3f9f3f;"><i class="fab fa-whatsapp-square"></i></a>
-                            </div> --}}
                         <div class="consider-right">
                             <div class="consider-right-content">
                                 <figure>
@@ -341,6 +209,7 @@
                         @foreach($similar_properties as $similar_property)
                         <div class="col-md-3">
                             <div class="project-slider-wapper">
+                                <a href="{{ route('propertyDetail',['id'=>encrypt($similar_property->id)]) }}">
                                 <div class="project-slider-wapper-head project-slider-wapper-single">
                                     <figure>
                                         <img src="{{ asset('storage/' . $similar_property->images[0]) }}" />
@@ -355,6 +224,7 @@
                                         Discounted Price
                                     </div>
                                 </div>
+                            </a>
                                 <div class="project-slider-wapper-bottom">
                                     <h3>₹{{ $similar_property->price }}</h3>
                                     <h4>{{ $similar_property->property_name }}</h4>
