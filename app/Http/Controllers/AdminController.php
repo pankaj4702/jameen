@@ -75,13 +75,6 @@ class AdminController extends Controller
         $property_sources =Property_source::all();
         $post_users =PostUser::all();
 
-        // check the subscriber
-        // $user_id = Session::get('user_id');
-        // $get_property = Property::where('user_id', 1)->get();
-        // $property_count = $get_property->count();
-        // $subscriber = Subscriber::where('user_id',$user_id)->first();
-
-
         $PropertyCategories = PropertyCategory::where('status',1)->get();
 
             return view('admin.sell_property',compact('property_types','bedrooms','property_status','property_sources','configurations','post_users','PropertyCategories'));
@@ -90,7 +83,6 @@ class AdminController extends Controller
 
     public function sell_property_store(Request $request){
         $request->validate([
-            // 'property_type' => 'required',
             'property_cat'=>'required',
             'features'=>'required',
             'configuration' => 'sometimes|array',
@@ -108,12 +100,6 @@ class AdminController extends Controller
             'configuration.*' => 'This field is required',
         ]);
         $feature = implode(',',$request->features);
-
-        // $user_id = 0;
-        // $get_property = Property::where('user_id', $user_id)->get();
-        // $property_count = $get_property->count();
-        // $subscriber = Subscriber::where('user_id',$user_id)->first();
-
         $abc = $request->features;
         $famenty = FeatureAmenities::where('category_id',$request->property_cat)->get();
         foreach($famenty as $key=>$value){
@@ -122,14 +108,8 @@ class AdminController extends Controller
             }
         }
         $featureImage = implode(',',$foundValues);
-
-
-
         $jsonConfiguration = json_encode($request->configuration);
-
-
         $feature_image = PropertyCategory::where('id', $request->property_cat)->first();
-
         $images = $request->file('image');
         $myarray = [];
         foreach ($images as $image) {
@@ -175,7 +155,6 @@ class AdminController extends Controller
             'bedroom'=>$request->Bedroom,
             'bathroom'=>$request->Bathroom,
           ]);
-        //   dd('test');
 
           if($property){
             return response()->json(['status'=> 1,'success'=>'successful']);
@@ -251,11 +230,8 @@ class AdminController extends Controller
                     'category'=>1
                 ]);
                 return redirect()->back()->with('success', 'Data Saved Successfully.');
-
             }
             return redirect()->back()->with('success', 'Please submit atleast one value.');
-
-
     }
 
         public function project_detail($ecryptedId){
@@ -280,12 +256,7 @@ class AdminController extends Controller
             }
         }
 
-        public function configuration(){
-         return view('admin.addConfiguration');
-        }
-
         public function store_configuration(Request $request){
-
             $request->validate([
                 'type' => 'required|max:20',
             ]);
@@ -674,9 +645,6 @@ class AdminController extends Controller
                 $images[] = $assetImage;
             }
             $features = $request->feature_name;
-
-            // $f_name = implode(',',$request->feature_name);
-            // $f_image = implode(',',$images);
             foreach($features as $key => $value){
             $category = FeatureAmenities::create([
                 'category_id'=>$request->category_name,
@@ -797,7 +765,6 @@ class AdminController extends Controller
         }
 
         public function storeCorporateTeam(Request $request){
-            // dd($request->all());
             $request->validate([
                 'name' => [
                     'required',

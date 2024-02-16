@@ -63,17 +63,13 @@
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Category Name</label>
                                     <select class="form-control" name="category_name" id="property_cat">
-                                      {{-- <option value = "">Choose a value</option>
-                                      @foreach($pro_categories as $category )
-                                    <option value="{{ $category->id }}">{{ $category->category_name }}</option>
-                                        @endforeach --}}
+
                                     </select>
                                   </div>
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Features</label>
                                 <div id="featureContainer">
-                                    <!-- Dynamic fields will be added here -->
                                 </div>
                                 </div>
                                 <div style="display: flex; justify-content:space-between; width:17em;">
@@ -83,7 +79,6 @@
                                     <div id="submit">
                                     </div>
                                 </div>
-                                {{-- <input type="submit" class="btn btn-primary" value="Submit"> --}}
                             </div>
                         </form>
                     </div>

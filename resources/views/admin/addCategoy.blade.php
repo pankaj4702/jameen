@@ -15,9 +15,6 @@
                     </ol>
                 </div>
             </div>
-            {{-- <div style="text-align: end;">
-                <a href=""><button class="btn btn-primary">Show All</button></a>
-            </div> --}}
         </div>
     </section>
     <section class="content">
@@ -65,8 +62,6 @@
                                 <label for="pg">PG</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <input type="radio" id="commercial" name="category" value="4">
                                 <label for="commercial">Commercial</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                {{-- <input type="radio" id="both" name="category" value="0" checked>
-                                <label for="both">Both</label><br> --}}
                             </div>
                             <div class="form-group" id="configuration">
                                 &nbsp;&nbsp;&nbsp;<label>Configuration</label><br>
@@ -81,20 +76,7 @@
                                                     {{ $configuration->name }}
                                                 </label>
                                             </div>
-                                            {{-- <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                                <button type="button" class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                    <i class="fas fa-minus"></i>
-                                                </button>
-                                                <input id="{{ $configuration->name }}-box"  min="0" value="1"
-                                                    type="number" class="form-control form-control-sm"
-                                                    style="text-align: center; width: 50px;" />
 
-                                                <button type="button" class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                    <i class="fas fa-plus"></i>
-                                                </button>
-                                            </div> --}}
                                         </div>
                                     @endforeach
                                 </div>

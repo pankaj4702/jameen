@@ -83,22 +83,6 @@
                 </h4>
               </div>
 
-
-              {{-- <div class="mt-4 product-share">
-                <h4 class="mt-3">Additional Detail </h4>
-                @if(isset($property->bedroom))
-                <a href="#" class="text-white">
-               {{ $property->bedroom }} Bedroom
-                </a>
-                @endif
-                @if(isset($property->bathroom))
-                <a href="#" class="text-white">
-               {{ $property->bathroom }} Bathroom
-                </a>
-                @endif
-
-              </div> --}}
-
             </div>
           </div>
           <div class="row mt-4">
