@@ -73,7 +73,6 @@
             </div>
         </div>
     </section>
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 
     <script>
         function validateForm() {
@@ -89,10 +88,5 @@
 
             return true; // Allow form submission
         }
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('#mytable').DataTable()
-        });
     </script>
 @endsection

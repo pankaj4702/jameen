@@ -87,7 +87,6 @@
 
         </div>
     </section>
-    {{-- <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script> --}}
     <script>
         function addFeature() {
             $('#submit').append(`
@@ -95,8 +94,6 @@
             `);
             var container = document.getElementById('featureContainer');
             var featureCount = container.children.length / 2 + 1; // Counting existing pairs
-
-
             var featureNameInput = document.createElement('input');
             var featureImageInput = document.createElement('input');
             var lineBreak = document.createElement('br');

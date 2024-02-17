@@ -20,7 +20,6 @@ class AdminController extends Controller
             else{
                 return view('admin.login');
             }
-
     }
 
     public function login(Request $request){
@@ -30,12 +29,9 @@ class AdminController extends Controller
           ]);
           $users = DB::table('admin_users')->where('email',$request->email)->first();
           if($users != null){
-
           if (Hash::check($request->password,$users->password)) {
-
             Session::put(['admin_id' =>$users->id]);
             return redirect('admin/dashboard');
-
          }
          else{
             return redirect()->back()->with('error',"Password is wrong");
@@ -44,7 +40,6 @@ class AdminController extends Controller
         else{
             return redirect()->back()->with('error',"Please Enter the Correct Email.");
         }
-
     }
 
     public function dashboard(){
@@ -56,8 +51,81 @@ class AdminController extends Controller
         return redirect()->route('admin');
     }
 
-    public function add_project(){
+    public function addCategory(){
+        $configurations = DB::table('configurations')->get();
+        $cat_data = PropertyCategory::join('main_categories','property_categories.status','main_categories.id')
+        ->select('property_categories.id','category_name','title')
+        ->get();
+        return view('admin.addCategoy',compact('configurations','cat_data'));
+    }
 
+    public function storeCategory(Request $request){
+        $request->validate([
+          'title' =>'required|string|max:50',
+          'category'=>'required',
+      ]);
+            if(isset($request->config)){
+            $configuration =implode(',',$request->config);
+            }
+            $categoryData =[
+                'category_name'=>$request->title,
+                'status'=>$request->category,
+            ];
+            if (isset($configuration)) {
+                $categoryData['configuration'] = $configuration;
+            }
+            $category = PropertyCategory::create($categoryData);
+            if($category){
+                return redirect()->back()->with('success', 'Data Saved Successfully.');
+            }
+  }
+
+    public function store_configuration(Request $request){
+            $request->validate([
+                'type' => 'required|max:20',
+            ]);
+            $result = implode(',', range(1, $request->quantity));
+            $property_config = Configuration::create([
+                'name'=>$request->type,
+            ]);
+            if($property_config){
+                return redirect()->back();
+            }
+        }
+
+    public function addFeatureAmenities(){
+        $pro_categories = PropertyCategory::all();
+            return view('admin.addFeatureAmenities',compact('pro_categories'));
+    }
+
+    public function storeFeatureAmenities(Request $request){
+            $request->validate([
+                'category' =>'required',
+                'category_name'=>'required',
+                'feature_name.*'=>'required',
+                'feature_image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            $images = [];
+            foreach ($request->file('feature_image') as $key => $image) {
+                $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
+                $assetImage = $image->storeAs('uploads', $tempName, 'public');
+                $images[] = $assetImage;
+            }
+            $features = $request->feature_name;
+            foreach($features as $key => $value){
+            $category = FeatureAmenities::create([
+                'category_id'=>$request->category_name,
+                'feature'=>$value,
+                'image'=>$images[$key],
+                'status'=>'1',
+            ]);
+        }
+            if($category){
+                return redirect()->back()->with('success', 'Data Saved Successfully.');
+            }
+        }
+
+    public function add_property(){
         $result = DB::table('property__types')
             ->select('property__types.id as typeId','property__types.name as type_name','property__types.configuration','configurations.name')
             ->leftjoin('configurations', function ($join) {
@@ -77,11 +145,10 @@ class AdminController extends Controller
 
         $PropertyCategories = PropertyCategory::where('status',1)->get();
 
-            return view('admin.sell_property',compact('property_types','bedrooms','property_status','property_sources','configurations','post_users','PropertyCategories'));
-
+        return view('admin.sell_property',compact('property_types','bedrooms','property_status','property_sources','configurations','post_users','PropertyCategories'));
     }
 
-    public function sell_property_store(Request $request){
+    public function store_property(Request $request){
         $request->validate([
             'property_cat'=>'required',
             'features'=>'required',
@@ -176,24 +243,6 @@ class AdminController extends Controller
         return view('admin.propertyAttribute',compact('property_status','property_source'));
     }
 
-    public function deleteStatus($ecryptedId){
-        $id = decrypt($ecryptedId);
-        $property_status = Property_status::where('id',$id)->first();
-        if ($property_status) {
-            $property_status->delete();
-            return redirect()->back()->with('success', 'Property Status Deleted Successfully.');
-        }
-    }
-
-    public function deleteSource($ecryptedId){
-        $id = decrypt($ecryptedId);
-        $property_source = Property_source::where('id',$id)->first();
-        if ($property_source) {
-            $property_source->delete();
-            return redirect()->back()->with('success', 'Property Source Deleted Successfully.');
-        }
-        }
-
     public function store_attributes(Request $request){
         $request->validate([
             'status' => 'max:50',
@@ -234,7 +283,25 @@ class AdminController extends Controller
             return redirect()->back()->with('success', 'Please submit atleast one value.');
     }
 
-        public function project_detail($ecryptedId){
+    public function deleteStatus($ecryptedId){
+        $id = decrypt($ecryptedId);
+        $property_status = Property_status::where('id',$id)->first();
+        if ($property_status) {
+            $property_status->delete();
+            return redirect()->back()->with('success', 'Property Status Deleted Successfully.');
+        }
+    }
+
+    public function deleteSource($ecryptedId){
+        $id = decrypt($ecryptedId);
+        $property_source = Property_source::where('id',$id)->first();
+        if ($property_source) {
+            $property_source->delete();
+            return redirect()->back()->with('success', 'Property Source Deleted Successfully.');
+        }
+        }
+
+    public function property_detail($ecryptedId){
             $id = decrypt($ecryptedId);
             $property_images = Property::where('id',$id)->first('images');
            $images = explode(',',$property_images->images);
@@ -247,7 +314,7 @@ class AdminController extends Controller
            return view('admin.projectDetail',compact('property','images'));
         }
 
-        public function project_delete($ecryptedId){
+        public function property_delete($ecryptedId){
             $id = decrypt($ecryptedId);
             $property = Property::where('id',$id)->first();
             if ($property) {
@@ -256,18 +323,7 @@ class AdminController extends Controller
             }
         }
 
-        public function store_configuration(Request $request){
-            $request->validate([
-                'type' => 'required|max:20',
-            ]);
-            $result = implode(',', range(1, $request->quantity));
-            $property_config = Configuration::create([
-                'name'=>$request->type,
-              ]);
-            if($property_config){
-                return redirect()->back();
-            }
-        }
+
 
         public function  addCity(){
             $cities = City::all();
@@ -587,13 +643,7 @@ class AdminController extends Controller
          return view('admin.inquiries',compact('inquiries'));
         }
 
-        public function addCategory(){
-            $configurations = DB::table('configurations')->get();
-            $cat_data = PropertyCategory::join('main_categories','property_categories.status','main_categories.id')
-            ->select('property_categories.id','category_name','title')
-            ->get();
-            return view('admin.addCategoy',compact('configurations','cat_data'));
-        }
+
 
         public function deleteCategory($ecryptedId){
             $id = decrypt($ecryptedId);
@@ -604,59 +654,7 @@ class AdminController extends Controller
             }
         }
 
-        public function storeCategory(Request $request){
-              $request->validate([
-                'title' =>'required|string|max:50',
-                'category'=>'required',
-            ]);
-            if(isset($request->config)){
-            $configuration =implode(',',$request->config);
-            }
-            $categoryData =[
-                'category_name'=>$request->title,
-                'status'=>$request->category,
-            ];
-            if (isset($configuration)) {
-                $categoryData['configuration'] = $configuration;
-            }
-            $category = PropertyCategory::create($categoryData);
-            if($category){
-                return redirect()->back()->with('success', 'Data Saved Successfully.');
-            }
-        }
 
-        public function addFeatureAmenities(){
-            $pro_categories = PropertyCategory::all();
-                return view('admin.addFeatureAmenities',compact('pro_categories'));
-        }
-
-        public function storeFeatureAmenities(Request $request){
-            // dd($request->all());
-            $request->validate([
-                'category' =>'required',
-                'category_name'=>'required',
-                'feature_name.*'=>'required',
-                'feature_image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
-             $images = [];
-            foreach ($request->file('feature_image') as $key => $image) {
-                $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
-                $assetImage = $image->storeAs('uploads', $tempName, 'public');
-                $images[] = $assetImage;
-            }
-            $features = $request->feature_name;
-            foreach($features as $key => $value){
-            $category = FeatureAmenities::create([
-                'category_id'=>$request->category_name,
-                'feature'=>$value,
-                'image'=>$images[$key],
-                'status'=>'1',
-            ]);
-        }
-            if($category){
-                return redirect()->back()->with('success', 'Data Saved Successfully.');
-            }
-        }
 
         public function getconfiguration(Request $request){
             $type = (int)$request->typeValue;

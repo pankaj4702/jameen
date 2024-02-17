@@ -61,7 +61,6 @@
                         </form>
                     </div>
                 </div>
-
             </div>
             <div class="col-md-6">
                 <div class="card card-primary">
@@ -85,8 +84,6 @@
                         </tbody>
                     </table>
                 </div>
-
-
             </div>
             <div class="col-md-6">
                 <div class="card card-primary">
@@ -114,7 +111,6 @@
         </div>
     </section>
 @endsection
-<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 
 <script>
     $(document).ready(function() {

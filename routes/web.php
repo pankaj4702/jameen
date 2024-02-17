@@ -22,38 +22,46 @@ Route::prefix('/admin')->group(function () {
     Route::post('/login',[AdminController::class,'login'])->name('loginAdmin');
     Route::get('/dashboard',[AdminController::class,'dashboard'])->name('dashboard')->middleware('checkAdminAuth');
     Route::get('/logout',[AdminController::class,'logout'])->name('logoutAdmin');
-    Route::get('/add-project',[AdminController::class,'add_project'])->name('addProject')->middleware('checkAdminAuth');
-    Route::post('/sell-property',[AdminController::class,'sell_property_store'])->name('sell_property_store');
+
+    Route::get('/add-category',[AdminController::class,'addCategory'])->name('addCategory');
+    Route::post('/store-category',[AdminController::class,'storeCategory'])->name('storeCategory');
+    Route::post('/store-configuration',[AdminController::class,'store_configuration'])->name('store_configuration');
+
+    Route::get('/add-featureAmenities',[AdminController::class,'addFeatureAmenities'])->name('addFeatureAmenities');
+    Route::post('/store-featureamenities',[AdminController::class,'storeFeatureAmenities'])->name('storeFeatureAmenities');
+
+    Route::get('/add-property',[AdminController::class,'add_property'])->name('addProperty')->middleware('checkAdminAuth');
+    Route::post('/store-property',[AdminController::class,'store_property'])->name('store_property');
+
     Route::get('/properties',[AdminController::class,'all_property'])->name('property');
-    Route::get('/project-detail/{id}',[AdminController::class,'project_detail'])->name('project_detail');
-    Route::get('/project-delete/{id}',[AdminController::class,'project_delete'])->name('project_delete');
+    Route::get('/property-detail/{id}',[AdminController::class,'property_detail'])->name('property_detail');
+    Route::get('/property-delete/{id}',[AdminController::class,'property_delete'])->name('property_delete');
+
     Route::get('/add-property-attributes',[AdminController::class,'property_attribute'])->name('property_attribute');
+    Route::post('/store-attributes',[AdminController::class,'store_attributes'])->name('store_attribute');
     Route::get('/delete-status/{id}',[AdminController::class,'deleteStatus'])->name('deleteStatus');
     Route::get('/delete-source/{id}',[AdminController::class,'deleteSource'])->name('deleteSource');
-    Route::post('/store-attributes',[AdminController::class,'store_attributes'])->name('store_attribute');
-    Route::get('/add-configuration',[AdminController::class,'configuration'])->name('addconfiguration');
-    Route::post('/store-configuration',[AdminController::class,'store_configuration'])->name('store_configuration');
-    Route::get('/get-configuration',[AdminController::class,'getconfiguration'])->name('configuration');
+
     Route::get('/add-city',[AdminController::class,'addCity'])->name('addCity');
     Route::post('/store-city',[AdminController::class,'store_city'])->name('storeCity');
     Route::get('/delete-city/{id}',[AdminController::class,'deleteCity'])->name('deleteCity');
+
+
     Route::get('/add-post-user',[AdminController::class,'addPostUser'])->name('addPostUser');
     Route::get('/delete-post-user/{id}',[AdminController::class,'deletePostUser'])->name('deletePostUser');
     Route::post('/store-post-user',[AdminController::class,'storePostUser'])->name('storePostUser');
-    Route::get('/add-asset-management',[AdminController::class,'getAssetManagement'])->name('getAssetManagement');
-    Route::post('/store-asset-management',[AdminController::class,'storeAsset'])->name('storeAsset');
-    Route::get('/asset-delete/{id}',[AdminController::class,'removeAsset'])->name('removeAsset');
-    Route::get('/add-testimonial',[AdminController::class,'addTestimonial'])->name('addTestimonial');
+
+    Route::get('/add-testimonial',[AdminController::class,'addTfestimonial'])->name('addTestimonial');
     Route::get('/testimonials',[AdminController::class,'allTestimonial'])->name('Testimonials');
     Route::post('/store-testimonial',[AdminController::class,'storeTestimonial'])->name('storeTestimonial');
     Route::get('/delete-testimonial/{id}',[AdminController::class,'deleteTestimonial'])->name('deleteTestimonial');
+
+    Route::get('/add-asset-management',[AdminController::class,'getAssetManagement'])->name('getAssetManagement');
+    Route::post('/store-asset-management',[AdminController::class,'storeAsset'])->name('storeAsset');
+    Route::get('/asset-delete/{id}',[AdminController::class,'removeAsset'])->name('removeAsset');
     Route::get('/approve-testimonial/{id}',[AdminController::class,'approveTestimonial'])->name('approveTestimonial');
     Route::get('/inquiryData',[AdminController::class,'inquiryData'])->name('inquiryData');
-    Route::get('/add-category',[AdminController::class,'addCategory'])->name('addCategory');
     Route::get('/delete-category/{id}',[AdminController::class,'deleteCategory'])->name('deleteCategory');
-    Route::post('/store-category',[AdminController::class,'storeCategory'])->name('storeCategory');
-    Route::get('/add-feature&amenities',[AdminController::class,'addFeatureAmenities'])->name('addFeatureAmenities');
-    Route::post('/store-featureamenities',[AdminController::class,'storeFeatureAmenities'])->name('storeFeatureAmenities');
     Route::get('/get-cate',[AdminController::class,'getCategory'])->name('getCategory');
 
 
@@ -63,7 +71,7 @@ Route::post('/store-inquiryData',[HomeController::class,'storeInquiryData'])->na
 
 Route::prefix('/admin/service')->group(function () {
 
-    Route::get('/comprehensive-service',[AdminController::class,'getService'])->name('getService');
+    Route::get('/add-service',[AdminController::class,'getService'])->name('getService');
     Route::post('/store-comprehensive-service',[AdminController::class,'storeService'])->name('storeService');
     Route::get('/services',[AdminController::class,'allServices'])->name('allServices');
     Route::get('/service-delete/{id}',[AdminController::class,'removeService'])->name('removeService');

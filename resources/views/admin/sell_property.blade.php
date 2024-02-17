@@ -80,7 +80,7 @@
                                                         <label>Property Category</label>
                                                         <div class="property-type-content">
                                                             <select class="form-select" aria-label="Default select example"
-                                                                name="property_cat" id="property_cat" onchange="checkPropertyTypeForSell(this)" >
+                                                                name="property_cat" id="property_cat" onchange="checkPropertyCategory(this)" >
                                                                 <option value="" selected>Choose Value</option>
                                                                 @foreach ($PropertyCategories as $PropertyCategory)
                                                                     <option value="{{ $PropertyCategory->id }}">
@@ -263,12 +263,11 @@
                                             style="font-size:75%; color:#F26C61"></span>
 
                                             <button type="button" class="property-listing-submit-btn-admin"
-                                                onclick="save_sell_list()">Sumbit</button>
+                                                onclick="saveProperty()">Sumbit</button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -279,16 +278,15 @@
     <script src="{{ asset('js/jquery.min.js') }}"></script>
 
     <script>
-        function save_sell_list() {
+        function saveProperty() {
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var formData = new FormData($('#sell-form')[0]);
             formData.append('_token', csrfToken);
             var dataValue = $('#pills-sell-tab').data('value');
-            // formData.append('seller_value', 1);
             console.log(formData);
             $.ajax({
                 type: 'POST',
-                url: "{{ route('sell_property_store') }}",
+                url: "{{ route('store_property') }}",
                 data: formData,
                 dataType: 'json',
                 processData: false,
@@ -298,12 +296,10 @@
                        alert('data add successfully');
                        location.reload();
                      }
-
                     else if(data.status == 0){
                         $('.error-span-' + data.key).html('');
                         $('.error-span-' + data.key).append(data.error);
                     }
-
                     else {
                         $('.error-span-' + data.key).html('');
                         $('.error-span-' + data.key).append(data.error);
@@ -328,11 +324,8 @@
         function checkSelectionSell(element) {
             $('.error-span-' + element).html('');
         }
-        function checkSelectionRent(element) {
-            $('.error-rent-' + element).html('');
-        }
 
-        function checkPropertyTypeForSell(element){
+        function checkPropertyCategory(element){
             var elementName = element.name;
             $('.error-span-' + elementName).html('');
             var selectValue = element.value;
@@ -355,14 +348,11 @@
   <input class="form-check-input" type="checkbox" name="features[]" value="${data}" id="flexSwitchCheckDefault${index}">
   <label class="form-check-label" for="flexSwitchCheckDefault${index}">${data}</label>
 </div>
-
                                 </div>
-
                             </div>
                             </div>
                         </div>
                         `);
-
                     });
                 },
                 error: function(xhr, status, error) {
@@ -376,14 +366,14 @@
                 }
             });
 
-            function generateOptions(numbers) {
-                var myArray = numbers.split(',').map(Number);
-                let options = '';
-                $.each(myArray, function(index, number) {
-                    options += `<option value="${number}">${number}</option>`;
-                });
-                return options;
-            }
+            // function generateOptions(numbers) {
+            //     var myArray = numbers.split(',').map(Number);
+            //     let options = '';
+            //     $.each(myArray, function(index, number) {
+            //         options += `<option value="${number}">${number}</option>`;
+            //     });
+            //     return options;
+            // }
 
 
         }
@@ -402,7 +392,6 @@
                     $('#config-div').html('');
                     $('#bedroom-div').html('');
 
-            //         // $('#bedroom-div').removeClass('d-none');
                     $.each(response, function(index, data){
                         $('#config-div').append(`
                         <div class="col-md-4">
@@ -431,82 +420,18 @@
                             </div>
                         </div>
                         `);
-
                     });
-            //     },
-            //     error: function(xhr, status, error) {
-            //         if (xhr.responseJSON && xhr.responseJSON.errors) {
-            //             $.each(xhr.responseJSON.errors, function(key, value) {
-            //                 console.log(value);
-            //             });
-            //         } else {
-            //             console.error(error);
-            //         }
                 }
             });
 
-            function generateOptions(numbers) {
-                var myArray = numbers.split(',').map(Number);
-                let options = '';
-                $.each(myArray, function(index, number) {
-                    options += `<option value="${number}">${number}</option>`;
-                });
-                return options;
-            }
-
-
-        }
-        function checkPropertyTypeForRent(element){
-            var elementName = element.name;
-            $('.error-rent-' + elementName).html('');
-            var selectValue = element.value;
-            $.ajax({
-                type: 'GET',
-                url: "{{ route('featureAmenities') }}",
-                data:{
-                    typeValue: selectValue,
-                },
-                success: function(response) {
-                    $('#bedroom-rent-div').html('');
-                    $.each(response, function(index, data){
-                        $('#bedroom-rent-div').append(`
-                        <div class="col-md-4">
-                        <div class="property-listing-tab-content">
-                            <label>No. of ${data.name}</label>
-                            <div class="property-type-content">
-                                <select class="form-select" aria-label="Default select example"
-                                    name="configuration[${data.name}]" onchange="checkSelectionRent('configuration_${data.name}')">
-                                    <option value="" selected>Please Select</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                </select>
-                                <div>
-                                    <span class="error-rent-configuration_${data.name} error"
-                                        style="font-size:75%; color:#F26C61"></span>
-                                </div>
-                                <figure class="property-arrow-down">
-                                    <img src="{{ asset('images/arrow-down.png') }}" />
-                                </figure>
-                            </div>
-                        </div>
-                    </div>
-                        `);
-
-                    });
-                },
-                error: function(xhr, status, error) {
-                    if (xhr.responseJSON && xhr.responseJSON.errors) {
-                        $.each(xhr.responseJSON.errors, function(key, value) {
-                            console.log(value);
-                        });
-                    } else {
-                        console.error(error);
-                    }
-                }
-            });
-
-
+            // function generateOptions(numbers) {
+            //     var myArray = numbers.split(',').map(Number);
+            //     let options = '';
+            //     $.each(myArray, function(index, number) {
+            //         options += `<option value="${number}">${number}</option>`;
+            //     });
+            //     return options;
+            // }
         }
     </script>
     <script>
@@ -551,7 +476,6 @@
                         }
                     });
                 }
-
         });
     </script>
     <script>

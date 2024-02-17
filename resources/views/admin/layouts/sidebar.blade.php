@@ -62,16 +62,16 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('addProject') }}" class="nav-link {{ request()->is('admin/add-project') ? 'active' : '' }}">
+            <a href="{{ route('addProperty') }}" class="nav-link {{ request()->is('admin/add-project') ? 'active' : '' }}">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Add Projects
+                Add Property
               </p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{ route('property') }}" class="nav-link {{ request()->is('admin/properties') ? 'active' : '' }}">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fas fa-home"></i>
               <p>
             Properties
               </p>

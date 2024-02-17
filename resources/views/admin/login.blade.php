@@ -5,11 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin-Login</title>
-    <!-- <link rel="stylesheet" href="style2.css"> -->
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet" />
 
 </head>
-
 <body class="main-body-login">
     <main>
         <div class="row-login">
@@ -32,7 +30,6 @@
             <ul style="list-style:none;">
                 <li style="color:rgb(233, 103, 103);"> {{ session('error') }}</li>
             </ul>
-
     </div>
       @endif
       &nbsp;&nbsp;&nbsp;
@@ -43,12 +40,9 @@
                     <input type="submit" class="btn-login" value="login" >
                     <a class="back-btn" href="{{url('/')}}">Back</a>
                     </form>
-                    <!-- <button class="btn-new">Create new Account</button> -->
                 </div>
-
             </div>
         </div>
     </main>
-
 </body>
 </html>

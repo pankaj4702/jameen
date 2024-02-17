@@ -96,7 +96,6 @@
       </div>
 
     </section>
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 
 <script>
   $(document).ready(function() {

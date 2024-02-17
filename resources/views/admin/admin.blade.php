@@ -1,5 +1,4 @@
 @extends('admin.main.main')
-
 @section('content-admin')
     <div class="content-header">
       <div class="container-fluid">

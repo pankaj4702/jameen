@@ -59,8 +59,8 @@
                                     @php
                                     $encryptedId = encrypt($property->id);
                                     @endphp
-                                    <a href="{{route('project_detail',['id' => $encryptedId])}}"><button class="btn btn-primary">detail</button></a>
-                                    <a href="{{route('project_delete',['id' => $encryptedId])}}"><button class="btn btn-primary">delete</button></a>
+                                    <a href="{{route('property_detail',['id' => $encryptedId])}}"><button class="btn btn-primary">detail</button></a>
+                                    <a href="{{route('property_delete',['id' => $encryptedId])}}"><button class="btn btn-primary">delete</button></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -73,7 +73,6 @@
         </div>
     </section>
     </div>
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#mytable').DataTable()
