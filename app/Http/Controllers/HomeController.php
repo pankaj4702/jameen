@@ -331,7 +331,7 @@ class HomeController extends Controller
 
     public function reviews(){
         $testimonials = Testimonial::where('status', 1)->get();
-        
+
         return view('frontend.reviews',compact('testimonials'));
     }
 
@@ -347,7 +347,6 @@ class HomeController extends Controller
         return view('frontend.communityPlace',compact('community','features'));
     }
     function storeInquiryData(Request $request){
-        // dd($request->all());
         $request->validate([
             'Name' => [
                 'required','string','max:50',
@@ -356,16 +355,16 @@ class HomeController extends Controller
             'Number' => 'required|max:10|min:10',
             'message'=>'required',
         ]);
-       $inquiry_data = InquiryData::create([
-        'name'=>$request->Name,
-        'email'=>$request->email,
-        'phone'=>$request->Number,
-        'description'=>$request->message,
-        'property_id'=>$request->property_id,
-       ]);
-       if($inquiry_data){
-        return response()->json(['status'=> 1,'success'=>'successful']);
-       }
+            $inquiry_data = InquiryData::create([
+                'name'=>$request->Name,
+                'email'=>$request->email,
+                'phone'=>$request->Number,
+                'description'=>$request->message,
+                'property_id'=>$request->property_id,
+               ]);
+               if($inquiry_data){
+                return response()->json(['status'=> 1,'success'=>'successful']);
+               }
     }
 
     public function propertyList($id){
@@ -409,6 +408,7 @@ class HomeController extends Controller
     }
     public function singleInsight($id){
         $insightId = decrypt($id);
+        // dd($insightId);
         $insight = Insight::where('id',$insightId)->first();
         return view('frontend.market_trends.insight.singleInsight',compact('insight'));
     }
@@ -435,24 +435,37 @@ class HomeController extends Controller
           $searchValue = $request->id;
           $newsData = News::orderBy('id','desc')
           ->where('title', 'like', '%' . $searchValue . '%')->get();
+          $newsData->each(function ($data) {
+            $data->encrptId = Crypt::encrypt($data->id);
+        });
           return response()->json($newsData);
     }
     public function InsightSearch(Request $request){
         $searchValue = $request->id;
         $insightData = Insight::orderBy('id','desc')
         ->where('title', 'like', '%' . $searchValue . '%')->get();
+        $insightData->each(function ($data) {
+            $data->encrptId = Crypt::encrypt($data->id);
+        });
+
         return response()->json($insightData);
     }
     public function BlogSearch(Request $request){
         $searchValue = $request->id;
         $blogData = Blog::orderBy('id','desc')
         ->where('title', 'like', '%' . $searchValue . '%')->get();
+        $blogData->each(function ($data) {
+            $data->encrptId = Crypt::encrypt($data->id);
+        });
         return response()->json($blogData);
     }
     public function MediaSearch(Request $request){
         $searchValue = $request->id;
         $mediaData = Media::orderBy('id','desc')
         ->where('title', 'like', '%' . $searchValue . '%')->get();
+        $mediaData->each(function ($data) {
+            $data->encrptId = Crypt::encrypt($data->id);
+        });
         return response()->json($mediaData);
     }
 

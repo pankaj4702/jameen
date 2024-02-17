@@ -111,11 +111,11 @@
                     var options = { year: 'numeric', month: 'long', day: 'numeric' };
                     var formattedDate = dateTime.toLocaleDateString('en-US', options);
                     var id = data.id;
-
+                    var encryptedId = data.encrptId;
 
                         $('#main_news_div').append(`
                         <div class="news-main-left">
-                                <a href="#">
+                            <a href="{{ url('jameen-news/') }}/${encryptedId}) }}">
                                 <div class="row"> <div class="col-sm-6 col-md-4"><div class="news-main-imgage">
                                             <figure> <img src="{{ asset('storage') }}/${data.image}" /> </figure></div></div>
                                     <div class="col-sm-6 col-md-8"><div class="news-main-contant"><h2>${data.title}</h2><p>${result}...</p>
@@ -149,7 +149,6 @@
                     id : searchValue,
                 },
                 success: function(response) {
-                    console.log(response);
 
                     $('#main_insight_div').html('');
                     $.each(response, function(index, data) {
@@ -160,13 +159,12 @@
                     var options = { year: 'numeric', month: 'long', day: 'numeric' };
                     var formattedDate = dateTime.toLocaleDateString('en-US', options);
                     var id = data.id;
-
+                    var encryptedId = data.encrptId;
                         $('#main_insight_div').append(`
                         <div class="news-main-left">
-
-
                                 <div class="row"> <div class="col-sm-6 col-md-4"><div class="news-main-imgage">
-                                            <figure> <img src="{{ asset('storage') }}/${data.image}" /> </figure></div></div>
+                                    <a href="{{ url('jameen-insight/') }}/${encryptedId}) }}">
+                                            <figure> <img src="{{ asset('storage') }}/${data.image}" /> </figure></a></div></div>
                                     <div class="col-sm-6 col-md-8"><div class="news-main-contant"><h2>${data.title}</h2><p>${result}...</p>
                                             <span class="news-main-date"> <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M6.6665 1.66797V4.16797" stroke="#F26C61" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -210,13 +208,12 @@
                     var options = { year: 'numeric', month: 'long', day: 'numeric' };
                     var formattedDate = dateTime.toLocaleDateString('en-US', options);
                     var id = data.id;
-
+                    var encryptedId = data.encrptId;
                         $('#main_blog_div').append(`
                         <div class="news-main-left">
-
-
                                 <div class="row"> <div class="col-sm-6 col-md-4"><div class="news-main-imgage">
-                                            <figure> <img src="{{ asset('storage') }}/${data.image}" /> </figure></div></div>
+                                    <a href="{{ url('jameen-blog/') }}/${encryptedId}) }}">
+                                            <figure> <img src="{{ asset('storage') }}/${data.image}" /> </figure></a></div></div>
                                     <div class="col-sm-6 col-md-8"><div class="news-main-contant"><h2>${data.title}</h2><p>${result}...</p>
                                             <span class="news-main-date"> <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M6.6665 1.66797V4.16797" stroke="#F26C61" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -260,13 +257,14 @@
                     var options = { year: 'numeric', month: 'long', day: 'numeric' };
                     var formattedDate = dateTime.toLocaleDateString('en-US', options);
                     var id = data.id;
-
+                    var encryptedId = data.encrptId;
                         $('#main_media_div').append(`
                         <div class="news-main-left">
 
 
                                 <div class="row"> <div class="col-sm-6 col-md-4"><div class="news-main-imgage">
-                                            <figure> <img src="{{ asset('storage') }}/${data.image}" /> </figure></div></div>
+                                    <a href="{{ url('jameen-media/') }}/${encryptedId}) }}">
+                                            <figure> <img src="{{ asset('storage') }}/${data.image}" /> </figure></a></div></div>
                                     <div class="col-sm-6 col-md-8"><div class="news-main-contant"><h2>${data.title}</h2><p>${result}...</p>
                                             <span class="news-main-date"> <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M6.6665 1.66797V4.16797" stroke="#F26C61" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>

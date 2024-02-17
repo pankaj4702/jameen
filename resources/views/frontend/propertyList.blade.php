@@ -225,14 +225,7 @@
                                         @endif
                                     @endif
 
-                                        {{-- <div class="main-news-search-inner">
-                                            <form>
-                                                <div class="main-news-search-box">
-                                                    <input type="text" name="search" placeholder="Search Property" id="insight" autocomplete="off" oninput = "" />
-                                                    <span class="news-search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
-                                                </div>
-                                            </form>
-                                        </div> --}}
+
                                     </div>
                                     <div class="apartment-right-bottom">
                                         <div class="apartment-right-bottom-inner">
