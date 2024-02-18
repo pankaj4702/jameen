@@ -706,6 +706,20 @@ class AdminController extends Controller
             }
         }
 
+        public function allProfile(){
+            $c_profiles = CompanyProfile::orderBy('id','desc')->get();
+            return view('admin.about.profiles',compact('c_profiles'));
+        }
+
+        public function removeProfile($id){
+            $assetId = decrypt($id);
+            $c_profile = CompanyProfile::where('id',$assetId)->first();
+            if ($c_profile) {
+                $c_profile->delete();
+                return redirect()->back();
+            }
+        }
+
         public function getCompanyMessageCeo(){
             $message = CompanyMessage::where('status',1)->first();
             return view('admin.about.Message',compact('message'));

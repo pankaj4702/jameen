@@ -85,6 +85,8 @@ Route::prefix('/admin')->middleware('checkAdminAuth')->group(function () {
     Route::prefix('/admin/about')->middleware('checkAdminAuth')->group(function () {
         Route::get('/add-profile',[AdminController::class,'getCompanyProfile'])->name('getCompanyProfile');
         Route::post('/store-profile',[AdminController::class,'storeCompanyProfile'])->name('storeCompanyProfile');
+        Route::get('/profiles',[AdminController::class,'allProfile'])->name('allProfile');
+        Route::get('/delete-profile/{id}',[AdminController::class,'removeProfile'])->name('removeProfile');
         Route::get('/ceo-message',[AdminController::class,'getCompanyMessageCeo'])->name('getCompanyMessageCeo');
         Route::get('/chairman-message',[AdminController::class,'getCompanyMessageChairman'])->name('getCompanyMessageChairman');
         Route::get('/edit-message/{id}',[AdminController::class,'editCompanyMessage'])->name('editCompanyMessage');

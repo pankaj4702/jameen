@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div style="text-align: end;">
-                <a href="{{ route('allServices') }}"><button class="btn btn-primary">Show all</button></a>
+                <a href="{{ route('allProfile') }}"><button class="btn btn-primary">Show all</button></a>
             </div>
         </div>
     </section>

@@ -1,22 +1,21 @@
 @extends('admin.main.main')
 
 @section('content-admin')
-
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Services</h1>
+                    <h1>Company Profile Section</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">services</li>
+                        <li class="breadcrumb-item active">Company Profile</li>
                     </ol>
                 </div>
             </div>
             <div style="text-align: end;">
-                <a href="{{ route('getService') }}"><button class="btn btn-primary">Add Service</button></a>
+                <a href="{{ route('getCompanyProfile') }}"><button class="btn btn-primary">Add</button></a>
             </div>
         </div>
     </section>
@@ -37,15 +36,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($services as $service)
+                                @if($c_profiles)
+                                @foreach($c_profiles as $profile)
                             <tr>
                                 <th scope="row">{{$loop->iteration}}</th>
-                                <td>{{ $service->title }}</td>
-                                <td>{{ $service->description }}</td>
-                                <td>{{ $service->category }}</td>
-                                <td><a href="{{route('removeService',['id' => encrypt($service->id)])}}"><button class="btn btn-primary">Delete</button></a></td>
+                                <td>{{ $profile->title }}</td>
+                                <td>{!! $profile->description !!}</td>
+                                @if($profile->status == 1)
+                                <td>Profile</td>
+                                @elseif($profile->status == 2)
+                                <td>Feature</td>
+                                @endif
+                                <td><a href="{{route('removeProfile',['id' => encrypt($profile->id)])}}"><button class="btn btn-primary">Delete</button></a></td>
                             </tr>
                             @endforeach
+                            @endif
                             </tbody>
                         </table>
 
