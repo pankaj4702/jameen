@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\{Project, Property_source, Property_status, Property_Type, Bedroom, Property,City,PostUser,Subscriber,Testimonial,Service,Community,Feature,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam};
@@ -19,46 +17,12 @@ class HomeController extends Controller
             $configurations = json_decode($project->configuration);
             $configArray = (array) $configurations;
             $project->configuration = $configArray;
-    });
+        });
         $projects->each(function ($project) {
             $project->images = explode(',', $project->images);
         });
-
         $testimonials = Testimonial::take(5)->get();
       return view('frontend.home',compact('projects','testimonials'));
-    }
-
-    public function sell_property(){
-
-        $result = DB::table('property__types')
-            ->select('property__types.id as typeId','property__types.name as type_name','property__types.configuration','configurations.name')
-            ->leftjoin('configurations', function ($join) {
-                $join->whereRaw("FIND_IN_SET(configurations.id, property__types.configuration)");
-            })->get();
-              $result->each(function ($config) {
-                $config->configuration = explode(',', $config->configuration);
-            });
-            $groupedConfigurations = $result->groupBy('typeId');
-            $configurations = $groupedConfigurations->map->first();
-        $property_types =Property_Type::all();
-        $bedrooms =Bedroom::all();
-        $property_status =Property_status::all();
-        $property_sources =Property_source::all();
-        $property_sources =Property_source::all();
-        $post_users =PostUser::all();
-
-        // check the subscriber
-        $user_id = Session::get('user_id');
-        $get_property = Property::where('user_id', $user_id)->get();
-        $property_count = $get_property->count();
-        $subscriber = Subscriber::where('user_id',$user_id)->first();
-        if (Session::has('user_id')) {
-
-            return view('frontend.sell_property',compact('property_types','bedrooms','property_status','property_sources','configurations','post_users','property_count','subscriber'));
-        }
-        else{
-            return redirect()->route('loginpage');
-        }
     }
 
 
@@ -115,7 +79,6 @@ class HomeController extends Controller
 
 
     function PgPropertyList($id){
-        // dd('test');
         $property_cat_id = decrypt($id);
         $property_status = Property_status::all();
         $cities = City::all();
@@ -139,7 +102,6 @@ class HomeController extends Controller
     }
 
     function CommPropertyList($id){
-        // dd('test');
         $property_cat_id = decrypt($id);
         $property_status = Property_status::all();
         $cities = City::all();
@@ -204,8 +166,6 @@ class HomeController extends Controller
         $similar_properties->each(function ($similar_property) {
             $similar_property->images = explode(',', $similar_property->images);
     });
-    // dd($similar_properties);
-
        return view('frontend.propertyDetail',compact('property','features','configString','similar_properties'));
     }
 
@@ -286,37 +246,6 @@ class HomeController extends Controller
              return response()->json($properties);
     }
 
-    public function getcategory(Request $request ){
-
-        $properties = Property::join('property__types', 'properties.property_type', '=', 'property__types.id')
-        ->join('property_status', 'properties.property_status', '=', 'property_status.id')
-        ->where('properties.property_type',$request->property_type)
-        ->where('properties.category',$request->category)
-        ->select('properties.id','property__types.name as type','property_status.name as status','properties.porperty_name','properties.property_location','properties.category','properties.message','properties.area','properties.price','properties.bedroom','properties.bathroom','properties.images')
-        ->get();
-        $properties->each(function ($property) {
-            $property->images = explode(',', $property->images);
-            $property->encrptId = Crypt::encrypt($property->id);
-        });
-             return response()->json($properties);
-
-    }
-
-    public function getstatus(Request $request){
-        $properties = Property::join('property__types', 'properties.property_type', '=', 'property__types.id')
-        ->join('property_status', 'properties.property_status', '=', 'property_status.id')
-        ->where('properties.property_type',$request->property_type)
-        ->where('properties.property_status',$request->status)
-        ->select('properties.id','property__types.name as type','property_status.name as status','properties.porperty_name','properties.property_location','properties.category','properties.message','properties.area','properties.price','properties.bedroom','properties.bathroom','properties.images')
-        ->get();
-        $properties->each(function ($property) {
-            $property->images = explode(',', $property->images);
-            $property->encrptId = Crypt::encrypt($property->id);
-        });
-             return response()->json($properties);
-    }
-
-
     public function featureAmenities(Request $request){
 
         $type = (int)$request->typeValue;
@@ -331,21 +260,9 @@ class HomeController extends Controller
 
     public function reviews(){
         $testimonials = Testimonial::where('status', 1)->get();
-
         return view('frontend.reviews',compact('testimonials'));
     }
 
-    public function communities(){
-        $communities = Community::all();
-        return view('frontend.communities',compact('communities'));
-    }
-
-    public function commProperty($id){
-        $comm_id = decrypt($id);
-        $community = Community::find($comm_id);
-        $features = Feature::where('community',$comm_id)->get();
-        return view('frontend.communityPlace',compact('community','features'));
-    }
     function storeInquiryData(Request $request){
         $request->validate([
             'Name' => [

@@ -378,6 +378,55 @@ class AdminController extends Controller
             }
         }
 
+        public function addTestimonial(){
+            return view('admin.testimonial');
+         }
+
+         public function storeTestimonial(Request $request){
+             $request->validate([
+                 'title' => [
+                     'required','string','max:30',
+                 ],
+                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                 'description'=>'required',
+             ]);
+             $image = $request->file('image');
+             $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
+             $asset_image = $image->storeAs('uploads', $tempName, 'public');
+             $testimonial = Testimonial::create([
+                 'name'=>$request->title,
+                 'message'=> $request->description,
+                 'image'=>$asset_image,
+                 'status'=>0,
+             ]);
+             if($testimonial){
+                 return redirect()->back();
+             }
+         }
+
+         public function allTestimonial(){
+           $testimonials = Testimonial::orderBy('id','desc')->get();
+           return view('admin.allTestmonials',compact('testimonials'));
+         }
+
+         public function approveTestimonial($ecryptedId){
+             $id = decrypt($ecryptedId);
+             $testimonial = Testimonial::where('id',$id)->first();
+             $testimonial->update([
+                 'status' =>1,
+             ]);
+             return redirect()->back();
+         }
+
+         public function deleteTestimonial($ecryptedId){
+             $id = decrypt($ecryptedId);
+             $testimonial = Testimonial::where('id',$id)->first();
+             if ($testimonial) {
+                 $testimonial->delete();
+                 return redirect()->back();
+             }
+         }
+
         public function getService(){
             $assets = Service::where('status', 1)
             ->get();
@@ -417,55 +466,6 @@ class AdminController extends Controller
                 $asset->status = 0;
                 // Save the changes
                 $asset->save();
-                return redirect()->back();
-            }
-        }
-
-        public function addTestimonial(){
-           return view('admin.testimonial');
-        }
-
-        public function storeTestimonial(Request $request){
-            $request->validate([
-                'title' => [
-                    'required','string','max:30',
-                ],
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'description'=>'required',
-            ]);
-            $image = $request->file('image');
-            $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
-            $asset_image = $image->storeAs('uploads', $tempName, 'public');
-            $testimonial = Testimonial::create([
-                'name'=>$request->title,
-                'message'=> $request->description,
-                'image'=>$asset_image,
-                'status'=>0,
-            ]);
-            if($testimonial){
-                return redirect()->back();
-            }
-        }
-
-        public function allTestimonial(){
-          $testimonials = Testimonial::orderBy('id','desc')->get();
-          return view('admin.allTestmonials',compact('testimonials'));
-        }
-
-        public function approveTestimonial($ecryptedId){
-            $id = decrypt($ecryptedId);
-            $testimonial = Testimonial::where('id',$id)->first();
-            $testimonial->update([
-                'status' =>1,
-            ]);
-            return redirect()->back();
-        }
-
-        public function deleteTestimonial($ecryptedId){
-            $id = decrypt($ecryptedId);
-            $testimonial = Testimonial::where('id',$id)->first();
-            if ($testimonial) {
-                $testimonial->delete();
                 return redirect()->back();
             }
         }

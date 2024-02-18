@@ -119,11 +119,7 @@
                     mail_address: address,
                   },
                   success: function(response) {
-                    if(response.status == 2){
-                        $('#subscriberEmail').val('');
-                        location.href = "{{ route('loginpage') }}";
-                    }
-                    else if(response.status == 1){
+                     if(response.status == 1){
                         Swal.fire({
                             title: 'Subscribe',
                             icon: 'success',

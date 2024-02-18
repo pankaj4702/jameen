@@ -81,36 +81,7 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="row">
-                <div class="col-md-12">
-                    <div class="card card-primary">
-                        <table class="table" id="mytable">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">Sno.</th>
-                                    <th scope="col"> Title</th>
-                                    <th scope="col"> Description</th>
-                                    <th scope="col">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($assets as $asset)
-                            <tr>
-                                <th scope="row">{{$loop->iteration}}</th>
-                                <td>{{ $asset->title }}</td>
-                                <td>{{ $asset->description }}</td>
-                                <td><a href="{{route('removeService',['id' => encrypt($asset->id)])}}"><button class="btn btn-primary">Delete</button></a></td>
-                            </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-            </div>
-        </div> --}}
     </section>
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 
     <script>
         function validateForm() {
@@ -126,10 +97,5 @@
 
             return true; // Allow form submission
         }
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('#mytable').DataTable()
-        });
     </script>
 @endsection

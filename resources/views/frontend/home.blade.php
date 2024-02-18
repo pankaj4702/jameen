@@ -1,5 +1,4 @@
 @extends('frontend.main.main')
-{{-- @DD($projects) --}}
 @section('content_front')
 <section class="banner">
     <div class="container">
