@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-use App\Models\{Project, Property_source, Property_status, Property_Type, Bedroom, Property,City,PostUser,Subscriber,Testimonial,Service,Community,Feature,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam};
+use App\Models\{Property_status,Property,City,PostUser,Testimonial,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam};
 use Session;
 use GuzzleHttp\Client;
 use DB;
@@ -34,8 +34,6 @@ class HomeController extends Controller
         $cities = City::all();
         $post_users = PostUser::all();
         $property_type = PropertyCategory::where('id',$property_cat_id)->first();
-        // dd($property_type);
-
         $properties = Property::join('property_categories', 'properties.property_category', '=', 'property_categories.id')
               ->join('property_status', 'properties.property_status', '=', 'property_status.id')
               ->where('properties.property_category',$property_cat_id)

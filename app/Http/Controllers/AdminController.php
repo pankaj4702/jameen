@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use App\Models\{User,Project,Property_Type,Property_source,Property_status,Property,Configuration,City,PostUser,Service,Testimonial,ServiceCategory,Community,Feature,Bedroom,Subscriber,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam};
+use App\Models\{Property_source,Property_status,Property,Configuration,City,PostUser,Service,Testimonial,ServiceCategory,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam};
 use GuzzleHttp\Client;
 use DB;
 use Hash;
@@ -135,9 +135,6 @@ class AdminController extends Controller
                 $config->configuration = explode(',', $config->configuration);
             });
             $groupedConfigurations = $result->groupBy('typeId');
-            $configurations = $groupedConfigurations->map->first();
-        $property_types =Property_Type::all();
-        $bedrooms =Bedroom::all();
         $property_status =Property_status::all();
         $property_sources =Property_source::all();
         $property_sources =Property_source::all();
@@ -145,7 +142,7 @@ class AdminController extends Controller
 
         $PropertyCategories = PropertyCategory::where('status',1)->get();
 
-        return view('admin.sell_property',compact('property_types','bedrooms','property_status','property_sources','configurations','post_users','PropertyCategories'));
+        return view('admin.sell_property',compact('property_status','property_sources','post_users','PropertyCategories'));
     }
 
     public function store_property(Request $request){
