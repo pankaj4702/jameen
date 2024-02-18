@@ -3,19 +3,19 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
-
 Route::prefix('/admin')->group(function () {
     Route::get('/',[AdminController::class,'index'])->name('admin');
     Route::post('/login',[AdminController::class,'login'])->name('loginAdmin');
-    Route::get('/dashboard',[AdminController::class,'dashboard'])->name('dashboard')->middleware('checkAdminAuth');
     Route::get('/logout',[AdminController::class,'logout'])->name('logoutAdmin');
+});
+
+Route::prefix('/admin')->middleware('checkAdminAuth')->group(function () {
+    Route::get('/dashboard',[AdminController::class,'dashboard'])->name('dashboard');
 
     Route::get('/add-category',[AdminController::class,'addCategory'])->name('addCategory');
     Route::post('/store-category',[AdminController::class,'storeCategory'])->name('storeCategory');
     Route::post('/store-configuration',[AdminController::class,'store_configuration'])->name('store_configuration');
     Route::get('/get-configuration',[AdminController::class,'getconfiguration'])->name('configuration');
-
-
     Route::get('/add-featureAmenities',[AdminController::class,'addFeatureAmenities'])->name('addFeatureAmenities');
     Route::post('/store-featureamenities',[AdminController::class,'storeFeatureAmenities'])->name('storeFeatureAmenities');
 
@@ -45,8 +45,13 @@ Route::prefix('/admin')->group(function () {
     Route::get('/delete-testimonial/{id}',[AdminController::class,'deleteTestimonial'])->name('deleteTestimonial');
     Route::get('/approve-testimonial/{id}',[AdminController::class,'approveTestimonial'])->name('approveTestimonial');
 
+    Route::get('/inquiryData',[AdminController::class,'inquiryData'])->name('inquiryData');
+    Route::get('/delete-category/{id}',[AdminController::class,'deleteCategory'])->name('deleteCategory');
+    Route::get('/get-cate',[AdminController::class,'getCategory'])->name('getCategory');
 
-    Route::prefix('/admin/service')->group(function () {
+});
+
+    Route::prefix('/admin/service')->middleware('checkAdminAuth')->group(function () {
         Route::get('/add-service',[AdminController::class,'getService'])->name('getService');
         Route::post('/store-service',[AdminController::class,'storeService'])->name('storeService');
         Route::get('/services',[AdminController::class,'allServices'])->name('allServices');
@@ -54,7 +59,7 @@ Route::prefix('/admin')->group(function () {
     });
 
 // admin market trends
-    Route::prefix('/admin/market-trend')->group(function () {
+    Route::prefix('/admin/market-trend')->middleware('checkAdminAuth')->group(function () {
         Route::get('/add-news',[AdminController::class,'getNews'])->name('addNews');
         Route::get('/News',[AdminController::class,'News'])->name('getNews');
         Route::get('/delete-news/{id}',[AdminController::class,'deleteNews'])->name('deleteNews');
@@ -77,7 +82,7 @@ Route::prefix('/admin')->group(function () {
     });
 
     //Admin about section
-    Route::prefix('/admin/about')->group(function () {
+    Route::prefix('/admin/about')->middleware('checkAdminAuth')->group(function () {
         Route::get('/add-profile',[AdminController::class,'getCompanyProfile'])->name('getCompanyProfile');
         Route::post('/store-profile',[AdminController::class,'storeCompanyProfile'])->name('storeCompanyProfile');
         Route::get('/ceo-message',[AdminController::class,'getCompanyMessageCeo'])->name('getCompanyMessageCeo');
@@ -88,11 +93,8 @@ Route::prefix('/admin')->group(function () {
         Route::post('/store-corporate-team',[AdminController::class,'storeCorporateTeam'])->name('storeCorporateTeam');
 
     });
-    Route::get('/inquiryData',[AdminController::class,'inquiryData'])->name('inquiryData');
-    Route::get('/delete-category/{id}',[AdminController::class,'deleteCategory'])->name('deleteCategory');
-    Route::get('/get-cate',[AdminController::class,'getCategory'])->name('getCategory');
 
 
-});
+
 
 
