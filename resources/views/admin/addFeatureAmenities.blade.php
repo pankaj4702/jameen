@@ -15,9 +15,6 @@
                     </ol>
                 </div>
             </div>
-            <div style="text-align: end;">
-                <a href=""><button class="btn btn-primary">Show All</button></a>
-            </div>
         </div>
     </section>
     <section class="content">

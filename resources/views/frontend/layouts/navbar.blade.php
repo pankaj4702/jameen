@@ -61,12 +61,14 @@
                     @php
                     $commPropertyTypes = App\Models\PropertyCategory::where('status',4)->get();
                    @endphp
+                    @if($commPropertyTypes->isNotEmpty())
                     <ul class="dropdown-menu">
                         @foreach($commPropertyTypes as $commPropertyTypes)
                         <li><a class="dropdown-item" href="{{ route('PgPropertyList',['id'=>encrypt($commPropertyTypes->id)]) }}">{{ $commPropertyTypes->category_name	 }}</a></li>
                         @endforeach
                         {{-- <li><a class="dropdown-item" href="#">View All</a></li> --}}
                     </ul>
+                    @endif
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link " href="{{ route('News') }}" >

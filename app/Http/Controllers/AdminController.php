@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use App\Models\{Property_source,Property_status,Property,Configuration,City,PostUser,Service,Testimonial,ServiceCategory,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam};
+use App\Models\{Property_source,Property_status,Property,Configuration,City,PostUser,Service,Testimonial,ServiceCategory,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam,Faq};
 use GuzzleHttp\Client;
 use DB;
 use Hash;
@@ -796,6 +796,48 @@ class AdminController extends Controller
                 return redirect()->back()->with('success', 'Data Saved Successfully.');
             }
 
+        }
+
+        public function faq(){
+            $faqs = Faq::join('service_categories','faqs.service_category','service_categories.id')
+            ->orderBy('faqs.id','desc')
+            ->select('faqs.id','faqs.title','faqs.description','category')
+            ->get();
+            return view('admin.faq.faq',compact('faqs'));
+        }
+
+        public function addFaq(){
+            $service_categories = ServiceCategory::get();
+            return view('admin.faq.addFaq',compact('service_categories'));
+        }
+
+        public function storeFaq(Request $request){
+            $request->validate([
+                'title' => [
+                    'required',
+                ],
+                'category'=>'required',
+                'description' => 'required',
+            ]);
+            $faq = [
+                'title' => $request->title,
+                'description' => $request->description,
+                'service_category' => $request->category,
+            ];
+            $store_faq = Faq::create($faq);
+
+            if($store_faq){
+                return redirect()->back()->with('success', 'Data Saved Successfully.');
+            }
+        }
+
+        public function deletefaq($id){
+            $mainId = decrypt($id);
+            $faq = Faq::where('id',$mainId)->first();
+            if ($faq) {
+                $faq->delete();
+                return redirect()->back();
+            }
         }
 
         }
