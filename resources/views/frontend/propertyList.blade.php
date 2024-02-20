@@ -140,7 +140,7 @@
                                                                             <span class="budget-detail">Min Area:
                                                                             </span>
                                                                             <input name="-th" type="number"
-                                                                                value="1" min="0"
+                                                                                min="0"
                                                                                 max="100" id="slider-min-control"
                                                                                 class="slider-min-control" />
                                                                         </p>
@@ -148,7 +148,7 @@
                                                                             <span class="budget-detail">Max
                                                                                 Area:</span>
                                                                             <input name="slider-max" type="number"
-                                                                                value="100" min="0"
+                                                                                min="0"
                                                                                 max="100" id="slider-max-control"
                                                                                 class="slider-max-control" />
                                                                         </p>
@@ -179,7 +179,6 @@
                                                                 value="{{ $city->name }}" />
                                                             <label
                                                                 for="location{{ $key }}">{{ $city->name }}</label>
-                                                            <span class="location-rating">4.1</span>
                                                         </div>
                                                     @endforeach
 
@@ -192,7 +191,7 @@
                             <div class="col-md-9">
                                 <div class="apartment-inner-right">
                                     <div class="jfsio" style="display: flex;justify-content: space-between;">
-                                    @if (isset($property_type))
+                                        @if (isset($property_type))
                                         <div class="apartment-right-head" id="type-id"
                                             data-value = "{{ $property_type->id }}">
                                             <h2 id='property_count'><span id="pro_len">{{ count($properties) }} </span>
@@ -217,7 +216,7 @@
                                                 data-value = "{{ $property_cat_status_id->category_status }}">
                                                 <h2 id='dek-dik'>{{ count($properties) }} results | PG </h2>
                                             </div>
-                                        @elseif($property_cat_status_id->category_status == 3)
+                                        @elseif($property_cat_status_id->category_status == 4)
                                             <div class="apartment-right-head" id="catstatus-id"
                                                 data-value = "{{ $property_cat_status_id->category_status }}">
                                                 <h2 id='dek-dik'>{{ count($properties) }} results | Commercial </h2>

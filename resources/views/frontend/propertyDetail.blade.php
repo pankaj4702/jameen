@@ -122,17 +122,9 @@
                                     </div>
                                     <div class="facts-bottom">
                                         <ul class="facts-bottom-inner">
-                                            {{-- <li>
-                                                    @foreach ($featureImgArray as $value)
-                                                    <img src="{{ asset('images/facts-one.png') }}" />
-                                                    @endforeach
-                                                    @foreach ($featureArray as $value)
-                                                    <span class="facts-bottom-content">{{ $value }}</span>
-                                                    @endforeach
-                                                </li> --}}
                                             @foreach ($features as $value)
                                                 <li>
-                                                    <img src="{{ asset('storage/' . $value[1]) }}" alt="" />
+                                                    <img src="{{ asset('storage/' . $value[1]) }}" class="feature-image" alt="" />
                                                     <span class="facts-bottom-content">{{ $value[0] }}</span>
                                                 </li>
                                             @endforeach

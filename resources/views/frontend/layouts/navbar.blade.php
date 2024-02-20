@@ -64,7 +64,7 @@
                     @if($commPropertyTypes->isNotEmpty())
                     <ul class="dropdown-menu">
                         @foreach($commPropertyTypes as $commPropertyTypes)
-                        <li><a class="dropdown-item" href="{{ route('PgPropertyList',['id'=>encrypt($commPropertyTypes->id)]) }}">{{ $commPropertyTypes->category_name	 }}</a></li>
+                        <li><a class="dropdown-item" href="{{ route('CommPropertyList',['id'=>encrypt($commPropertyTypes->id)]) }}">{{ $commPropertyTypes->category_name	 }}</a></li>
                         @endforeach
                         {{-- <li><a class="dropdown-item" href="#">View All</a></li> --}}
                     </ul>

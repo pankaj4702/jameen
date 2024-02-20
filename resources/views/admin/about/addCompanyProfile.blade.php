@@ -18,6 +18,7 @@
             <div style="text-align: end;">
                 <a href="{{ route('allProfile') }}"><button class="btn btn-primary">Show all</button></a>
             </div>
+            
         </div>
     </section>
     <section class="content">

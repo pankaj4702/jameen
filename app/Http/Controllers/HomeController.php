@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-use App\Models\{Property_status,Property,City,PostUser,Testimonial,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam};
+use App\Models\{Property_status,Property,City,PostUser,Testimonial,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam,TeamHeading};
 use Session;
 use GuzzleHttp\Client;
 use DB;
@@ -108,7 +108,7 @@ class HomeController extends Controller
         $properties = Property::join('property_categories', 'properties.property_category', '=', 'property_categories.id')
               ->join('property_status', 'properties.property_status', '=', 'property_status.id')
               ->where('properties.property_category',$property_cat_id)
-              ->where('properties.category_status',3)
+              ->where('properties.category_status',4)
               ->select('properties.id','property_categories.category_name as type','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price','properties.images','properties.configuration')
               ->paginate(12);
         $properties->each(function ($property) {
@@ -399,7 +399,8 @@ class HomeController extends Controller
     }
     public function corporateTeam(){
         $teams = CorporateTeam::where('status',1)->get();
-        return view('frontend.about.corporateTeam',compact('teams'));
+        $teamHeading = TeamHeading::first();
+        return view('frontend.about.corporateTeam',compact('teams','teamHeading'));
 
     }
 }

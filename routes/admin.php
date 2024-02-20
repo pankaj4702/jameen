@@ -91,8 +91,12 @@ Route::prefix('/admin')->middleware('checkAdminAuth')->group(function () {
         Route::get('/chairman-message',[AdminController::class,'getCompanyMessageChairman'])->name('getCompanyMessageChairman');
         Route::get('/edit-message/{id}',[AdminController::class,'editCompanyMessage'])->name('editCompanyMessage');
         Route::post('/update-message',[AdminController::class,'updateCompanyMessage'])->name('updateCompanyMessage');
-        Route::get('/add-corporate-team',[AdminController::class,'addCorporateTeam'])->name('addCorporateTeam');
+        Route::get('/corporate-team',[AdminController::class,'getCorporateTeam'])->name('getCorporateTeam');
+        Route::get('/add-corporate-team',[AdminController::class,'addCompanyProfile'])->name('addCompanyProfile');
         Route::post('/store-corporate-team',[AdminController::class,'storeCorporateTeam'])->name('storeCorporateTeam');
+        Route::get('/remove-corporate-team/{id}',[AdminController::class,'removeTeam'])->name('removeTeam');
+        Route::get('/corporate-team-heading',[AdminController::class,'corporateTeamHeading'])->name('corporateTeamHeading');
+        Route::post('/store-team-heading',[AdminController::class,'storeCorporateHeading'])->name('storeCorporateHeading');
 
     });
 

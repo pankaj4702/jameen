@@ -14,6 +14,7 @@ Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/sell-properties/{id}',[HomeController::class,'BuyPropertyList'])->name('BuyPropertyList');
 Route::get('/rent-properties/{id}',[HomeController::class,'RentPropertyList'])->name('RentPropertyList');
 Route::get('/pg-properties/{id}',[HomeController::class,'PgPropertyList'])->name('PgPropertyList');
+Route::get('/commercial-properties/{id}',[HomeController::class,'CommPropertyList'])->name('CommPropertyList');
 Route::get('/property-detail/{id}',[HomeController::class,'propertyDetail'])->name('propertyDetail');
 Route::get('/get-bedroom',[HomeController::class,'getbedroom'])->name('getbedroom');
 // Route::get('/get-location',[LocationController::class,'getLocation']);

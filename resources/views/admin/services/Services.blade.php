@@ -29,7 +29,7 @@
                             <h3 class="card-title">Add Services </h3>
                         </div>
                         @if (count($errors) > 0)
-                            <div class = "alert alert-danger">
+                            <div class = "alert admin-alert">
                                 <ul class="title_count1">
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
@@ -38,7 +38,7 @@
                             </div>
                         @endif
                         @if (session('success'))
-                            <div class="alert alert-danger">
+                            <div class="alert admin-alert">
                                 <ul>
                                     <li> {{ session('success') }}</li>
                                 </ul>

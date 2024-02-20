@@ -72,6 +72,7 @@
                                 <div style="display: flex; justify-content:space-between; width:17em;">
                                     <div>
                                         <button type="button" class="btn btn-primary" onclick="addFeature()">Add Feature</button>
+                                        <button type="submit" class="btn btn-primary d-none " id="submit">Save Features</button>
                                     </div>
                                     <div id="submit">
                                     </div>
@@ -81,14 +82,11 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
     <script>
         function addFeature() {
-            $('#submit').append(`
-            <button type="submit" class="btn btn-primary " id="submit">Save Features</button>
-            `);
+            $('#submit').removeClass('d-none');
             var container = document.getElementById('featureContainer');
             var featureCount = container.children.length / 2 + 1; // Counting existing pairs
             var featureNameInput = document.createElement('input');

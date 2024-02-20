@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1> Corporate Team</h1>
+                    <h1> Corporate </h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active"> Corporate Team</li>
+                        <li class="breadcrumb-item active"> Corporate</li>
                     </ol>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Add Team </h3>
+                            <h3 class="card-title">Corporate Team Heading </h3>
                         </div>
                         @if (count($errors) > 0)
                             <div class = "alert admin-alert">
@@ -44,54 +44,38 @@
                                 </ul>
                             </div>
                         @endif
-                        <form id="quickForm" action="{{ route('storeCorporateTeam') }}" method="POST" enctype="multipart/form-data"
+                        <form id="quickForm" action="{{ route('storeCorporateHeading') }}" method="POST" enctype="multipart/form-data"
                             onsubmit="return validateForm()">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Name</label>
-                                    <input type="" name="name" autocomplete="off" class="form-control"
-                                        id="name" placeholder="Enter name"  value="{{ old('name') }}">
-                                    <span id="error-name" style="color:rgb(218, 129, 129);"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Role</label>
-                                    <input type="" name="role" autocomplete="off" class="form-control"
-                                        id="role" placeholder="Enter role"  value="{{ old('role') }}">
-                                    <span id="error-role" style="color:rgb(218, 129, 129);"></span>
+                                    <label for="exampleInputEmail1">Title </label>
+                                    <input type="" name="title" autocomplete="off" class="form-control"
+                                        id="title" placeholder="Enter Title" value="{{ $teamHeading->title }}">
+                                    <span id="error-title" style="color:rgb(218, 129, 129);"></span>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="formFile" class="form-label">Image</label>
+                                    <div style="background-color: white;width:90px;height:90px;border-radius: 10px;">
+                                        <img src="{{ asset('storage/' . $teamHeading->image) }}" style="width:85px; height:80px;" /></div>
+                                        <br>
                                     <input class="form-control" type="file" id="image" name="image">
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">Description <span style="font-size: 11px;"><i></i></span></label>
+                                    <textarea class="form-control description" name="description" id="description" rows="10" value="{{ old('description') }}">{!! $teamHeading->description !!}</textarea>
+                                </div>
+
                                 <input type="submit" class="btn btn-primary" value="Submit">
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+
     </section>
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 
-    <script>
-        function validateForm() {
-            var titleInput = document.getElementById('title');
-            var titleValue = titleInput.value;
 
-            // Check if the input contains any numeric characters
-            if (/\d/.test(titleValue)) {
-                var error = 'Please do not enter numeric values in the title field.';
-                $('#error-title').html(error);
-                return false; // Prevent form submission
-            }
-
-            return true; // Allow form submission
-        }
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('#mytable').DataTable()
-        });
-    </script>
 @endsection

@@ -1743,6 +1743,10 @@ footer {
     z-index: -1;
 }
 
+.feature-image{
+    max-width: 15%;
+}
+
 /*******************
  **financial-mangement-Css-Here
  *******************/

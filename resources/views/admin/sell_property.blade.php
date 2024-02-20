@@ -89,7 +89,7 @@
                                                             </select>
                                                             <div>
                                                                 <span class="error-span-property_cat error"
-                                                                    style="font-size:75%; color:#F26C61"></span>
+                                                                style="font-size:90%; color:#f7cadc"></span>
                                                             </div>
                                                             <figure class="property-arrow-down">
                                                                 <img src="{{ asset('images/arrow-down.png') }}" />
@@ -102,12 +102,12 @@
                                                     <div class="property-listing-tab-content">
                                                         <label>Area(sq.ft)</label>
                                                         <div class="property-type-content">
-                                                            <input type="text" class="area" name="property_area"
+                                                            <input type="text" class="area" id="area_inpt" name="property_area"
                                                                 placeholder="Enter your Property Area" autocomplete="off"
                                                                 onkeyup="checkSelectionSell('property_area')">
                                                             <div>
                                                                 <span class="error-span-property_area error"
-                                                                    style="font-size:75%; color:#F26C61"></span>
+                                                                style="font-size:90%; color:#f7cadc"></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -121,7 +121,7 @@
                                                                 onkeyup="checkSelectionSell('property_name')">
                                                             <div>
                                                                 <span class="error-span-property_name error"
-                                                                    style="font-size:75%; color:#F26C61"></span>
+                                                                style="font-size:90%; color:#f7cadc"></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -141,7 +141,7 @@
                                                             </select>
                                                             <div>
                                                                 <span class="error-span-property_status error"
-                                                                    style="font-size:75%; color:#F26C61"></span>
+                                                                style="font-size:90%; color:#f7cadc"></span>
                                                             </div>
                                                             <figure class="property-arrow-down">
                                                                 <img src="{{ asset('images/arrow-down.png') }}" />
@@ -164,7 +164,7 @@
                                                             </select>
                                                             <div>
                                                                 <span class="error-span-property_source error"
-                                                                    style="font-size:75%; color:#F26C61"></span>
+                                                                style="font-size:90%; color:#f7cadc"></span>
                                                             </div>
                                                             <figure class="property-arrow-down">
                                                                 <img src="{{ asset('images/arrow-down.png') }}" />
@@ -183,7 +183,7 @@
                                                                     onkeyup="checkSelectionSell('property_location')">
                                                                 <div>
                                                                     <span class="error-span-property_location error"
-                                                                        style="font-size:75%; color:#F26C61"></span>
+                                                                    style="font-size:90%; color:#f7cadc"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -199,7 +199,7 @@
                                                                     autocomplete="off" onkeyup="checkSelectionSell('price')">
                                                                 <div>
                                                                     <span class="error-span-price error"
-                                                                        style="font-size:75%; color:#F26C61"></span>
+                                                                    style="font-size:90%; color:#f7cadc"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -213,7 +213,7 @@
                                                                 multiple>
                                                             <div>
                                                                 <span class="error-span-image error"
-                                                                    style="font-size:75%; color:#F26C61"></span>
+                                                                style="font-size:90%; color:#f7cadc"></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -233,7 +233,7 @@
                                                             </select>
                                                             <div>
                                                                 <span class="error-span-post_user error"
-                                                                    style="font-size:75%; color:#F26C61"></span>
+                                                                style="font-size:90%; color:#f7cadc"></span>
                                                             </div>
                                                             <figure class="property-arrow-down">
                                                                 <img src="{{ asset('images/arrow-down.png') }}" />
@@ -249,7 +249,7 @@
                                                                 placeholder="Type your Message" autocomplete="off">
                                                             <div>
                                                                 <span class="error-span-seller_message error"
-                                                                    style="font-size:75%; color:#F26C61"></span>
+                                                                style="font-size:90%; color:#f7cadc"></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -260,7 +260,7 @@
                                             <div class="row" id="bedroom-div">
                                             </div>
                                             <span class="error-span-features error"
-                                            style="font-size:75%; color:#F26C61"></span>
+                                            style="font-size:90%; color:#f7cadc"></span>
 
                                             <button type="button" class="property-listing-submit-btn-admin"
                                                 onclick="saveProperty()">Sumbit</button>
@@ -309,8 +309,9 @@
                     if (xhr.responseJSON && xhr.responseJSON.errors) {
                         $.each(xhr.responseJSON.errors, function(key, value) {
                             var field = key.replace(/\./g, '_');
-                            $('.error-span-' + field).html('');
-                            $('.error-span-' + field).append(value);
+                            // alert(value);
+                            $('.error-span-'+field).html('');
+                            $('.error-span-'+field).append(value);
                         });
                     } else {
                         console.error(error);
@@ -324,7 +325,6 @@
         function checkSelectionSell(element) {
             $('.error-span-' + element).html('');
         }
-
         function checkPropertyCategory(element){
             var elementName = element.name;
             $('.error-span-' + elementName).html('');
@@ -339,7 +339,6 @@
                 success: function(response) {
                     console.log(response);
                     $('#bedroom-div').html('');
-                    // $('#bedroom-div').removeClass('d-none');
                     $.each(response, function(index, data){
                         $('#bedroom-div').append(`
                         <div class="col-md-2">
@@ -365,17 +364,6 @@
                     }
                 }
             });
-
-            // function generateOptions(numbers) {
-            //     var myArray = numbers.split(',').map(Number);
-            //     let options = '';
-            //     $.each(myArray, function(index, number) {
-            //         options += `<option value="${number}">${number}</option>`;
-            //     });
-            //     return options;
-            // }
-
-
         }
         function showConfig(element){
             var elementName = element.name;
@@ -393,12 +381,15 @@
                     $('#bedroom-div').html('');
 
                     $.each(response, function(index, data){
+                        const name = data.name;
+                        const myname = name.replace(/\s/, ""); // Removes all whitespace
+                        console.log(myname);
                         $('#config-div').append(`
                         <div class="col-md-4">
                         <div class="property-listing-tab-content">
                             <label>${data.name}</label>
                             <div class="property-type-content">
-                                <select class="form-select" aria-label="Default select example" name="configuration[${data.name}]">
+                                <select class="form-select" aria-label="Default select example" name="configuration[${myname}]">
                                     <option value="" selected>Please Select</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -410,8 +401,8 @@
                                     <option value="8">8</option>
                                 </select>
                                 <div>
-                                    <span class="error-span-configuration error"
-                                        style="font-size:75%; color:#F26C61"></span>
+                                    <span class="error-span-configuration_${data.name} error"
+                                    style="font-size:90%; color:#f7cadc"></span>
                                 </div>
                                 <figure class="property-arrow-down">
                                     <img src="{{ asset('images/arrow-down.png') }}" />
@@ -423,21 +414,12 @@
                     });
                 }
             });
-
-            // function generateOptions(numbers) {
-            //     var myArray = numbers.split(',').map(Number);
-            //     let options = '';
-            //     $.each(myArray, function(index, number) {
-            //         options += `<option value="${number}">${number}</option>`;
-            //     });
-            //     return options;
-            // }
         }
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var phoneInput = document.getElementById("sell_pro_location");
-            var phoneInputRent = document.getElementById("rent_pro_location");
+            var areainputs = document.getElementById("area_inpt");
 
             phoneInput.addEventListener("keypress", function(e) {
                 var length = this.value.length;
@@ -450,7 +432,7 @@
                     e.preventDefault();
                 }
             });
-            phoneInputRent.addEventListener("keypress", function(e) {
+            areainputs.addEventListener("keypress", function(e) {
                 var length = this.value.length;
 
                 if (length > 5) {
@@ -461,21 +443,6 @@
                     e.preventDefault();
                 }
             });
-            var areainputs = document.getElementsByClassName("area");
-
-                for (var i = 0; i < areainputs.length; i++) {
-                    areainputs[i].addEventListener("keypress", function(e) {
-                        var length = this.value.length;
-
-                        if (length > 6) {
-                            e.preventDefault();
-                        } else if (e.which !== 8 && e.which !== 0 && (e.which < 48 || e.which > 57)) {
-                            e.preventDefault();
-                        } else if (length === 0 && e.which === 48) {
-                            e.preventDefault();
-                        }
-                    });
-                }
         });
     </script>
     <script>
@@ -489,9 +456,9 @@
                 },
                 success: function(response) {
                   $('#property_cat').html('');
+                  $('#property_cat').html('<option value="" seleced>Choose Value</option>');
                   $.each(response, function(index, data){
                     $('#property_cat').append(`
-                    <option value="" seleced>Choose Value</option>
                     <option value="${data.id}">
                      ${data.category_name}</option>
                     `);

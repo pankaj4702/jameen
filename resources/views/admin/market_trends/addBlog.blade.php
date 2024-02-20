@@ -45,7 +45,7 @@
                             </div>
                         @endif
                         <form id="quickForm" action="{{ route('storeBlog') }}" method="POST" enctype="multipart/form-data"
-                            onsubmit="return validateForm()">
+                            onsubmit="validateFsadsaorm()">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -73,6 +73,11 @@
             </div>
 
     </section>
+    <script>
+        function validateFsadsaorm() {
+           alert('test');
+        }
+    </script>
 
 
 @endsection

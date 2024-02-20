@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use App\Models\{Property_source,Property_status,Property,Configuration,City,PostUser,Service,Testimonial,ServiceCategory,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam,Faq};
+use App\Models\{Property_source,Property_status,Property,Configuration,City,PostUser,Service,Testimonial,ServiceCategory,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam,Faq,TeamHeading};
 use GuzzleHttp\Client;
 use DB;
 use Hash;
@@ -435,7 +435,7 @@ class AdminController extends Controller
 
             $request->validate([
                 'title' => [
-                    'required','string','max:150',
+                    'required','string','max:100',
                 ],
                 'category'=>'required',
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -488,7 +488,7 @@ class AdminController extends Controller
         public function storeNews(Request $request){
             $request->validate([
                 'title' => [
-                    'required',
+                    'required','string','max:150',
                 ],
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'description'=>'required',
@@ -530,7 +530,7 @@ class AdminController extends Controller
         public function storeMedia(Request $request){
             $request->validate([
                 'title' => [
-                    'required',
+                    'required','string','max:150',
                 ],
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'description'=>'required',
@@ -571,7 +571,7 @@ class AdminController extends Controller
         public function storeBlog(Request $request){
             $request->validate([
                 'title' => [
-                    'required',
+                    'required','string','max:150',
                 ],
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'description'=>'required',
@@ -613,7 +613,7 @@ class AdminController extends Controller
         public function storeInsight(Request $request){
             $request->validate([
                 'title' => [
-                    'required',
+                    'required','string','max:150',
                 ],
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'description'=>'required',
@@ -680,7 +680,7 @@ class AdminController extends Controller
         public function storeCompanyProfile(Request $request){
             $request->validate([
                 'title' => [
-                    'required',
+                    'required','string','max:150',
                 ],
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'description'=>'required',
@@ -739,7 +739,7 @@ class AdminController extends Controller
         public function updateCompanyMessage(Request $request){
             $request->validate([
                 'name' => [
-                    'required',
+                    'required','string','max:50',
                 ],
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'message'=>'required',
@@ -769,14 +769,19 @@ class AdminController extends Controller
             }
         }
 
-        public function addCorporateTeam(){
+        public function getCorporateTeam(){
+            $teams = CorporateTeam::orderBy('id','desc')->get();
+            return view('admin.about.corporateTeam',compact('teams'));
+        }
+
+        public function addCompanyProfile(){
             return view('admin.about.addCorporateTeam');
         }
 
         public function storeCorporateTeam(Request $request){
             $request->validate([
                 'name' => [
-                    'required',
+                    'required','string','max:50',
                 ],
                 'role'=>'required',
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -798,6 +803,45 @@ class AdminController extends Controller
 
         }
 
+        public function removeTeam($id){
+            $assetId = decrypt($id);
+            $team = CorporateTeam::where('id',$assetId)->first();
+            if ($team) {
+                $team->delete();
+                return redirect()->back();
+            }
+        }
+
+        public function corporateTeamHeading(){
+            $teamHeading = TeamHeading::first();
+          return view('admin.about.corporateTeamHeading',compact('teamHeading'));
+        }
+
+        public function storeCorporateHeading(Request $request){
+            $request->validate([
+                'title' => [
+                    'required','string','max:150',
+                ],
+                'description' => 'required',
+            ]);
+            $image = $request->file('image');
+            if(!isset($image)){
+                $teamHeading = TeamHeading::first();
+              $media_image = $teamHeading->image;
+            }
+            else{
+            $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
+            $media_image = $image->storeAs('uploads', $tempName, 'public');
+            }
+            $teamHeading = TeamHeading::first();
+             $teamHeading->update([
+                 'title' =>$request->title,
+                 'image'=>$media_image,
+                 'description'=>$request->description,
+             ]);
+             return redirect()->back();
+        }
+
         public function faq(){
             $faqs = Faq::join('service_categories','faqs.service_category','service_categories.id')
             ->orderBy('faqs.id','desc')
@@ -814,7 +858,7 @@ class AdminController extends Controller
         public function storeFaq(Request $request){
             $request->validate([
                 'title' => [
-                    'required',
+                    'required','string','max:150',
                 ],
                 'category'=>'required',
                 'description' => 'required',

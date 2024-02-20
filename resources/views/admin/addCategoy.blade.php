@@ -35,7 +35,7 @@
                             </div>
                         @endif
                         @if (session('success'))
-                            <div class="alert alert-danger">
+                            <div class="alert admin-alert">
                                 <ul>
                                     <li> {{ session('success') }}</li>
                                 </ul>
@@ -69,7 +69,7 @@
                                     @foreach ($configurations as $key => $configuration)
                                         <div
                                             style="border:0.5px solid gray;margin:4px; border-radius:5px;padding:5px;width:16em;">
-                                            <div class="form-check check-flex-item">
+                                            <div class="form-check check-flex-item" style="width:100%;">
                                                 <input class="form-check-input" name="config[]" type="checkbox"
                                                     value="{{ $configuration->id }}" id="{{ $configuration->name }}"  onchange="showAlert('{{ $configuration->name }}')">
                                                 <label class="form-check-label" for="{{ $configuration->name }}">

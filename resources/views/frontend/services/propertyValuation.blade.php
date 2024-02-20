@@ -76,7 +76,7 @@
         @endforeach
 
 <!--Comprehensive-Services-section-->
-<section class="comprehensive-services beyond-bg-white">
+{{-- <section class="comprehensive-services beyond-bg-white">
     <div class="container">
         <div class="comprehensive-services-inner">
             <div class="comprehensive-services-head">
@@ -201,9 +201,9 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 @if($faqs->isNotEmpty())
-<section class="asset-faq beyond-bg-color">
+<section class="asset-faq beyond-bg-white">
     <div class="container">
         <div class="asset-faq-inner">
             <div class="asset-faq-head">

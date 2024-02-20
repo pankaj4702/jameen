@@ -199,7 +199,7 @@
               </li>
 
               <li class="nav-item">
-                <a href="{{ route('addCorporateTeam') }}" class="nav-link {{ request()->is('admin/about/add-corporate-team') ? 'active' : '' }}">
+                <a href="{{ route('getCorporateTeam') }}" class="nav-link {{ request()->is('admin/about/add-corporate-team') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Corporate Team</p>
                 </a>
