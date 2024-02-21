@@ -52,9 +52,11 @@
                                     <td>   {{ $formatDate }}</td>
                                     <td>
                                         <div style="display: flex;justify-content:space-between;">
-                                        <div><a href="{{route('deleteMedia',['id' => encrypt($data->id)])}}"><button class="btn btn-primary">Delete</button></a></div>
+                                        <div>
+                                            <a href="{{route('deleteMedia',['id' => encrypt($data->id)])}}" id="deleteMedia{{ $data->id }}"></a>
+                                            <button class="btn btn-primary" onclick="deleteMedia({{ $data->id }})">Delete</button>
+                                        </div>
 
-                                        {{-- <div><a href=""><button class="btn btn-primary">Approve</button></a></div> --}}
 
                                     </div>
                                     </td>
@@ -69,6 +71,28 @@
             </div>
         </div>
     </section>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function deleteMedia(id){
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                showConfirmButton: true,
+                cancelButtonColor: '#e76363',
+                confirmButtonText: 'Yes, proceed!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('deleteMedia'+id).click();
+                        }
+                    });
+
+
+        }
+
+    </script>
 
 
 @endsection

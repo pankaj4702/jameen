@@ -78,7 +78,12 @@
                             <tr>
                                 <th scope="row">{{$loop->iteration}}</th>
                                 <td>{{ $status->name }}</td>
-                                <td><a href="{{route('deleteStatus',['id' => encrypt($status->id)])}}"><button class="btn btn-primary">Delete</button></a></td>
+                                {{-- <td><a href="{{route('deleteStatus',['id' => encrypt($status->id)])}}"><button class="btn btn-primary">Delete</button></a></td> --}}
+                                <td> <div>
+                                    <a href="{{route('deleteStatus',['id' => encrypt($status->id)])}}" id="deleteStatus{{ $status->id}}"></a>
+                                    <button class="btn btn-primary" onclick="deleteStatus({{ $status->id }})">Delete</button>
+                                </div>
+                            </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -101,7 +106,11 @@
                                 <tr>
                                     <th scope="row">{{$loop->iteration}}</th>
                                     <td>{{ $source->name }}</td>
-                                    <td><a href="{{route('deleteSource',['id' => encrypt($source->id)])}}"><button class="btn btn-primary">Delete</button></a></td>
+                                       <td> <div>
+                                            <a href="{{route('deleteSource',['id' => encrypt($source->id)])}}" id="deleteSource{{ $source->id}}"></a>
+                                            <button class="btn btn-primary" onclick="deleteSource({{ $source->id }})">Delete</button>
+                                        </div>
+                                    </td>
                                 </tr>
                                 @endforeach
                         </tbody>
@@ -112,6 +121,7 @@
     </section>
 @endsection
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {
         $('#configuration').hide();
@@ -122,4 +132,38 @@
                 $('#configuration').hide();
         });
     });
+</script>
+<script>
+    function deleteSource(id){
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            showConfirmButton: true,
+            cancelButtonColor: '#e76363',
+            confirmButtonText: 'Yes, proceed!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('deleteSource'+id).click();
+                    }
+                });
+    }
+    function deleteStatus(id){
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            showConfirmButton: true,
+            cancelButtonColor: '#e76363',
+            confirmButtonText: 'Yes, proceed!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('deleteStatus'+id).click();
+                    }
+                });
+    }
 </script>

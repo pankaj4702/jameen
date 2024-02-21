@@ -68,7 +68,11 @@
                     <tr>
                         <th scope="row">{{$loop->iteration}}</th>
                         <td>{{ $user->name }}</td>
-                        <td><a href="{{route('deletePostUser',['id' => encrypt($user->id)])}}"><button class="btn btn-primary">Delete</button></a></td>
+                        <td> <div>
+                            <a href="{{route('deletePostUser',['id' => encrypt($user->id)])}}" id="deletePostUser{{ $user->id}}"></a>
+                            <button class="btn btn-primary" onclick="deletePostUser({{ $user->id }})">Delete</button>
+                        </div>
+                    </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -79,6 +83,7 @@
   </section>
 @endsection
 <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
      $(document).ready(function() {
@@ -90,4 +95,24 @@
     $('#configuration').hide();
       });
    });
+</script>
+
+<script>
+    function deletePostUser(id){
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            showConfirmButton: true,
+            cancelButtonColor: '#e76363',
+            confirmButtonText: 'Yes, proceed!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('deletePostUser'+id).click();
+                    }
+                });
+    }
+
 </script>

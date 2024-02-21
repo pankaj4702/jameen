@@ -56,6 +56,7 @@ class AdminController extends Controller
         $cat_data = PropertyCategory::join('main_categories','property_categories.status','main_categories.id')
         ->select('property_categories.id','category_name','title')
         ->get();
+        // dd($cat_data);
         return view('admin.addCategoy',compact('configurations','cat_data'));
     }
 
@@ -228,8 +229,8 @@ class AdminController extends Controller
 
     public function all_property(){
         $properties = Property::join('property_categories', 'properties.property_category', '=', 'property_categories.id')
-              ->join('property_sources', 'properties.property_source', '=', 'property_sources.id')
-              ->join('property_status', 'properties.property_status', '=', 'property_status.id')
+              ->leftjoin('property_sources', 'properties.property_source', '=', 'property_sources.id')
+              ->leftjoin('property_status', 'properties.property_status', '=', 'property_status.id')
               ->get(['properties.id','property_categories.category_name as type','property_sources.name as source','property_status.name as status','properties.property_name','properties.property_location','properties.category_status']);
         return view('admin.properties',compact('properties'));
     }
@@ -304,8 +305,8 @@ class AdminController extends Controller
            $images = explode(',',$property_images->images);
 
             $property = Property::join('property_categories', 'properties.property_category', '=', 'property_categories.id')
-              ->join('property_sources', 'properties.property_source', '=', 'property_sources.id')
-              ->join('property_status', 'properties.property_status', '=', 'property_status.id')
+              ->leftjoin('property_sources', 'properties.property_source', '=', 'property_sources.id')
+              ->leftjoin('property_status', 'properties.property_status', '=', 'property_status.id')
               ->where('properties.id', $id)
               ->first(['properties.id','property_categories.category_name as type','property_sources.name as source','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price']);
            return view('admin.projectDetail',compact('property','images'));
@@ -491,7 +492,13 @@ class AdminController extends Controller
                     'required','string','max:150',
                 ],
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'description'=>'required',
+                'description' => [
+                    function ($attribute, $value, $fail) {
+                        if ($value === '<p>&nbsp;</p>') {
+                            $fail($attribute.' is required.');
+                        }
+                    },
+                ],
             ]);
             $image = $request->file('image');
             $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
@@ -533,7 +540,13 @@ class AdminController extends Controller
                     'required','string','max:150',
                 ],
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'description'=>'required',
+                'description' => [
+                    function ($attribute, $value, $fail) {
+                        if ($value === '<p>&nbsp;</p>') {
+                            $fail($attribute.' is required.');
+                        }
+                    },
+                ],
             ]);
             $image = $request->file('image');
             $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
@@ -574,7 +587,13 @@ class AdminController extends Controller
                     'required','string','max:150',
                 ],
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'description'=>'required',
+                'description' => [
+                    function ($attribute, $value, $fail) {
+                        if ($value === '<p>&nbsp;</p>') {
+                            $fail($attribute.' is required.');
+                        }
+                    },
+                ],
             ]);
             $image = $request->file('image');
             $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
@@ -616,7 +635,13 @@ class AdminController extends Controller
                     'required','string','max:150',
                 ],
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'description'=>'required',
+                'description' => [
+                    function ($attribute, $value, $fail) {
+                        if ($value === '<p>&nbsp;</p>') {
+                            $fail($attribute.' is required.');
+                        }
+                    },
+                ],
             ]);
             $image = $request->file('image');
             $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
@@ -631,6 +656,15 @@ class AdminController extends Controller
             ]);
             if($assets){
                 return redirect()->back()->with('success', 'Data Saved Successfully.');
+            }
+        }
+
+        public function deleteInsight($ecryptedId){
+            $id = decrypt($ecryptedId);
+            $Insight = Insight::where('id',$id)->first();
+            if ($Insight) {
+                $Insight->delete();
+                return redirect()->back();
             }
         }
 
@@ -683,7 +717,13 @@ class AdminController extends Controller
                     'required','string','max:150',
                 ],
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'description'=>'required',
+                'description' => [
+                    function ($attribute, $value, $fail) {
+                        if ($value === '<p>&nbsp;</p>') {
+                            $fail($attribute.' is required.');
+                        }
+                    },
+                ],
             ]);
             $image = $request->file('image');
             $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
@@ -742,7 +782,13 @@ class AdminController extends Controller
                     'required','string','max:50',
                 ],
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'message'=>'required',
+                'message' => [
+                    function ($attribute, $value, $fail) {
+                        if ($value === '<p>&nbsp;</p>') {
+                            $fail($attribute.' is required.');
+                        }
+                    },
+                ],
             ]);
             $category = CompanyMessage::where('status', $request->status)->first();
             if(isset($request->image)){
@@ -822,7 +868,13 @@ class AdminController extends Controller
                 'title' => [
                     'required','string','max:150',
                 ],
-                'description' => 'required',
+                'description' => [
+                    function ($attribute, $value, $fail) {
+                        if ($value === '<p>&nbsp;</p>') {
+                            $fail($attribute.' is required.');
+                        }
+                    },
+                ],
             ]);
             $image = $request->file('image');
             if(!isset($image)){

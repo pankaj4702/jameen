@@ -73,11 +73,6 @@
             </div>
 
     </section>
-    <script>
-        function validateFsadsaorm() {
-           alert('test');
-        }
-    </script>
 
 
 @endsection

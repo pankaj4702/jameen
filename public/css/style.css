@@ -1747,6 +1747,7 @@ footer {
     max-width: 15%;
 }
 
+
 /*******************
  **financial-mangement-Css-Here
  *******************/
@@ -5249,6 +5250,9 @@ width: 40%;
     position: -webkit-sticky;
 }
 .ck-content{
-    height: 25em;
+    height: 19em;
     color:black;
+}
+.faq {
+    width: 28px;
 }

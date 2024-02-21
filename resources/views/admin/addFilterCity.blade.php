@@ -69,7 +69,11 @@
                     <tr>
                         <th scope="row">{{$loop->iteration}}</th>
                         <td>{{ $city->name }}</td>
-                        <td><a href="{{route('deleteCity',['id' => encrypt($city->id)])}}"><button class="btn btn-primary">Delete</button></a></td>
+                        <td> <div>
+                            <a href="{{route('deleteCity',['id' => encrypt($city->id)])}}" id="deleteCity{{ $city->id}}"></a>
+                            <button class="btn btn-primary" onclick="deleteCity({{ $city->id }})">Delete</button>
+                        </div>
+                    </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -81,6 +85,7 @@
   </section>
 @endsection
 <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
      $(document).ready(function() {
@@ -92,4 +97,23 @@
     $('#configuration').hide();
       });
    });
+</script>
+<script>
+    function deleteCity(id){
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            showConfirmButton: true,
+            cancelButtonColor: '#e76363',
+            confirmButtonText: 'Yes, proceed!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('deleteCity'+id).click();
+                    }
+                });
+    }
+
 </script>

@@ -47,7 +47,12 @@
                                 @elseif($profile->status == 2)
                                 <td>Feature</td>
                                 @endif
-                                <td><a href="{{route('removeProfile',['id' => encrypt($profile->id)])}}"><button class="btn btn-primary">Delete</button></a></td>
+                                <td>
+                                    <div>
+                                        <a href="{{route('removeProfile',['id' => encrypt($profile->id)])}}" id="removeProfile{{ $profile->id}}"></a>
+                                        <button class="btn btn-primary" onclick="removeProfile({{ $profile->id }})">Delete</button>
+                                    </div>
+                                </td>
                             </tr>
                             @endforeach
                             @endif
@@ -60,11 +65,28 @@
         </div>
     </section>
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
     <script>
         $(document).ready(function() {
             $('#mytable').DataTable()
         });
-    </script>
+    function removeProfile(id){
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            showConfirmButton: true,
+            cancelButtonColor: '#e76363',
+            confirmButtonText: 'Yes, proceed!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('removeProfile'+id).click();
+                    }
+                });
+    }
+</script>
 @endsection

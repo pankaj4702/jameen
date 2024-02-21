@@ -43,7 +43,12 @@
                                 <td>{{ $service->title }}</td>
                                 <td>{{ $service->description }}</td>
                                 <td>{{ $service->category }}</td>
-                                <td><a href="{{route('removeService',['id' => encrypt($service->id)])}}"><button class="btn btn-primary">Delete</button></a></td>
+                                <td>
+                                    <div>
+                                        <a href="{{route('removeService',['id' => encrypt($service->id)])}}" id="removeService{{ $service->id}}"></a>
+                                        <button class="btn btn-primary" onclick="removeService({{ $service->id }})">Delete</button>
+                                    </div>
+                                </td>
                             </tr>
                             @endforeach
                             </tbody>
@@ -55,11 +60,28 @@
         </div>
     </section>
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
     <script>
         $(document).ready(function() {
             $('#mytable').DataTable()
         });
-    </script>
+    function removeService(id){
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            showConfirmButton: true,
+            cancelButtonColor: '#e76363',
+            confirmButtonText: 'Yes, proceed!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('removeService'+id).click();
+                    }
+                });
+    }
+</script>
 @endsection

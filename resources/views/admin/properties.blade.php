@@ -59,8 +59,16 @@
                                     @php
                                     $encryptedId = encrypt($property->id);
                                     @endphp
+                                    <div class="d-flex justify-content-around">
+                                    <div>
                                     <a href="{{route('property_detail',['id' => $encryptedId])}}"><button class="btn btn-primary">detail</button></a>
-                                    <a href="{{route('property_delete',['id' => $encryptedId])}}"><button class="btn btn-primary">delete</button></a>
+                                     </div>
+                                    {{-- <a href="{{route('property_delete',['id' => $encryptedId])}}"><button class="btn btn-primary">delete</button></a> --}}
+                                    <div>
+                                        <a href="{{route('property_delete',['id' => encrypt($property->id)])}}" id="propertyDelete{{ $property->id}}"></a>
+                                        <button class="btn btn-primary" onclick="propertyDelete({{ $property->id }})">Delete</button>
+                                    </div>
+                                </div>
                                 </td>
                             </tr>
                             @endforeach
@@ -73,6 +81,25 @@
         </div>
     </section>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function propertyDelete(id){
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                showConfirmButton: true,
+                cancelButtonColor: '#e76363',
+                confirmButtonText: 'Yes, proceed!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('propertyDelete'+id).click();
+                        }
+                    });
+        }
+    </script>
     <script>
         $(document).ready(function() {
             $('#mytable').DataTable()

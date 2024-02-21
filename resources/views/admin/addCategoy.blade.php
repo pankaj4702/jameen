@@ -101,7 +101,7 @@
                     </div>
                 </div>
 
-{{-- table --}}
+<!-- table -->
 @if($cat_data)
                 <div class="row">
                     <div class="col-md-12">
@@ -121,7 +121,12 @@
                                     <th scope="row">{{$loop->iteration}}</th>
                                     <td>{{ $data->category_name }}</td>
                                     <td>{{ $data->title }}</td>
-                                    <td><a href="{{route('deleteCategory',['id' => encrypt($data->id)])}}"><button class="btn btn-primary">Delete</button></a></td>
+                                    <td>
+                                        <div>
+                                            <a href="{{route('deleteCategory',['id' => encrypt($data->id)])}}" id="deleteCat{{ $data->id }}"></a>
+                                            <button class="btn btn-primary" onclick="deleteCategory({{ $data->id }})">Delete</button>
+                                        </div>
+                                    </td>
                                 </tr>
                                 @endforeach
                                 </tbody>
@@ -135,18 +140,24 @@
 
         </div>
     </section>
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        // Function to be called when the checkbox is checked
-        function showAlert(id) {
-            var checkbox = document.getElementById(id);
-            var myid = id+"-box";
-            var boxInput= document.getElementById(myid);
-            console.log(boxInput);
-            if (checkbox.checked) {
-                boxInput.setAttribute('name', 'quantity[]');
-            }
+        function deleteCategory(id){
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "If you delete the category then all the properties related to it will be deleted.",
+                icon: 'warning',
+                showCancelButton: true,
+                showConfirmButton: true,
+                cancelButtonColor: '#e76363',
+                confirmButtonText: 'Yes, proceed!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('deleteCat'+id).click();
+                        }
+                    });
         }
     </script>
 

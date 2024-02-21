@@ -49,7 +49,13 @@
                                 <td>{{$team->role }}</td>
                                 <td> <img src="{{ asset('storage/' . $team->image) }}" style="width:75px; height:68px;" /></td>
 
-                                <td><a href="{{route('removeTeam',['id' => encrypt($team->id)])}}"><button class="btn btn-primary">Delete</button></a></td>
+                                {{-- <td><a href="{{route('removeTeam',['id' => encrypt($team->id)])}}"><button class="btn btn-primary">Delete</button></a></td> --}}
+                                <td>
+                                    <div>
+                                        <a href="{{route('removeTeam',['id' => encrypt($team->id)])}}" id="removeTeam{{ $team->id}}"></a>
+                                        <button class="btn btn-primary" onclick="removeTeam({{ $team->id }})">Delete</button>
+                                    </div>
+                                </td>
                             </tr>
                             @endforeach
                             @endif
@@ -62,11 +68,28 @@
         </div>
     </section>
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
     <script>
         $(document).ready(function() {
             $('#mytable').DataTable()
         });
-    </script>
+    function removeTeam(id){
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            showConfirmButton: true,
+            cancelButtonColor: '#e76363',
+            confirmButtonText: 'Yes, proceed!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('removeTeam'+id).click();
+                    }
+                });
+    }
+</script>
 @endsection

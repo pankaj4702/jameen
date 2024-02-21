@@ -59,35 +59,6 @@
 <section class="rezilla-service">
     <div class="container">
         <div class="rezilla-service-inner">
-            <!-- <ul>
-                <li>
-                    <div class="rezilla-service-img">
-                        <ul class="customers">
-                            <li><img src="images/service-one.png" /></li>
-                            <li><img src="images/service-two.png" /></li>
-                            <li><img src="images/service-three.png" /></li>
-                            <li><img src="images/service-four.png" /></li>
-                            <li><img src="images/service-five.png" /></li>
-                            <li><img src="images/service-five.png" /></li>
-                        </ul>
-                    </div>
-                    <div class="rezilla-service-content">
-                        72k+ Happy <br />
-                        Customers
-                    </div>
-                </li>
-                <li>
-                    <div class="rezilla-service-img">
-                        <ul class="everyday">
-                            <li><img src="images/service-seven.png" /></li>
-                        </ul>
-                    </div>
-                    <div class="rezilla-service-content">
-                        200+ New <br />
-                        Listings Everyday!
-                    </div>
-                </li>
-            </ul> -->
         </div>
     </div>
     <div class="service-shape">
@@ -191,6 +162,7 @@
                         <div class="about-right-bottom">
                             <ul>
                                 <li>
+                                    <a href="{{ route('getHolidayHomes') }}">
                                     <div class="about-right-bottom-left">
                                         <svg width="40" height="41" viewBox="0 0 40 41" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -215,8 +187,10 @@
                                         <h3>Homes & Beyond</h3>
                                         <p>Nullam a lacinia ipsum, nec dignissim purus. Nulla</p>
                                     </div>
+                                </a>
                                 </li>
                                 <li>
+                                    <a href="{{ route('investAdvisory') }}">
                                     <div class="about-right-bottom-left">
                                         <svg width="44" height="48" viewBox="0 0 44 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -246,6 +220,7 @@
                                         <h3>Jameen Investments Advisory</h3>
                                         <p>Nullam a lacinia ipsum, nec dignissim purus. Nulla</p>
                                     </div>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -329,140 +304,6 @@
                                 </div>
                             </div>
                         @endforeach
-                            {{-- <div class="item">
-                                <div class="project-slider-wapper">
-                                    <div class="project-slider-wapper-head">
-                                        <figure>
-                                            <img src="{{ asset('images/project-two.png') }}" />
-                                        </figure>
-                                        <div class="project-slider-wapper-status new-listing">
-                                            <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M19.5387 8.55713L10.6731 0.400829C10.3849 0.135674 10.0054 -0.00782393 9.61384 0.000329345C9.2223 0.00848263 8.84906 0.167656 8.57214 0.444579L0.418438 8.59833L0 9.01672V21.037H7.85714V13.537H12.1429V21.037H20V8.98159L19.5387 8.55713Z"
-                                                    fill="#119BFF"
-                                                />
-                                            </svg>
-                                            New Listing
-                                        </div>
-                                    </div>
-                                    <div class="project-slider-wapper-bottom">
-                                        <h3>$ 1,970</h3>
-                                        <h4>Serene Retreat by the Lake</h4>
-                                        <p>1964 Jehovah Drive, VA 22408</p>
-                                        <div class="project-facility">
-                                            <div class="project-beds">
-                                                <svg width="30" height="22" viewBox="0 0 30 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M25 4.5H12V12.0387H10.6154V9.47619C10.6138 8.02433 10.0363 6.63239 9.00971 5.60575C7.9831 4.57912 6.59117 4.00164 5.13931 4H2V0H0V21.5H2V18.5161L28 18.7241V21.5H30V9.5C29.9985 8.17438 29.4712 6.90348 28.5339 5.96613C27.5965 5.02877 26.3256 4.5015 25 4.5ZM2 6H5.13931C6.0609 6.00104 6.94445 6.3676 7.59611 7.01927C8.24777 7.67093 8.61433 8.55447 8.61537 9.47606V12.0386H2V6ZM28 16.724L2 16.516V14.0387H28V16.724ZM28 12.0387H14V6.5H25C25.7954 6.50091 26.5579 6.81727 27.1203 7.37968C27.6827 7.9421 27.9991 8.70463 28 9.5V12.0387Z"
-                                                        fill="#2B2B2B"
-                                                    />
-                                                </svg>
-                                                3 Beds
-                                            </div>
-                                            <div class="project-beds">
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M22.4 13.2596H3.2V4.25964C3.19907 3.9207 3.26538 3.58495 3.39509 3.27182C3.5248 2.95868 3.71533 2.67439 3.95565 2.43538L3.97565 2.41539C4.35228 2.03931 4.83584 1.78868 5.36026 1.69774C5.88468 1.6068 6.42438 1.67998 6.90565 1.90728C6.45114 2.66298 6.26222 3.5489 6.36892 4.42427C6.47562 5.29965 6.87181 6.11425 7.49455 6.73864L8.0421 7.28619L7.03425 8.29409L8.16555 9.42539L9.1734 8.41754L14.7579 2.83318L15.7657 1.82533L14.6344 0.693985L13.6264 1.70184L13.0789 1.15429C12.4233 0.50055 11.5592 0.0975642 10.637 0.0155515C9.71481 -0.0664612 8.79309 0.177699 8.03245 0.705485C7.23036 0.198942 6.27983 -0.0197366 5.33702 0.0853734C4.39422 0.190483 3.51519 0.613131 2.84435 1.28389L2.82435 1.30388C2.43497 1.69113 2.12627 2.15177 1.91611 2.65912C1.70595 3.16648 1.59851 3.71048 1.6 4.25964V13.2596H0V14.8596H1.6V16.3946C1.59997 16.5236 1.62077 16.6517 1.6616 16.7741L3.15 21.2391C3.22943 21.4781 3.38216 21.6861 3.5865 21.8334C3.79084 21.9807 4.0364 22.0598 4.2883 22.0596H4.9333L4.35 24.0596H6.01665L6.6 22.0596H17.005L17.605 24.0596H19.275L18.675 22.0596H19.7115C19.9634 22.0599 20.209 21.9807 20.4134 21.8334C20.6178 21.6861 20.7706 21.4782 20.85 21.2391L22.3383 16.7741C22.3791 16.6517 22.4 16.5236 22.4 16.3946V14.8596H24V13.2596H22.4ZM8.626 2.28563C9.0668 1.8458 9.66407 1.59878 10.2868 1.59878C10.9095 1.59878 11.5068 1.8458 11.9476 2.28563L12.495 2.83318L9.17355 6.15463L8.626 5.60718C8.18619 5.16638 7.93918 4.56911 7.93918 3.94641C7.93918 3.32371 8.18619 2.72644 8.626 2.28563ZM20.8 16.3296L19.4234 20.4596H4.5766L3.2 16.3296V14.8596H20.8V16.3296Z"
-                                                        fill="#2B2B2B"
-                                                    />
-                                                </svg>
-                                                2 Bath
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="project-slider-wapper">
-                                    <div class="project-slider-wapper-head">
-                                        <figure>
-                                            <img src="{{ asset('images/project-three.png') }}" />
-                                        </figure>
-                                        <div class="project-slider-wapper-status discounted-price">
-                                            <svg width="14" height="23" viewBox="0 0 14 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M9.03064 9.83836H9.03008H4.96992C4.48037 9.83836 4.01087 9.64389 3.6647 9.29772C3.31854 8.95156 3.12406 8.48206 3.12406 7.99251C3.12406 7.50295 3.31854 7.03345 3.6647 6.68729C4.01087 6.34112 4.48037 6.14665 4.96992 6.14665H11.4662H11.9662V5.64665V4.02258V3.52258H11.4662H8.51504V1V0.5H8.01504H6.39098H5.89098V1V3.52258H4.96992C3.78442 3.52258 2.64748 3.99352 1.80921 4.83179C0.970936 5.67007 0.5 6.80701 0.5 7.99251C0.5 9.178 0.970937 10.3149 1.80921 11.1532C2.64748 11.9915 3.78442 12.4624 4.96992 12.4624H9.02952C9.51905 12.463 9.98838 12.6577 10.3345 13.0038C10.6807 13.35 10.8754 13.8193 10.8759 14.3088V14.4882C10.8754 14.9777 10.6807 15.4471 10.3345 15.7932C9.98838 16.1394 9.51905 16.3341 9.02952 16.3346H2.15791H1.65791V16.8346V18.4587V18.9587H2.15791H5.89098V21.3008V21.8008H6.39098H8.01504H8.51504V21.3008V18.9587H9.03008H9.03064C10.2156 18.9573 11.3516 18.486 12.1895 17.6482C13.0274 16.8103 13.4987 15.6743 13.5 14.4893V14.4888V14.3083V14.3077C13.4987 13.1228 13.0274 11.9868 12.1895 11.1489C11.3516 10.311 10.2156 9.8397 9.03064 9.83836Z"
-                                                    fill="#00CE3A"
-                                                    stroke="#00CE3A"
-                                                />
-                                            </svg>
-                                            Discounted Price
-                                        </div>
-                                    </div>
-                                    <div class="project-slider-wapper-bottom">
-                                        <h3>$ 3,450</h3>
-                                        <h4>Charming Cottage in the Meadow</h4>
-                                        <p>1508 Centennial Farm RoadHarlan, 51537</p>
-                                        <div class="project-facility">
-                                            <div class="project-beds">
-                                                <svg width="30" height="22" viewBox="0 0 30 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M25 4.5H12V12.0387H10.6154V9.47619C10.6138 8.02433 10.0363 6.63239 9.00971 5.60575C7.9831 4.57912 6.59117 4.00164 5.13931 4H2V0H0V21.5H2V18.5161L28 18.7241V21.5H30V9.5C29.9985 8.17438 29.4712 6.90348 28.5339 5.96613C27.5965 5.02877 26.3256 4.5015 25 4.5ZM2 6H5.13931C6.0609 6.00104 6.94445 6.3676 7.59611 7.01927C8.24777 7.67093 8.61433 8.55447 8.61537 9.47606V12.0386H2V6ZM28 16.724L2 16.516V14.0387H28V16.724ZM28 12.0387H14V6.5H25C25.7954 6.50091 26.5579 6.81727 27.1203 7.37968C27.6827 7.9421 27.9991 8.70463 28 9.5V12.0387Z"
-                                                        fill="#2B2B2B"
-                                                    />
-                                                </svg>
-                                                4 Beds
-                                            </div>
-                                            <div class="project-beds">
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M22.4 13.2596H3.2V4.25964C3.19907 3.9207 3.26538 3.58495 3.39509 3.27182C3.5248 2.95868 3.71533 2.67439 3.95565 2.43538L3.97565 2.41539C4.35228 2.03931 4.83584 1.78868 5.36026 1.69774C5.88468 1.6068 6.42438 1.67998 6.90565 1.90728C6.45114 2.66298 6.26222 3.5489 6.36892 4.42427C6.47562 5.29965 6.87181 6.11425 7.49455 6.73864L8.0421 7.28619L7.03425 8.29409L8.16555 9.42539L9.1734 8.41754L14.7579 2.83318L15.7657 1.82533L14.6344 0.693985L13.6264 1.70184L13.0789 1.15429C12.4233 0.50055 11.5592 0.0975642 10.637 0.0155515C9.71481 -0.0664612 8.79309 0.177699 8.03245 0.705485C7.23036 0.198942 6.27983 -0.0197366 5.33702 0.0853734C4.39422 0.190483 3.51519 0.613131 2.84435 1.28389L2.82435 1.30388C2.43497 1.69113 2.12627 2.15177 1.91611 2.65912C1.70595 3.16648 1.59851 3.71048 1.6 4.25964V13.2596H0V14.8596H1.6V16.3946C1.59997 16.5236 1.62077 16.6517 1.6616 16.7741L3.15 21.2391C3.22943 21.4781 3.38216 21.6861 3.5865 21.8334C3.79084 21.9807 4.0364 22.0598 4.2883 22.0596H4.9333L4.35 24.0596H6.01665L6.6 22.0596H17.005L17.605 24.0596H19.275L18.675 22.0596H19.7115C19.9634 22.0599 20.209 21.9807 20.4134 21.8334C20.6178 21.6861 20.7706 21.4782 20.85 21.2391L22.3383 16.7741C22.3791 16.6517 22.4 16.5236 22.4 16.3946V14.8596H24V13.2596H22.4ZM8.626 2.28563C9.0668 1.8458 9.66407 1.59878 10.2868 1.59878C10.9095 1.59878 11.5068 1.8458 11.9476 2.28563L12.495 2.83318L9.17355 6.15463L8.626 5.60718C8.18619 5.16638 7.93918 4.56911 7.93918 3.94641C7.93918 3.32371 8.18619 2.72644 8.626 2.28563ZM20.8 16.3296L19.4234 20.4596H4.5766L3.2 16.3296V14.8596H20.8V16.3296Z"
-                                                        fill="#2B2B2B"
-                                                    />
-                                                </svg>
-                                                4 Bath
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="project-slider-wapper">
-                                    <div class="project-slider-wapper-head">
-                                        <figure>
-                                            <img src="{{ asset('images/project-one.png') }}" />
-                                        </figure>
-                                        <div class="project-slider-wapper-status">
-                                            <svg width="20" height="23" viewBox="0 0 20 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M12.4076 11.2528C12.6672 10.8265 12.9355 10.3857 13.2006 9.93118C14.0877 8.41044 14.2505 6.87814 13.6846 5.37676C12.5427 2.34747 8.72575 0.501751 7.84209 0.207261L7.22073 0L6.25093 1.93998L6.71893 2.32231C6.72417 2.32651 7.244 2.78073 7.27865 3.4693C7.30824 4.0571 6.986 4.69229 6.32112 5.35736C5.8594 5.81904 5.35264 6.26547 4.8161 6.73805C2.55865 8.72608 0 10.98 0 15.2439C0 15.3024 0.000550676 15.3607 0.00165204 15.4185C0.0180119 16.3595 0.2201 17.2879 0.596308 18.1505C0.972516 19.0131 1.51543 19.7928 2.19387 20.445C3.55621 21.7701 5.38285 22.5097 7.28332 22.5056H11.6306L11.0939 21.4166C8.91356 16.9914 10.4555 14.459 12.4076 11.2528Z"
-                                                    fill="#FF1111"
-                                                />
-                                                <path
-                                                    d="M19.8227 15.1957C19.8102 15.1458 19.797 15.0957 19.7834 15.0454C19.2384 13.0473 16.2217 10.4781 15.8795 10.1917L15.1924 9.6167L14.7418 10.3912C13.7151 12.1565 12.8339 13.7666 12.4498 15.5933C12.0118 17.6765 12.3066 19.7937 13.3513 22.0661L13.5534 22.5058H14.0669C14.9712 22.5084 15.8641 22.3034 16.6767 21.9065C17.4894 21.5096 18.2 20.9314 18.754 20.2166C19.3045 19.5173 19.6872 18.701 19.8725 17.8305C20.0578 16.96 20.0408 16.0586 19.8227 15.1957Z"
-                                                    fill="#FF1111"
-                                                />
-                                            </svg>
-                                            Popular
-                                        </div>
-                                    </div>
-                                    <div class="project-slider-wapper-bottom">
-                                        <h3>$ 2,389</h3>
-                                        <h4>Grand Estate on the Hilltop</h4>
-                                        <p>103 Wright CourtBurien, WA 98168</p>
-                                        <div class="project-facility">
-                                            <div class="project-beds">
-                                                <svg width="30" height="22" viewBox="0 0 30 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M25 4.5H12V12.0387H10.6154V9.47619C10.6138 8.02433 10.0363 6.63239 9.00971 5.60575C7.9831 4.57912 6.59117 4.00164 5.13931 4H2V0H0V21.5H2V18.5161L28 18.7241V21.5H30V9.5C29.9985 8.17438 29.4712 6.90348 28.5339 5.96613C27.5965 5.02877 26.3256 4.5015 25 4.5ZM2 6H5.13931C6.0609 6.00104 6.94445 6.3676 7.59611 7.01927C8.24777 7.67093 8.61433 8.55447 8.61537 9.47606V12.0386H2V6ZM28 16.724L2 16.516V14.0387H28V16.724ZM28 12.0387H14V6.5H25C25.7954 6.50091 26.5579 6.81727 27.1203 7.37968C27.6827 7.9421 27.9991 8.70463 28 9.5V12.0387Z"
-                                                        fill="#2B2B2B"
-                                                    />
-                                                </svg>
-                                                4 Beds
-                                            </div>
-                                            <div class="project-beds">
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M22.4 13.2596H3.2V4.25964C3.19907 3.9207 3.26538 3.58495 3.39509 3.27182C3.5248 2.95868 3.71533 2.67439 3.95565 2.43538L3.97565 2.41539C4.35228 2.03931 4.83584 1.78868 5.36026 1.69774C5.88468 1.6068 6.42438 1.67998 6.90565 1.90728C6.45114 2.66298 6.26222 3.5489 6.36892 4.42427C6.47562 5.29965 6.87181 6.11425 7.49455 6.73864L8.0421 7.28619L7.03425 8.29409L8.16555 9.42539L9.1734 8.41754L14.7579 2.83318L15.7657 1.82533L14.6344 0.693985L13.6264 1.70184L13.0789 1.15429C12.4233 0.50055 11.5592 0.0975642 10.637 0.0155515C9.71481 -0.0664612 8.79309 0.177699 8.03245 0.705485C7.23036 0.198942 6.27983 -0.0197366 5.33702 0.0853734C4.39422 0.190483 3.51519 0.613131 2.84435 1.28389L2.82435 1.30388C2.43497 1.69113 2.12627 2.15177 1.91611 2.65912C1.70595 3.16648 1.59851 3.71048 1.6 4.25964V13.2596H0V14.8596H1.6V16.3946C1.59997 16.5236 1.62077 16.6517 1.6616 16.7741L3.15 21.2391C3.22943 21.4781 3.38216 21.6861 3.5865 21.8334C3.79084 21.9807 4.0364 22.0598 4.2883 22.0596H4.9333L4.35 24.0596H6.01665L6.6 22.0596H17.005L17.605 24.0596H19.275L18.675 22.0596H19.7115C19.9634 22.0599 20.209 21.9807 20.4134 21.8334C20.6178 21.6861 20.7706 21.4782 20.85 21.2391L22.3383 16.7741C22.3791 16.6517 22.4 16.5236 22.4 16.3946V14.8596H24V13.2596H22.4ZM8.626 2.28563C9.0668 1.8458 9.66407 1.59878 10.2868 1.59878C10.9095 1.59878 11.5068 1.8458 11.9476 2.28563L12.495 2.83318L9.17355 6.15463L8.626 5.60718C8.18619 5.16638 7.93918 4.56911 7.93918 3.94641C7.93918 3.32371 8.18619 2.72644 8.626 2.28563ZM20.8 16.3296L19.4234 20.4596H4.5766L3.2 16.3296V14.8596H20.8V16.3296Z"
-                                                        fill="#2B2B2B"
-                                                    />
-                                                </svg>
-                                                3 Bath
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
                     </div>
                 </div>
             </div>
@@ -552,56 +393,91 @@
                 <div class="row">
                     <ul class="inspiration-inner-bottom-content">
                         <li> <div class="inspiration-bottom-inner">
+                            @php
+                                $keyword = 'jaipur';
+                                $city = DB::table('properties')
+                                    ->where('property_location', 'like', '%' . $keyword . '%')
+                                    ->get();
+                                $cities = count($city);
+                            @endphp
                             <figure>
                                 <img src="{{ asset('images/inspiration-one.png') }}" />
                             </figure>
                             <div class="inspiration-bottom-detail">
-                                <h4>216</h4>
-                                <p>New York City, NY</p>
+                                <h4>{{$cities}}</h4>
+                                <p>Jaipur</p>
                             </div>
                         </div></li>
 
                     <li>
                         <div class="inspiration-bottom-inner">
+                            @php
+                                $keyword = 'gurugram';
+                                $city = DB::table('properties')
+                                    ->where('property_location', 'like', '%' . $keyword . '%')
+                                    ->get();
+                                $cities = count($city);
+                            @endphp
                             <figure>
                                 <img src="{{ asset('images/inspiration-two.png') }}" />
                             </figure>
                             <div class="inspiration-bottom-detail">
-                                <h4>141</h4>
-                                <p>Houston, TX</p>
+                                <h4>{{$cities}}</h4>
+                                <p>Gurugram</p>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="inspiration-bottom-inner">
+                            @php
+                                $keyword = 'noida';
+                                $city = DB::table('properties')
+                                    ->where('property_location', 'like', '%' . $keyword . '%')
+                                    ->get();
+                                $cities = count($city);
+                            @endphp
                             <figure>
                                 <img src="{{ asset('images/inspiration-three.png') }}" />
                             </figure>
                             <div class="inspiration-bottom-detail">
-                                <h4>212</h4>
-                                <p>San Diego, CA</p>
+                                <h4>{{$cities}}</h4>
+                                <p>Noida</p>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="inspiration-bottom-inner">
+                            @php
+                                $keyword = 'gaziabad';
+                                $city = DB::table('properties')
+                                    ->where('property_location', 'like', '%' . $keyword . '%')
+                                    ->get();
+                                $cities = count($city);
+                            @endphp
                             <figure>
                                 <img src="{{ asset('images/inspiration-four.png') }}" />
                             </figure>
                             <div class="inspiration-bottom-detail">
-                                <h4>183</h4>
-                                <p>Philadelphia, PA</p>
+                                <h4>{{$cities}}</h4>
+                                <p>Gaziabad</p>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="inspiration-bottom-inner">
+                            @php
+                                $keyword = 'alwar';
+                                $city = DB::table('properties')
+                                    ->where('property_location', 'like', '%' . $keyword . '%')
+                                    ->get();
+                                $cities = count($city);
+                            @endphp
                             <figure>
                                 <img src="{{ asset('images/inspiration-five.png') }}" />
                             </figure>
                             <div class="inspiration-bottom-detail">
-                                <h4>112</h4>
-                                <p>San Francisco, CA</p>
+                                <h4>{{$cities}}</h4>
+                                <p>Alwar</p>
                             </div>
                         </div>
                     </li>
@@ -642,10 +518,10 @@
                             D&B Properties is a top real estate agency based in Dubai, known for its exceptional customer service and extensive knowledge of the local property market. The company has been operating in the region for
                             many years and has built a reputation as a trusted and reliable real estate consultancy in the city.
                         </p>
-                        <button type="button" class="industry-right-btn">
+                        {{-- <button type="button" class="industry-right-btn">
                             Read More
                            <i class="fa-solid fa-angles-right"></i>
-                        </button>
+                        </button> --}}
                     </div>
                 </div>
             </div>

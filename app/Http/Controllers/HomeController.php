@@ -35,7 +35,7 @@ class HomeController extends Controller
         $post_users = PostUser::all();
         $property_type = PropertyCategory::where('id',$property_cat_id)->first();
         $properties = Property::join('property_categories', 'properties.property_category', '=', 'property_categories.id')
-              ->join('property_status', 'properties.property_status', '=', 'property_status.id')
+              ->leftjoin('property_status', 'properties.property_status', '=', 'property_status.id')
               ->where('properties.property_category',$property_cat_id)
               ->where('properties.category_status',1)
               ->select('properties.id','property_categories.category_name as type','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price','properties.images','properties.configuration')
@@ -59,7 +59,7 @@ class HomeController extends Controller
         $post_users = PostUser::all();
         $property_type = PropertyCategory::where('id',$property_cat_id)->first();
         $properties = Property::join('property_categories', 'properties.property_category', '=', 'property_categories.id')
-              ->join('property_status', 'properties.property_status', '=', 'property_status.id')
+              ->leftjoin('property_status', 'properties.property_status', '=', 'property_status.id')
               ->where('properties.property_category',$property_cat_id)
               ->where('properties.category_status',2)
               ->select('properties.id','property_categories.category_name as type','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price','properties.images','properties.configuration')
@@ -83,7 +83,7 @@ class HomeController extends Controller
         $post_users = PostUser::all();
         $property_type = PropertyCategory::where('id',$property_cat_id)->first();
         $properties = Property::join('property_categories', 'properties.property_category', '=', 'property_categories.id')
-              ->join('property_status', 'properties.property_status', '=', 'property_status.id')
+              ->leftjoin('property_status', 'properties.property_status', '=', 'property_status.id')
               ->where('properties.property_category',$property_cat_id)
               ->where('properties.category_status',3)
               ->select('properties.id','property_categories.category_name as type','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price','properties.images','properties.configuration')
@@ -106,7 +106,7 @@ class HomeController extends Controller
         $post_users = PostUser::all();
         $property_type = PropertyCategory::where('id',$property_cat_id)->first();
         $properties = Property::join('property_categories', 'properties.property_category', '=', 'property_categories.id')
-              ->join('property_status', 'properties.property_status', '=', 'property_status.id')
+              ->leftjoin('property_status', 'properties.property_status', '=', 'property_status.id')
               ->where('properties.property_category',$property_cat_id)
               ->where('properties.category_status',4)
               ->select('properties.id','property_categories.category_name as type','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price','properties.images','properties.configuration')
@@ -125,8 +125,8 @@ class HomeController extends Controller
     public function propertyDetail($id){
         $pro_id = decrypt($id);
         $property = Property:: join('property_categories', 'properties.property_category', '=', 'property_categories.id')
-        ->join('property_sources', 'properties.property_source', '=', 'property_sources.id')
-        ->join('property_status', 'properties.property_status', '=', 'property_status.id')
+        ->leftjoin('property_sources', 'properties.property_source', '=', 'property_sources.id')
+        ->leftjoin('property_status', 'properties.property_status', '=', 'property_status.id')
         ->where('properties.id', $pro_id)
         ->select('properties.id','property_categories.category_name as type','properties.property_category as type_id','property_sources.name as source','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price','properties.images','properties.features','properties.feature_image','properties.configuration')
         ->first();
@@ -283,13 +283,14 @@ class HomeController extends Controller
     }
 
     public function propertyList($id){
+
         $property_cat_status = decrypt($id);
         $property_status = Property_status::all();
         $cities = City::all();
         $post_users = PostUser::all();
         $property_cat_status_id = Property::where('category_status',$property_cat_status)->first();
         $properties = Property::join('property_categories', 'properties.property_category', '=', 'property_categories.id')
-              ->join('property_status', 'properties.property_status', '=', 'property_status.id')
+              ->leftjoin('property_status', 'properties.property_status', '=', 'property_status.id')
               ->where('properties.category_status',$property_cat_status)
               ->select('properties.id','property_categories.category_name as type','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price','properties.images','properties.configuration')
               ->paginate(12);
