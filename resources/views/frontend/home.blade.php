@@ -21,22 +21,22 @@
                             <div class="owl-carousel banner-left-slider-inner owl-theme">
                                 <div class="item">
                                     <figure>
-                                        <img src="images/slider-one.png" alt="Slider-image" />
+                                        <img src="{{ asset('images/slider-one.png') }}" alt="Slider-image" class="slide-img-home" />
                                     </figure>
                                 </div>
                                 <div class="item">
                                     <figure>
-                                        <img src="images/slider-one.png" alt="Slider-image" />
+                                        <img src="{{ asset('images/industry-one.png') }}" alt="Slider-image" class="slide-img-home" />
                                     </figure>
                                 </div>
                                 <div class="item">
                                     <figure>
-                                        <img src="images/slider-one.png" alt="Slider-image" />
+                                         <img src="{{ asset('images/inspiration-one.png') }}" alt="Slider-image" class="slide-img-home" />
                                     </figure>
                                 </div>
                                 <div class="item">
                                     <figure>
-                                        <img src="images/slider-one.png" alt="Slider-image" />
+                                        <img src="{{ asset('images/report-banner.png') }}" alt="Slider-image" class="slide-img-home" />
                                     </figure>
                                 </div>
                             </div>
@@ -491,6 +491,12 @@
     <div class="container">
         <div class="industry-inner">
             <div class="row">
+                @php
+                    $keyword = 'alwar';
+                    $blog = DB::table('blogs')->orderBy('id','desc')->first();
+                    $text = $blog->description;
+                    $result = substr($text, 0, 720);
+                @endphp
                 <div class="col-md-6">
                     <div class="industry-inner-left">
                         <figure>
@@ -507,21 +513,14 @@
                 <div class="col-md-6">
                     <div class="industry-inner-right">
                         <h3>Industry</h3>
-                        <h2>A Pioneer in India Jameen online Industry</h2>
-                        <p>
-                            In 2023, Dubai is experiencing one of its best real estate markets since the past decade. A major financial hub and business capital in the Middle East, Dubai’s economy has attracted an influx of
-                            international investors and high-net-worth individuals (HNWIs). It’s strategic position at the centre of international trade routes makes it an ideal location for businesses looking to expand into new
-                            markets, creating a massive demand for residential and commercial properties for investors to take advantage of.
-                        </p>
-
-                        <p>
-                            D&B Properties is a top real estate agency based in Dubai, known for its exceptional customer service and extensive knowledge of the local property market. The company has been operating in the region for
-                            many years and has built a reputation as a trusted and reliable real estate consultancy in the city.
-                        </p>
-                        {{-- <button type="button" class="industry-right-btn">
+                        <h2>{{ $blog->title }}</h2>
+                        <p>{!! $result !!}...</p>
+                        <a href="{{ route('singleBlog',['id'=>encrypt($blog->id)]) }}">
+                        <button type="button" class="industry-right-btn">
                             Read More
                            <i class="fa-solid fa-angles-right"></i>
-                        </button> --}}
+                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

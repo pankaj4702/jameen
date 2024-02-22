@@ -276,6 +276,8 @@
         </div>
     </section>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <script>
         function saveProperty() {
@@ -293,8 +295,16 @@
                 contentType: false,
                 success: function(data) {
                     if (data.status == 1) {
-                       alert('data add successfully');
-                       location.reload();
+                        Swal.fire({
+                        icon: "success",
+                        title: "Property has been saved",
+                        showConfirmButton: true,
+                        allowOutsideClick: false
+                        }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                        }
+                    });
                      }
                     else if(data.status == 0){
                         $('.error-span-' + data.key).html('');
@@ -309,7 +319,6 @@
                     if (xhr.responseJSON && xhr.responseJSON.errors) {
                         $.each(xhr.responseJSON.errors, function(key, value) {
                             var field = key.replace(/\./g, '_');
-                            // alert(value);
                             $('.error-span-'+field).html('');
                             $('.error-span-'+field).append(value);
                         });
@@ -468,5 +477,4 @@
             });
         }
     </script>
-
     @endsection

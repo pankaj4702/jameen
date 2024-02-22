@@ -1264,7 +1264,7 @@ header .navbar {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    max-width: 531px;
+    max-width: 600px;
 }
 
 .industry-inner-right p {
@@ -5255,4 +5255,7 @@ width: 40%;
 }
 .faq {
     width: 28px;
+}
+.slide-img-home {
+    height: 360px;
 }

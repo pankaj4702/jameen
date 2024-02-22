@@ -288,7 +288,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class=" cls-listing-pg">
+                                <div class=" cls-listing-pg" id="paginate">
                                     <div class="paginate-nav-link">
                                         @if ($properties->onFirstPage())
                                             <span class="disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
@@ -310,7 +310,6 @@
                                             </span>
                                         @endif
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -345,7 +344,9 @@
     </script>
     <!-- filteration -->
     <script>
+
         $('.property-type-checkbox').on('change', function() {
+
             var type = $('#type-id').data('value');
             var status_id = $('#catstatus-id').data('value');
             var configArray = [];
@@ -424,6 +425,7 @@
                             $('#pro_len').html(`${response.length}`);
                         }
                         $('#card-box').html('');
+                        $('#paginate').html('');
                         $.each(response, function(index, data) {
                             var encryptedId = data.encrptId;
                             var decodedObject = JSON.parse(data.configuration);

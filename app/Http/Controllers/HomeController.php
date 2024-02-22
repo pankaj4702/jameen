@@ -39,7 +39,7 @@ class HomeController extends Controller
               ->where('properties.property_category',$property_cat_id)
               ->where('properties.category_status',1)
               ->select('properties.id','property_categories.category_name as type','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price','properties.images','properties.configuration')
-              ->paginate(12);
+              ->paginate(6);
         $properties->each(function ($property) {
             $configurations = json_decode($property->configuration);
             $configArray = (array) $configurations;
@@ -53,7 +53,6 @@ class HomeController extends Controller
 
     function RentPropertyList($id){
         $property_cat_id =  decrypt($id);
-        // dd($property_cat_id);
         $property_status = Property_status::all();
         $cities = City::all();
         $post_users = PostUser::all();
@@ -168,6 +167,7 @@ class HomeController extends Controller
     }
 
     public function getbedroom(Request $request){
+        // dd($request->all());
         $minvalue = $request->input('min_area');
         $maxvalue = $request->input('max_area');
         $minBudget = $request->input('min_budget');
@@ -186,7 +186,7 @@ class HomeController extends Controller
         $pro_cat_id  = $request->property_type;
 
         $properties = Property::join('property_categories', 'properties.property_category', '=', 'property_categories.id')
-        ->join('property_status', 'properties.property_status', '=', 'property_status.id');
+        ->leftjoin('property_status', 'properties.property_status', '=', 'property_status.id');
 
         if (isset($request->property_type)){
             $properties->where('properties.property_category', $request->property_type);
