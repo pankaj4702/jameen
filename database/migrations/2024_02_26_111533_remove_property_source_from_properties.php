@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('property_sources', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->integer('category');
-            $table->timestamps();
+        Schema::table('properties', function (Blueprint $table) {
+            $table->dropColumn('property_source');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('property_sources');
+        Schema::table('properties', function (Blueprint $table) {
+            $table->integer('property_source');
+        });
     }
 };

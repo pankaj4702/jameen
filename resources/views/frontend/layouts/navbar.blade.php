@@ -18,7 +18,7 @@
                    @endphp
                     <ul class="dropdown-menu">
                         @foreach($buyPropertyTypes as $buyPropertyType)
-                        <li><a class="dropdown-item" href="{{ route('BuyPropertyList',['id'=>encrypt($buyPropertyType->id)]) }}">{{ $buyPropertyType->category_name}}</a></li>
+                        <a class="dropdown-item" href="{{ route('BuyPropertyList',['id'=>encrypt($buyPropertyType->id)]) }}"><li>{{ $buyPropertyType->category_name}}</li></a>
                         @endforeach
                         {{-- <li><a class="dropdown-item" href="#">View All</a></li> --}}
                     </ul>

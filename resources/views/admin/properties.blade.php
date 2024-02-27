@@ -32,7 +32,6 @@
                                 <th scope="col"> Property Category</th>
                                 <th scope="col"> Property Name</th>
                                 <th scope="col">Property Status</th>
-                                <th scope="col">Property Source</th>
                                 <th scope="col">Category status</th>
                                 <th scope="col">Actions</th>
                             </tr>
@@ -44,7 +43,6 @@
                                 <td>{{ $property->type }}</td>
                                 <td>{{ $property->property_name }}</td>
                                 <td>{{ $property->status }}</td>
-                                <td>{{ $property->source }}</td>
                                 @if($property->category_status == 1)
                                 <td>Buy</td>
                                 @elseif($property->category_status == 2)

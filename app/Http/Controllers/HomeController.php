@@ -25,7 +25,27 @@ class HomeController extends Controller
       return view('frontend.home',compact('projects','testimonials'));
     }
 
-
+    public function propertyList($id){
+        $property_cat_status = decrypt($id);
+        $property_status = Property_status::all();
+        $cities = City::all();
+        $post_users = PostUser::all();
+        $property_cat_status_id = Property::where('category_status',$property_cat_status)->first();
+        $properties = Property::join('property_categories', 'properties.property_category', '=', 'property_categories.id')
+              ->leftjoin('property_status', 'properties.property_status', '=', 'property_status.id')
+              ->where('properties.category_status',$property_cat_status)
+              ->select('properties.id','property_categories.category_name as type','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price','properties.images','properties.configuration')
+              ->paginate(21);
+        $properties->each(function ($property) {
+            $configurations = json_decode($property->configuration);
+            $configArray = (array) $configurations;
+            $property->configuration = $configArray;
+    });
+        $properties->each(function ($property) {
+            $property->images = explode(',', $property->images);
+    });
+        return view('frontend.propertyList',compact('post_users','cities','property_status','properties','property_cat_status_id'));
+    }
 
     function BuyPropertyList($id){
         $property_cat_id = decrypt($id);
@@ -39,7 +59,7 @@ class HomeController extends Controller
               ->where('properties.property_category',$property_cat_id)
               ->where('properties.category_status',1)
               ->select('properties.id','property_categories.category_name as type','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price','properties.images','properties.configuration')
-              ->paginate(6);
+              ->paginate(21);
         $properties->each(function ($property) {
             $configurations = json_decode($property->configuration);
             $configArray = (array) $configurations;
@@ -48,7 +68,8 @@ class HomeController extends Controller
         $properties->each(function ($property) {
             $property->images = explode(',', $property->images);
     });
-        return view('frontend.propertyList',compact('post_users','cities','property_status','properties','property_type'));
+        $cat_name = 'Buy';
+        return view('frontend.propertyList',compact('cat_name','post_users','cities','property_status','properties','property_type'));
     }
 
     function RentPropertyList($id){
@@ -62,7 +83,7 @@ class HomeController extends Controller
               ->where('properties.property_category',$property_cat_id)
               ->where('properties.category_status',2)
               ->select('properties.id','property_categories.category_name as type','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price','properties.images','properties.configuration')
-              ->paginate(12);
+              ->paginate(21);
         $properties->each(function ($property) {
             $configurations = json_decode($property->configuration);
             $configArray = (array) $configurations;
@@ -71,7 +92,8 @@ class HomeController extends Controller
         $properties->each(function ($property) {
             $property->images = explode(',', $property->images);
     });
-        return view('frontend.propertyList',compact('post_users','cities','property_status','properties','property_type'));
+    $cat_name = 'Rent';
+        return view('frontend.propertyList',compact('cat_name','post_users','cities','property_status','properties','property_type'));
     }
 
 
@@ -86,7 +108,7 @@ class HomeController extends Controller
               ->where('properties.property_category',$property_cat_id)
               ->where('properties.category_status',3)
               ->select('properties.id','property_categories.category_name as type','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price','properties.images','properties.configuration')
-              ->paginate(12);
+              ->paginate(21);
         $properties->each(function ($property) {
             $configurations = json_decode($property->configuration);
             $configArray = (array) $configurations;
@@ -95,7 +117,8 @@ class HomeController extends Controller
         $properties->each(function ($property) {
             $property->images = explode(',', $property->images);
     });
-        return view('frontend.propertyList',compact('post_users','cities','property_status','properties','property_type'));
+    $cat_name = 'PG';
+        return view('frontend.propertyList',compact('cat_name','post_users','cities','property_status','properties','property_type'));
     }
 
     function CommPropertyList($id){
@@ -109,7 +132,7 @@ class HomeController extends Controller
               ->where('properties.property_category',$property_cat_id)
               ->where('properties.category_status',4)
               ->select('properties.id','property_categories.category_name as type','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price','properties.images','properties.configuration')
-              ->paginate(12);
+              ->paginate(21);
         $properties->each(function ($property) {
             $configurations = json_decode($property->configuration);
             $configArray = (array) $configurations;
@@ -118,16 +141,16 @@ class HomeController extends Controller
         $properties->each(function ($property) {
             $property->images = explode(',', $property->images);
     });
-        return view('frontend.propertyList',compact('post_users','cities','property_status','properties','property_type'));
+    $cat_name = 'Commercial';
+        return view('frontend.propertyList',compact('cat_name','post_users','cities','property_status','properties','property_type'));
     }
 
     public function propertyDetail($id){
         $pro_id = decrypt($id);
         $property = Property:: join('property_categories', 'properties.property_category', '=', 'property_categories.id')
-        ->leftjoin('property_sources', 'properties.property_source', '=', 'property_sources.id')
         ->leftjoin('property_status', 'properties.property_status', '=', 'property_status.id')
         ->where('properties.id', $pro_id)
-        ->select('properties.id','property_categories.category_name as type','properties.property_category as type_id','property_sources.name as source','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price','properties.images','properties.features','properties.feature_image','properties.configuration')
+        ->select('properties.id','property_categories.category_name as type','properties.property_category as type_id','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price','properties.images','properties.features','properties.feature_image','properties.configuration')
         ->first();
         $property->images = explode(',', $property->images);
 
@@ -166,24 +189,39 @@ class HomeController extends Controller
        return view('frontend.propertyDetail',compact('property','features','configString','similar_properties'));
     }
 
-    public function getbedroom(Request $request){
-        // dd($request->all());
+    public function propertyFilter(Request $request){
         $minvalue = $request->input('min_area');
         $maxvalue = $request->input('max_area');
         $minBudget = $request->input('min_budget');
         $maxBudget = $request->input('max_budget');
         $location = $request->input('location');
         $configurations = $request->input('configurations');
+
         $categories = $request->input('category');
         $postBy = $request->input('post_user');
         $status = $request->input('construction_status');
         $bedroomArray = explode(',', $configurations['bedroom']);
         $bathroomArray = explode(',',$configurations['bathroom']);
         $categoryArray = explode(',', $categories);
-        $postByArray = explode(',', $postBy);
         $statusArray = explode(',', $status);
         $cat_status_id  = $request->cat_status_id;
         $pro_cat_id  = $request->property_type;
+        $bedroom = $configurations['bedroom'];
+        $bathroom = $configurations['bathroom'];
+
+
+        $propertyArray = [$bedroom,$bathroom,$minvalue,$maxvalue,$minBudget,$maxBudget,$categories,$postBy,$status,$location];
+
+        $isNull = true; // Assume initially everything is null
+
+        foreach ($propertyArray as $value) {
+            if ($value !== null) {
+                // If any element is not null, set $isNull to false and break out of the loop
+                $isNull = false;
+                break;
+            }
+        }
+        if($isNull == false){
 
         $properties = Property::join('property_categories', 'properties.property_category', '=', 'property_categories.id')
         ->leftjoin('property_status', 'properties.property_status', '=', 'property_status.id');
@@ -202,9 +240,16 @@ class HomeController extends Controller
         if (!empty($categoryArray[0])) {
             $properties->whereIn('properties.category', $categoryArray);
         }
-        if (!empty($postByArray[0])) {
-            $properties->whereIn('properties.post_user', $postByArray);
+        if (!empty($postBy)) {
+            $postByArray = explode(',',$postBy);
+            $properties->where(function ($query) use ($postByArray) {
+                foreach ($postByArray as $loc) {
+                    $query->orWhere('properties.post_user', $loc);
+                }
+            });
         }
+
+
         if (!empty($statusArray[0])) {
             $properties->whereIn('properties.property_status', $statusArray);
         }
@@ -241,7 +286,13 @@ class HomeController extends Controller
             $property->images = explode(',', $property->images);
             $property->encrptId = Crypt::encrypt($property->id);
         });
-             return response()->json($properties);
+        return response()->json($properties);
+    }
+    else{
+        $properties = '';
+        return response()->json($properties);
+    }
+
     }
 
     public function featureAmenities(Request $request){
@@ -282,29 +333,6 @@ class HomeController extends Controller
                }
     }
 
-    public function propertyList($id){
-
-        $property_cat_status = decrypt($id);
-        $property_status = Property_status::all();
-        $cities = City::all();
-        $post_users = PostUser::all();
-        $property_cat_status_id = Property::where('category_status',$property_cat_status)->first();
-        $properties = Property::join('property_categories', 'properties.property_category', '=', 'property_categories.id')
-              ->leftjoin('property_status', 'properties.property_status', '=', 'property_status.id')
-              ->where('properties.category_status',$property_cat_status)
-              ->select('properties.id','property_categories.category_name as type','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price','properties.images','properties.configuration')
-              ->paginate(12);
-        $properties->each(function ($property) {
-            $configurations = json_decode($property->configuration);
-            $configArray = (array) $configurations;
-            $property->configuration = $configArray;
-    });
-        $properties->each(function ($property) {
-            $property->images = explode(',', $property->images);
-    });
-        return view('frontend.propertyList',compact('post_users','cities','property_status','properties','property_cat_status_id'));
-    }
-
     public function news(){
         $news = News::where('status',1)->orderBy('id','desc')->get();
         return view('frontend.market_trends.news.News',compact('news'));
@@ -324,7 +352,6 @@ class HomeController extends Controller
     }
     public function singleInsight($id){
         $insightId = decrypt($id);
-        // dd($insightId);
         $insight = Insight::where('id',$insightId)->first();
         return view('frontend.market_trends.insight.singleInsight',compact('insight'));
     }

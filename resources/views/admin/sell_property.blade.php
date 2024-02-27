@@ -149,7 +149,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                {{-- <div class="col-md-4">
                                                     <div class="property-listing-tab-content">
                                                         <label>How did you hear of DandB?</label>
                                                         <div class="property-type-content">
@@ -171,7 +171,7 @@
                                                             </figure>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <div class="col-md-4">
                                                     <div class="property-listing-tab-content">
                                                         <div class="property-listing-tab-content">
@@ -209,7 +209,7 @@
                                                     <div class="property-listing-tab-content">
                                                         <label>Property Images</label>
                                                         <div class="property-type-content">
-                                                            <input type="file" id="imageInput" name="image[]" onchange="checkSelectionSell('image')"
+                                                            <input type="file" id="imageInput" style="height:55px;" name="image[]" onchange="checkSelectionSell('image')"
                                                                 multiple>
                                                             <div>
                                                                 <span class="error-span-image error"
@@ -281,11 +281,11 @@
 
     <script>
         function saveProperty() {
+            var myValue = document.getElementById('property_cat').value;
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var formData = new FormData($('#sell-form')[0]);
             formData.append('_token', csrfToken);
             var dataValue = $('#pills-sell-tab').data('value');
-            console.log(formData);
             $.ajax({
                 type: 'POST',
                 url: "{{ route('store_property') }}",
@@ -316,6 +316,10 @@
                     }
                 },
                 error: function(xhr, status, error) {
+                    if(myValue == ""){
+                alert('please salect the property category');
+            }
+            else{
                     if (xhr.responseJSON && xhr.responseJSON.errors) {
                         $.each(xhr.responseJSON.errors, function(key, value) {
                             var field = key.replace(/\./g, '_');
@@ -325,6 +329,7 @@
                     } else {
                         console.error(error);
                     }
+                }
                 }
             });
         }
@@ -353,7 +358,7 @@
                         <div class="col-md-2">
                         <div class="property-listing-tab-content">
                             <div class="form-check form-switch">
-  <input class="form-check-input" type="checkbox" name="features[]" value="${data}" id="flexSwitchCheckDefault${index}">
+  <input class="form-check-input" type="checkbox" name="features[]" value="${data}" id="flexSwitchCheckDefault${index}" onchange="checkSelectionSell('features')">
   <label class="form-check-label" for="flexSwitchCheckDefault${index}">${data}</label>
 </div>
                                 </div>
@@ -398,7 +403,7 @@
                         <div class="property-listing-tab-content">
                             <label>${data.name}</label>
                             <div class="property-type-content">
-                                <select class="form-select" aria-label="Default select example" name="configuration[${myname}]">
+                                <select class="form-select" aria-label="Default select example" name="configuration[${myname}]" onchange="checkSelectionSell('configuration_${data.name}')">
                                     <option value="" selected>Please Select</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>

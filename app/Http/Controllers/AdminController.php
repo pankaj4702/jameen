@@ -95,7 +95,11 @@ class AdminController extends Controller
         }
 
     public function addFeatureAmenities(){
-        $pro_categories = PropertyCategory::all();
+        $pro_categories = PropertyCategory::orderBy('feature_amenities.id','desc')
+        ->select('feature_amenities.id as featureId','feature_amenities.feature','property_categories.category_name','main_categories.title','feature_amenities.image')
+        ->leftjoin('feature_amenities','property_categories.id','feature_amenities.category_id')
+        ->leftjoin('main_categories','property_categories.status','main_categories.id')
+        ->get();
             return view('admin.addFeatureAmenities',compact('pro_categories'));
     }
 
@@ -126,6 +130,14 @@ class AdminController extends Controller
             }
         }
 
+        public function deleteFeature($ecryptedId){
+            $id = decrypt($ecryptedId);
+            $property_feature = FeatureAmenities::where('id',$id)->first();
+            if ($property_feature) {
+                $property_feature->delete();
+                return redirect()->back()->with('success', 'Property Feature Deleted Successfully.');
+            }
+        }
     public function add_property(){
         $result = DB::table('property__types')
             ->select('property__types.id as typeId','property__types.name as type_name','property__types.configuration','configurations.name')
@@ -156,7 +168,6 @@ class AdminController extends Controller
             'property_name' => 'required|min:5|max:50',
             'property_location'=>'required|min:3|max:10',
             'price'=>'required|max:9',
-            'property_source'=>'required',
             'property_status'=>'required',
             'seller_message' => 'required|min:10',
             'image'=>'required',
@@ -206,7 +217,6 @@ class AdminController extends Controller
             'property_name'=>$request->property_name,
             'property_location'=>$address,
             'property_status'=>$request->property_status,
-            'property_source'=>$request->property_source,
             'area'=>$request->property_area,
             'description'=>$request->seller_message,
             'price'=>$request->price,
@@ -229,9 +239,8 @@ class AdminController extends Controller
 
     public function all_property(){
         $properties = Property::join('property_categories', 'properties.property_category', '=', 'property_categories.id')
-              ->leftjoin('property_sources', 'properties.property_source', '=', 'property_sources.id')
               ->leftjoin('property_status', 'properties.property_status', '=', 'property_status.id')
-              ->get(['properties.id','property_categories.category_name as type','property_sources.name as source','property_status.name as status','properties.property_name','properties.property_location','properties.category_status']);
+              ->get(['properties.id','property_categories.category_name as type','property_status.name as status','properties.property_name','properties.property_location','properties.category_status']);
         return view('admin.properties',compact('properties'));
     }
 
@@ -305,10 +314,9 @@ class AdminController extends Controller
            $images = explode(',',$property_images->images);
 
             $property = Property::join('property_categories', 'properties.property_category', '=', 'property_categories.id')
-              ->leftjoin('property_sources', 'properties.property_source', '=', 'property_sources.id')
               ->leftjoin('property_status', 'properties.property_status', '=', 'property_status.id')
               ->where('properties.id', $id)
-              ->first(['properties.id','property_categories.category_name as type','property_sources.name as source','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price']);
+              ->first(['properties.id','property_categories.category_name as type','property_status.name as status','properties.property_name','properties.property_location','properties.category_status','properties.description','properties.area','properties.price']);
            return view('admin.projectDetail',compact('property','images'));
         }
 

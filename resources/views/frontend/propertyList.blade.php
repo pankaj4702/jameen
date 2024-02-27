@@ -8,9 +8,29 @@
         <div class="container">
             <div class="apartment-inner">
                 <div class="apartment-inner-head">
-                    {{-- <div class="apartment-breadcumb">
-                            <a href="{{ route('home') }}">Home </a> > <span>{{ $property_type->name }}</span>
-                        </div> --}}
+                    @if(isset($cat_name))
+                    <div class="apartment-breadcumb">
+
+                            <a href="{{ route('home') }}">Home </a> > <span><a href="{{ route('propertyList',['id'=>encrypt( $property_type->status )]) }}">{{ $cat_name }}</a></span> > <span>{{ $property_type->property_name }}</span>
+
+                    </div>
+                        @elseif($property_cat_status_id->category_status == 1)
+                    <div class="apartment-breadcumb">
+                            <a href="{{ route('home') }}">Home </a> > <span>Buy</span>
+                    </div>
+                    @elseif($property_cat_status_id->category_status == 2)
+                    <div class="apartment-breadcumb">
+                            <a href="{{ route('home') }}">Home </a> > <span>Rent</span>
+                    </div>
+                    @elseif($property_cat_status_id->category_status == 3)
+                    <div class="apartment-breadcumb">
+                            <a href="{{ route('home') }}">Home </a> > <span>PG</span>
+                    </div>
+                    @elseif($property_cat_status_id->category_status == 4)
+                    <div class="apartment-breadcumb">
+                            <a href="{{ route('home') }}">Home </a> > <span>Commercial</span>
+                    </div>
+                    @endif
                 </div>
                 <div class="apartment-inner-bottom">
                     <div class="apartment-bottom-content">
@@ -171,7 +191,7 @@
                                                 <h4>Localities</h4>
                                             </div>
                                             <div class="property-type-apartment number-bedrooms">
-                                                <form action="/action_page.php">
+                                                {{-- <form action="/action_page.php"> --}}
                                                     @foreach ($cities as $key => $city)
                                                         <div class="location-form">
                                                             <input type="checkbox" id="location{{ $key }}"
@@ -182,7 +202,7 @@
                                                         </div>
                                                     @endforeach
 
-                                                </form>
+                                                {{-- </form> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -361,14 +381,13 @@
             }).get().join(', ');
             var constructionStatus = $('#constructionStatusFilter input:checked').map(function() {
                 return this.value;
-            }).get().join(', ');
+            }).get().join(',');
             var location = $('#locality input:checked').map(function() {
                 return this.value;
             }).get().join(', ');
-            postedByFilter
             var postedBy = $('#postedByFilter input:checked').map(function() {
                 return this.value;
-            }).get().join(', ');
+            }).get().join(',');
 
             if ($('#propertyArea input:checked')) {
                 var minValue = $('#slider-min-control').val();
@@ -378,7 +397,8 @@
                 var minBudgetValue = $('#min-budget-price').val();
                 var maxBudgetValue = $('#max-budget-price').val();
             }
-
+            console.log("status= "+constructionStatus);
+            console.log('location- '+location);
             configArray.push({
                 key: 'bedroom',
                 value: bedrooms
@@ -392,7 +412,7 @@
                 configuration[config.key] = config.value;
             });
             $.ajax({
-                url: "{{ route('getbedroom') }}",
+                url: "{{ route('propertyFilter') }}",
                 type: 'GET',
                 data: {
                     property_type: type,
@@ -408,7 +428,6 @@
                     location: location
                 },
                 success: function(response) {
-                    console.log(response);
                     if (response != '') {
                         if (response[0].category_status == 1) {
                             $('#dek-dik').html(` ${response.length} results | Buy`);
@@ -450,13 +469,13 @@
                             $('#card-box').append(`
                         <div class="col-md-4">
                             <div class="project-slider-wapper"><a href="{{ url('property-detail/') }}/${encryptedId}) }}"><div class="project-slider-wapper-head project-slider-wapper-single"><figure><img src="{{ asset('storage/') }}/${data.images[0]}" alt="myimage" /></figure>
-                                    <div class="project-slider-wapper-status"><svg width="20" height="23" viewBox="0 0 20 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M12.4076 11.2528C12.6672 10.8265 12.9355 10.3857 13.2006 9.93118C14.0877 8.41044 14.2505 6.87814 13.6846 5.37676C12.5427 2.34747 8.72575 0.501751 7.84209 0.207261L7.22073 0L6.25093 1.93998L6.71893 2.32231C6.72417 2.32651 7.244 2.78073 7.27865 3.4693C7.30824 4.0571 6.986 4.69229 6.32112 5.35736C5.8594 5.81904 5.35264 6.26547 4.8161 6.73805C2.55865 8.72608 0 10.98 0 15.2439C0 15.3024 0.000550676 15.3607 0.00165204 15.4185C0.0180119 16.3595 0.2201 17.2879 0.596308 18.1505C0.972516 19.0131 1.51543 19.7928 2.19387 20.445C3.55621 21.7701 5.38285 22.5097 7.28332 22.5056H11.6306L11.0939 21.4166C8.91356 16.9914 10.4555 14.459 12.4076 11.2528Z"
-                                                fill="#FF1111" ></path><path d="M19.8227 15.1957C19.8102 15.1458 19.797 15.0957 19.7834 15.0454C19.2384 13.0473 16.2217 10.4781 15.8795 10.1917L15.1924 9.6167L14.7418 10.3912C13.7151 12.1565 12.8339 13.7666 12.4498 15.5933C12.0118 17.6765 12.3066 19.7937 13.3513 22.0661L13.5534 22.5058H14.0669C14.9712 22.5084 15.8641 22.3034 16.6767 21.9065C17.4894 21.5096 18.2 20.9314 18.754 20.2166C19.3045 19.5173 19.6872 18.701 19.8725 17.8305C20.0578 16.96 20.0408 16.0586 19.8227 15.1957Z"
-                                                fill="#FF1111"></path></svg>Popular</div></div></a><div class="apa-wapper-bottom"><h3>₹${data.price}</h3><h4>${data.property_name}</h4><p>${data.property_location}</p><div class="apartment-facility">
+                                    </div></a><div class="apa-wapper-bottom"><h3>₹${data.price}</h3><h4>${data.property_name}</h4><p>${data.property_location}</p><div class="apartment-facility">
                                     ${objBed}
                                     ${objBath}`);
                         });
+                    }
+                    else{
+                        window.location.reload();
                     }
                 },
                 error: function(error) {

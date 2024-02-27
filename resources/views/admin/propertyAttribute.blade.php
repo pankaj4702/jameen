@@ -51,12 +51,6 @@
                                     <input type="text" id="status" autocomplete="off" name="status"
                                         class="form-control" placeholder="Enter Price">
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Property Source<span
-                                            style="font-size:10px;"><i>(optional)</i></span></label>
-                                    <input type="text" id="source" autocomplete="off" name="source"
-                                        class="form-control" placeholder="Enter address">
-                                </div>
                                 <input type="submit" class="btn btn-primary" value="Submit">
                         </form>
                     </div>
@@ -90,33 +84,7 @@
                     </table>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card card-primary">
-                    <h3>Property Source</h3><br>
-                    <table class="table" id="mytable2">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">Sno.</th>
-                                <th scope="col"> Title</th>
-                                <th scope="col">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                                @foreach($property_source as $source)
-                                <tr>
-                                    <th scope="row">{{$loop->iteration}}</th>
-                                    <td>{{ $source->name }}</td>
-                                       <td> <div>
-                                            <a href="{{route('deleteSource',['id' => encrypt($source->id)])}}" id="deleteSource{{ $source->id}}"></a>
-                                            <button class="btn btn-primary" onclick="deleteSource({{ $source->id }})">Delete</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+
         </div>
     </section>
 @endsection

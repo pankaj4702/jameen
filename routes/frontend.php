@@ -16,7 +16,7 @@ Route::get('/rent-properties/{id}',[HomeController::class,'RentPropertyList'])->
 Route::get('/pg-properties/{id}',[HomeController::class,'PgPropertyList'])->name('PgPropertyList');
 Route::get('/commercial-properties/{id}',[HomeController::class,'CommPropertyList'])->name('CommPropertyList');
 Route::get('/property-detail/{id}',[HomeController::class,'propertyDetail'])->name('propertyDetail');
-Route::get('/get-bedroom',[HomeController::class,'getbedroom'])->name('getbedroom');
+Route::get('/get-bedroom',[HomeController::class,'propertyFilter'])->name('propertyFilter');
 // Route::get('/get-location',[LocationController::class,'getLocation']);
 Route::get('/get-featureAmenities',[HomeController::class,'featureAmenities'])->name('featureAmenities');
 Route::get('/send-mail',[MailController::class,'index'])->name('subscribe');
