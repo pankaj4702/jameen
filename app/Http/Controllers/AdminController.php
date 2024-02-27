@@ -56,21 +56,20 @@ class AdminController extends Controller
         $cat_data = PropertyCategory::join('main_categories','property_categories.status','main_categories.id')
         ->select('property_categories.id','category_name','title')
         ->get();
-        // dd($cat_data);
         return view('admin.addCategoy',compact('configurations','cat_data'));
     }
 
     public function storeCategory(Request $request){
         $request->validate([
-          'title' =>'required|string|max:50',
-          'category'=>'required',
+          'category' =>'required|string|max:50',
+          'main_category'=>'required',
       ]);
             if(isset($request->config)){
             $configuration =implode(',',$request->config);
             }
             $categoryData =[
-                'category_name'=>$request->title,
-                'status'=>$request->category,
+                'category_name'=>$request->category,
+                'status'=>$request->main_category,
             ];
             if (isset($configuration)) {
                 $categoryData['configuration'] = $configuration;
@@ -93,6 +92,16 @@ class AdminController extends Controller
                 return redirect()->back();
             }
         }
+
+    public function delete_configuration($id){
+       $mainId = decrypt($id);
+       $property_config = Configuration::where('id',$mainId)->first();
+       if ($property_config) {
+           $property_config->delete();
+           return redirect()->back();
+       }
+
+    }
 
     public function addFeatureAmenities(){
         $pro_categories = PropertyCategory::orderBy('feature_amenities.id','desc')
@@ -406,7 +415,7 @@ class AdminController extends Controller
                  'status'=>0,
              ]);
              if($testimonial){
-                 return redirect()->back();
+                 return redirect()->back()->with('success', 'Data Saved Successfully.');;
              }
          }
 
@@ -461,7 +470,7 @@ class AdminController extends Controller
                 'status'=>1,
             ]);
             if($assets){
-                return redirect()->back();
+                return redirect()->back()->with('success', 'Data Saved Successfully.');;
             }
         }
 
@@ -899,7 +908,7 @@ class AdminController extends Controller
                  'image'=>$media_image,
                  'description'=>$request->description,
              ]);
-             return redirect()->back();
+             return redirect()->back()->with('success', 'Data Updated Successfully.');;
         }
 
         public function faq(){
@@ -911,7 +920,7 @@ class AdminController extends Controller
         }
 
         public function addFaq(){
-            $service_categories = ServiceCategory::get();
+            $service_categories = ServiceCategory::where('id','!=',7)->get();
             return view('admin.faq.addFaq',compact('service_categories'));
         }
 

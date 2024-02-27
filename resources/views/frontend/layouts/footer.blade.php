@@ -88,17 +88,19 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="footer-bottom-inner-left">
+                            <a href="{{ route('home') }}">
                             <figure>
                                 <img src="{{ asset('images/footer-logo.png') }}" />
                             </figure>
+                        </a>
                             <p>© Jameen online – All rights reserved</p>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="footer-bottom-inner-right">
                             <ul>
-                                <li><a href="terms-conditions.html">Terms and Conditions</a></li>
-                                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                                <li><a href="{{ route('termsCondition') }}">Terms and Conditions</a></li>
+                                <li><a href="{{ route('privacyPolicy') }}">Privacy Policy</a></li>
                                 <li><a href="javascript::">Disclaimer</a></li>
                             </ul>
                         </div>

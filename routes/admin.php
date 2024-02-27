@@ -15,6 +15,7 @@ Route::prefix('/admin')->middleware('checkAdminAuth')->group(function () {
     Route::get('/add-category',[AdminController::class,'addCategory'])->name('addCategory');
     Route::post('/store-category',[AdminController::class,'storeCategory'])->name('storeCategory');
     Route::post('/store-configuration',[AdminController::class,'store_configuration'])->name('store_configuration');
+    Route::get('/delete-configuration/{id}',[AdminController::class,'delete_configuration'])->name('delete_configuration');
     Route::get('/get-configuration',[AdminController::class,'getconfiguration'])->name('configuration');
     Route::get('/add-featureAmenities',[AdminController::class,'addFeatureAmenities'])->name('addFeatureAmenities');
     Route::post('/store-featureamenities',[AdminController::class,'storeFeatureAmenities'])->name('storeFeatureAmenities');

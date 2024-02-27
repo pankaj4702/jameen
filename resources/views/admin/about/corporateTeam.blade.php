@@ -14,14 +14,13 @@
                     </ol>
                 </div>
             </div>
-            <div class="row" style="display: flex;">
+            <div class="row">
             <div style="text-align: end;">
                 <a href="{{ route('addCompanyProfile') }}"><button class="btn btn-primary">Add Team</button></a>
-            </div>
-            <div style="text-align: end;">
                 <a href="{{ route('corporateTeamHeading') }}"><button class="btn btn-primary">Team Heading</button></a>
             </div>
-        </div>
+
+         </div>
         </div>
     </section>
     <section class="content">

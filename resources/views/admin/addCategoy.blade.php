@@ -47,20 +47,20 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Category Name</label>
-                                    <input type="" name="title" autocomplete="off" class="form-control"
+                                    <input type="" name="category" autocomplete="off" class="form-control"
                                         id="title" placeholder="Enter Name" value="{{ old('title') }}">
                                     <span id="error-title" style="color:rgb(218, 129, 129);"></span>
                                 </div>
                             </div>
-                            <div class="form-group">
-
-                                <input type="radio" id="sell" name="category" value="1">
+                            <div class="form-group" style="margin-left:15px;">
+                                <label>Main Category</label><br>
+                                <input type="radio" id="sell" name="main_category" value="1">
                                 <label for="sell">Sell</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="radio" id="rent" name="category" value="2">
+                                <input type="radio" id="rent" name="main_category" value="2">
                                 <label for="rent">Rent</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="radio" id="pg" name="category" value="3">
+                                <input type="radio" id="pg" name="main_category" value="3">
                                 <label for="pg">PG</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="radio" id="commercial" name="category" value="4">
+                                <input type="radio" id="commercial" name="main_category" value="4">
                                 <label for="commercial">Commercial</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
                             <div class="form-group" id="configuration">
@@ -74,7 +74,7 @@
                                                     value="{{ $configuration->id }}" id="{{ $configuration->name }}"  onchange="showAlert('{{ $configuration->name }}')">
                                                 <label class="form-check-label" for="{{ $configuration->name }}">
                                                     {{ $configuration->name }}
-                                                </label>
+                                                </label><a href="{{ route('delete_configuration',['id' => encrypt($configuration->id)]) }}" ><span style="float: right;color:white;"><i class="fas fa-trash"></i></span></a>
                                             </div>
 
                                         </div>

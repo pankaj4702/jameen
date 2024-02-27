@@ -76,13 +76,11 @@
                             <div class="news-main-wapper-right">
                                 <div class="main-news-search">
                                     <div class="main-news-search-inner">
-                                        <form>
                                             <label>Search</label>
                                             <div class="main-news-search-box">
-                                                <input type="text" name="search" placeholder="Search by title or description" id="insight" oninput = "showMedia()" />
+                                                <input type="text" name="search" placeholder="Search by title " id="insight" oninput = "showMedia()" />
                                                 <span class="news-search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
                                             </div>
-                                        </form>
                                     </div>
                                 </div>
                                 <div class="main-news-post">

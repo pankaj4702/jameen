@@ -11,7 +11,7 @@
                     @if(isset($cat_name))
                     <div class="apartment-breadcumb">
 
-                            <a href="{{ route('home') }}">Home </a> > <span><a href="{{ route('propertyList',['id'=>encrypt( $property_type->status )]) }}">{{ $cat_name }}</a></span> > <span>{{ $property_type->property_name }}</span>
+                            <a href="{{ route('home') }}">Home </a> > <span><a href="{{ route('propertyList',['id'=>encrypt( $property_type->status )]) }}">{{ $cat_name }}</a></span> > <span>{{ $property_type->property_name }}</span><span>{{ $property_type->category_name }}</span>
 
                     </div>
                         @elseif($property_cat_status_id->category_status == 1)

@@ -65,9 +65,9 @@
                                 <div class="apartment-single-right">
                                     <div class="apartment-single-right-head">
                                         <div class="apart-emi">
-                                            <button type="button" class="emi-btn">
+                                            <div class="emi-btn">
                                                 Popular
-                                            </button>
+                                            </div>
                                             <h2>₹{{ $property->price }}</h2>
                                         </div>
                                         <div class="emi-dashline"></div>
@@ -176,8 +176,8 @@
                                     </div>
                                     <input type="number" class="form-control" name="Number" id="number"
                                         placeholder="Phone Number" onkeypress="checkSelectionSell('Number')">
+                                    </div>
                                     <span style="font-size: 11px;color: #f57272;" class="error-Number"></span>
-                                </div>
                                 <div class="consider-form-inner">
                                     <textarea class="form-control" id="massage" name="message" id="exampleFormControlTextarea1" placeholder="Message"
                                         rows="3" onkeypress="checkSelectionSell('message')"></textarea>

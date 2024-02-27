@@ -12,12 +12,15 @@ use Session;
 class MailController extends Controller
 {
     public function index(Request $request){
+
             $mail_add  = Subscriber::where('email_id',$request->mail_address)->first();
             if(isset($mail_add)){
                 return response()->json(['status'=>0, 'message'=>"already subscribe"]);
             }
             else{
                 $sendMail =  Mail::to ($request->mail_address)->send(new MailNotify());
+                dd($sendMail);
+
                 if($sendMail){
 
                     $subscribe = Subscriber::create([

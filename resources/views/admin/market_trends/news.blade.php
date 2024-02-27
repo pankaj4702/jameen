@@ -54,6 +54,7 @@
                                         <div style="display: flex;justify-content:space-between;">
                                         <div>
                                             <a href="{{route('deleteNews',['id' => encrypt($data->id)])}}" id="deleteNews{{ $data->id }}"></a>
+                                            <button class="btn btn-primary" onclick="deleteNews({{ $data->id }})">Edit</button>
                                             <button class="btn btn-primary" onclick="deleteNews({{ $data->id }})">Delete</button>
                                         </div>
                                     </div>

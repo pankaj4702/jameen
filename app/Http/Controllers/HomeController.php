@@ -21,7 +21,7 @@ class HomeController extends Controller
         $projects->each(function ($project) {
             $project->images = explode(',', $project->images);
         });
-        $testimonials = Testimonial::take(5)->get();
+        $testimonials = Testimonial::orderBy('id','desc')->take(5)->where('status',1)->get();
       return view('frontend.home',compact('projects','testimonials'));
     }
 
@@ -308,7 +308,7 @@ class HomeController extends Controller
     }
 
     public function reviews(){
-        $testimonials = Testimonial::where('status', 1)->get();
+        $testimonials = Testimonial::orderBy('id','desc')->where('status', 1)->get();
         return view('frontend.reviews',compact('testimonials'));
     }
 
@@ -430,5 +430,13 @@ class HomeController extends Controller
         $teamHeading = TeamHeading::first();
         return view('frontend.about.corporateTeam',compact('teams','teamHeading'));
 
+    }
+
+    public function privacyPolicy(){
+      return view('frontend.privacy');
+    }
+
+    public function termsCondition(){
+       return view('frontend.termsCondition');
     }
 }

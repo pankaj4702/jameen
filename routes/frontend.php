@@ -74,4 +74,11 @@ Route::get('/corporate-team',[HomeController::class,'corporateTeam'])->name('cor
 Route::get('/sitemap',[SiteMapController::class,'index']);
 Route::post('/store-inquiryData',[HomeController::class,'storeInquiryData'])->name('storeInquiryData');
 
+// Terms & Condition
+Route::get('/terms-condition',[HomeController::class,'termsCondition'])->name('termsCondition');
+
+// Policy
+Route::get('/privacy-policy',[HomeController::class,'privacyPolicy'])->name('privacyPolicy');
+
+
 

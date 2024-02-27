@@ -99,11 +99,6 @@
                     </div>
                     <div class="item">
                         <figure>
-                            <img src="images/logitech.png" />
-                        </figure>
-                    </div>
-                    <div class="item">
-                        <figure>
                             <img src="images/spotify.png" />
                         </figure>
                     </div>
