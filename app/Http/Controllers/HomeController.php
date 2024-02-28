@@ -196,7 +196,6 @@ class HomeController extends Controller
         $maxBudget = $request->input('max_budget');
         $location = $request->input('location');
         $configurations = $request->input('configurations');
-
         $categories = $request->input('category');
         $postBy = $request->input('post_user');
         $status = $request->input('construction_status');
@@ -212,13 +211,12 @@ class HomeController extends Controller
 
         $propertyArray = [$bedroom,$bathroom,$minvalue,$maxvalue,$minBudget,$maxBudget,$categories,$postBy,$status,$location];
 
-        $isNull = true; // Assume initially everything is null
+        $isNull = true;
 
         foreach ($propertyArray as $value) {
             if ($value !== null) {
-                // If any element is not null, set $isNull to false and break out of the loop
                 $isNull = false;
-                break;
+                // break;
             }
         }
         if($isNull == false){

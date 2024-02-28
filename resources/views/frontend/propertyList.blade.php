@@ -1,8 +1,6 @@
 @extends('frontend.main.main')
 @section('content_front')
 
-    <!--Header-->
-
     <!--Apartments-Section-->
     <section class="apartment">
         <div class="container">
@@ -191,7 +189,6 @@
                                                 <h4>Localities</h4>
                                             </div>
                                             <div class="property-type-apartment number-bedrooms">
-                                                {{-- <form action="/action_page.php"> --}}
                                                     @foreach ($cities as $key => $city)
                                                         <div class="location-form">
                                                             <input type="checkbox" id="location{{ $key }}"
@@ -201,8 +198,6 @@
                                                                 for="location{{ $key }}">{{ $city->name }}</label>
                                                         </div>
                                                     @endforeach
-
-                                                {{-- </form> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -397,8 +392,18 @@
                 var minBudgetValue = $('#min-budget-price').val();
                 var maxBudgetValue = $('#max-budget-price').val();
             }
-            console.log("status= "+constructionStatus);
-            console.log('location- '+location);
+
+            var propertyLocationChecked = $('#locality input:checked').length > 0;
+            var propertyAreaChecked = $('#propertyArea input:checked').length > 0;
+            var propertyBudgetChecked = $('#propertyBudget input:checked').length > 0;
+            var propertyPostChecked = $('#postedByFilter input:checked').length > 0;
+            var propertyConstChecked = $('#constructionStatusFilter input:checked').length > 0;
+            var propertyBedChecked = $('#bedroomsFilter input:checked').length > 0;
+            var propertyBathChecked = $('#bathroomsFilter input:checked').length > 0;
+            if (!propertyLocationChecked && !propertyAreaChecked && !propertyBudgetChecked && !propertyPostChecked && !propertyConstChecked && !propertyBedChecked && !propertyBathChecked) {
+                window.location.reload();
+            }
+
             configArray.push({
                 key: 'bedroom',
                 value: bedrooms
@@ -475,7 +480,11 @@
                         });
                     }
                     else{
-                        window.location.reload();
+                        // window.location.reload();
+                         $('#pro_len').html(`${response.length}`);
+                         $('#card-box').html(``);
+                         $('#paginate').html(``);
+                         $('#card-box').html(`<div>No items found.</div>`);
                     }
                 },
                 error: function(error) {

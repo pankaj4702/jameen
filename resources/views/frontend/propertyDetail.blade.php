@@ -52,7 +52,7 @@
                                             <div class="holder">
                                                 @foreach ($property->images as $image)
                                                     <div class="slides">
-                                                        <img src="{{ asset('storage/' . $image) }}" alt="" />
+                                                        <img style="height:30em;" src="{{ asset('storage/' . $image) }}" alt="" />
                                                     </div>
                                                 @endforeach
                                             </div>
