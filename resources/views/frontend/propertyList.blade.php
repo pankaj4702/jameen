@@ -303,6 +303,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if(count($properties) == 21)
                                 <div class=" cls-listing-pg" id="paginate">
                                     <div class="paginate-nav-link">
                                         @if ($properties->onFirstPage())
@@ -326,6 +327,7 @@
                                         @endif
                                     </div>
                                 </div>
+                                @endif
                             </div>
                         </div>
                     </div>
