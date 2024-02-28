@@ -209,10 +209,8 @@ class HomeController extends Controller
         $bathroom = $configurations['bathroom'];
 
 
-        $propertyArray = [$bedroom,$bathroom,$minvalue,$maxvalue,$minBudget,$maxBudget,$categories,$postBy,$status,$location];
-
+        $propertyArray = [$bedroom,$bathroom,$minvalue,$maxvalue,$minBudget,$maxBudget,$categories,$postBy,$status,$location];  
         $isNull = true;
-
         foreach ($propertyArray as $value) {
             if ($value !== null) {
                 $isNull = false;

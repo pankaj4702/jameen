@@ -48,7 +48,7 @@
                                                         <div class="l-row">
                                                             <div class="l-column">
                                                                 <div id="slider" class="push-bottom">
-                                                                    <div class="results push-bottom" id="propertyBudget">
+                                                                    <div class="results push-bottom" >
                                                                         <p>
                                                                             <span class="budget-detail">Min Budget:
                                                                             </span>
@@ -66,8 +66,8 @@
                                                                                 class="slider-max-control" />
                                                                         </p>
                                                                         <input type="checkbox"
-                                                                            class="property-type-checkbox d-none">
-                                                                        <label for="property-type" class="areabtn">
+                                                                            class="property-type-checkbox d-none" id="propertyBudget">
+                                                                        <label for="propertyBudget" class="areabtn">
                                                                             <span class="ar-apl-btn">apply</span>
                                                                         </label>
                                                                     </div>
@@ -170,10 +170,10 @@
                                                                                 max="100" id="slider-max-control"
                                                                                 class="slider-max-control" />
                                                                         </p>
-                                                                        <input type="checkbox" id="property-type"
+                                                                        <input type="checkbox" id="property-area"
                                                                             class="property-type-checkbox d-none"
                                                                             value="1">
-                                                                        <label for="property-type" class="areabtn">
+                                                                        <label for="property-area" class="areabtn">
                                                                             <span class="ar-apl-btn">apply</span>
                                                                         </label>
                                                                     </div>
@@ -386,18 +386,36 @@
                 return this.value;
             }).get().join(',');
 
-            if ($('#propertyArea input:checked')) {
+            var minBudgetValue = "";
+            var maxBudgetValue = "";
+            var minValue = "";
+            var maxValue = "";
+
+            if ($('#property-area').is(':checked')) {
                 var minValue = $('#slider-min-control').val();
                 var maxValue = $('#slider-max-control').val();
             }
-            if ($('#propertyBudget input:checked')) {
-                var minBudgetValue = $('#min-budget-price').val();
-                var maxBudgetValue = $('#max-budget-price').val();
+            // else{
+            //     $('#slider-min-control').val('');
+            //     $('#slider-max-control').val('');
+            // }
+
+            if($('#propertyBudget').is(':checked')) {
+             minBudgetValue = $('#min-budget-price').val();
+                maxBudgetValue = $('#max-budget-price').val();
             }
+            // else if (!($('#propertyBudget').is(':checked'))) {
+            //     alert('test');
+            //     $('#min-budget-price').val('');
+            //     $('#max-budget-price').val('');
+
+            // }
+
+
 
             var propertyLocationChecked = $('#locality input:checked').length > 0;
             var propertyAreaChecked = $('#propertyArea input:checked').length > 0;
-            var propertyBudgetChecked = $('#propertyBudget input:checked').length > 0;
+            var propertyBudgetChecked = $('#propertyBudget').is(':checked')
             var propertyPostChecked = $('#postedByFilter input:checked').length > 0;
             var propertyConstChecked = $('#constructionStatusFilter input:checked').length > 0;
             var propertyBedChecked = $('#bedroomsFilter input:checked').length > 0;
