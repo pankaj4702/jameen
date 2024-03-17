@@ -9,7 +9,7 @@
         </div>
       </div>
     </div>
-    <section class="content">
+    {{-- <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12 col-sm-6 col-md-3">
@@ -63,5 +63,5 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> --}}
 @endsection

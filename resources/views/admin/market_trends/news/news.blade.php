@@ -54,8 +54,8 @@
                                         <div style="display: flex;justify-content:space-between;">
                                         <div>
                                             <a href="{{route('deleteNews',['id' => encrypt($data->id)])}}" id="deleteNews{{ $data->id }}"></a>
-                                            <button class="btn btn-primary" onclick="deleteNews({{ $data->id }})">Edit</button>
-                                            <button class="btn btn-primary" onclick="deleteNews({{ $data->id }})">Delete</button>
+                                            <a href="{{route('editNews',['id'=>encrypt($data->id)])}}"><i class="fas fa-edit"></i></a>
+                                            <span onclick="deleteNews({{ $data->id }})"><i style="color:red;cursor:pointer;" class="fas fa-trash-alt"></i></span>
                                         </div>
                                     </div>
                                     </td>

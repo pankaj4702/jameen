@@ -495,12 +495,12 @@ class AdminController extends Controller
         }
 
         public function getNews(){
-            return view('admin.market_trends.addNews');
+            return view('admin.market_trends.news.addNews');
         }
 
         public function News(){
             $news = News::orderBy('id','desc')->get();
-            return view('admin.market_trends.news',compact('news'));
+            return view('admin.market_trends.news.news',compact('news'));
         }
 
         public function storeNews(Request $request){
@@ -533,6 +533,53 @@ class AdminController extends Controller
                 return redirect()->back()->with('success', 'Data Saved Successfully.');
             }
         }
+        public function editNews($id){
+            $mainId = decrypt($id);
+            $data = News::find($mainId);
+            // dd($data);
+            return view('admin.market_trends.news.editNews',compact('data'));
+        }
+
+        public function updateNews(Request $request){
+            // dd($request->all());
+            $request->validate([
+                'title' => [
+                    'required','string','max:150',
+                ],
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'description' => [
+                    function ($attribute, $value, $fail) {
+                        if ($value === '<p>&nbsp;</p>') {
+                            $fail($attribute.' is required.');
+                        }
+                    },
+                ],
+            ]);
+            $data = News::find($request->dataId);
+            if($request->hasFile('image')) {
+            $image = $request->file('image');
+            $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
+            $news_image = $image->storeAs('uploads', $tempName, 'public');
+             }
+            else{
+                $news_image = $data->image;
+            }
+            $currentDate = date('Y-m-d');
+
+            $assets = $data->update([
+                'title'=>$request->title,
+                'description'=> $request->description,
+                'image'=>$news_image,
+                'date'=>$currentDate,
+                'category'=>$request->category,
+                'status'=>1,
+            ]);
+            if($assets){
+                return redirect()->back()->with('success', 'Data Updated Successfully.');
+            }
+
+        }
+
 
         public function deleteNews($ecryptedId){
             $id = decrypt($ecryptedId);
@@ -544,11 +591,11 @@ class AdminController extends Controller
         }
 
         public function getMedia(){
-            return view('admin.market_trends.addMedia');
+            return view('admin.market_trends.media.addMedia');
         }
         public function Media(){
             $media = Media::orderBy('id','desc')->get();
-            return view('admin.market_trends.media',compact('media'));
+            return view('admin.market_trends.media.media',compact('media'));
         }
 
         public function storeMedia(Request $request){
@@ -580,6 +627,53 @@ class AdminController extends Controller
                 return redirect()->back()->with('success', 'Data Saved Successfully.');
             }
         }
+
+        public function editMedia($id){
+            $mainId = decrypt($id);
+            $data = Media::find($mainId);
+            // dd($data);
+            return view('admin.market_trends.media.editMedia',compact('data'));
+        }
+
+        public function updateMedia(Request $request){
+            $request->validate([
+                'title' => [
+                    'required','string','max:150',
+                ],
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'description' => [
+                    function ($attribute, $value, $fail) {
+                        if ($value === '<p>&nbsp;</p>') {
+                            $fail($attribute.' is required.');
+                        }
+                    },
+                ],
+            ]);
+            $data = Media::find($request->dataId);
+            if($request->hasFile('image')) {
+            $image = $request->file('image');
+            $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
+            $news_image = $image->storeAs('uploads', $tempName, 'public');
+             }
+            else{
+                $news_image = $data->image;
+            }
+            $currentDate = date('Y-m-d');
+
+            $assets = $data->update([
+                'title'=>$request->title,
+                'description'=> $request->description,
+                'image'=>$news_image,
+                'date'=>$currentDate,
+                'category'=>$request->category,
+                'status'=>1,
+            ]);
+            if($assets){
+                return redirect()->back()->with('success', 'Data Updated Successfully.');
+            }
+
+        }
+
         public function deleteMedia($ecryptedId){
             $id = decrypt($ecryptedId);
             $media = Media::where('id',$id)->first();
@@ -590,12 +684,12 @@ class AdminController extends Controller
         }
 
         public function getBlog(){
-            return view('admin.market_trends.addBlog');
+            return view('admin.market_trends.blog.addBlog');
         }
 
         public function Blog(){
             $blogs = Blog::orderBy('id','desc')->get();
-            return view('admin.market_trends.blog',compact('blogs'));
+            return view('admin.market_trends.blog.blog',compact('blogs'));
         }
 
         public function storeBlog(Request $request){
@@ -627,6 +721,53 @@ class AdminController extends Controller
                 return redirect()->back()->with('success', 'Data Saved Successfully.');
             }
         }
+
+        public function editBlog($id){
+            $mainId = decrypt($id);
+            $data = Blog::find($mainId);
+            // dd($data);
+            return view('admin.market_trends.blog.editBlog',compact('data'));
+        }
+
+        public function updateBlog(Request $request){
+            $request->validate([
+                'title' => [
+                    'required','string','max:150',
+                ],
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'description' => [
+                    function ($attribute, $value, $fail) {
+                        if ($value === '<p>&nbsp;</p>') {
+                            $fail($attribute.' is required.');
+                        }
+                    },
+                ],
+            ]);
+            $data = Blog::find($request->dataId);
+            if($request->hasFile('image')) {
+            $image = $request->file('image');
+            $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
+            $news_image = $image->storeAs('uploads', $tempName, 'public');
+             }
+            else{
+                $news_image = $data->image;
+            }
+            $currentDate = date('Y-m-d');
+
+            $assets = $data->update([
+                'title'=>$request->title,
+                'description'=> $request->description,
+                'image'=>$news_image,
+                'date'=>$currentDate,
+                'category'=>$request->category,
+                'status'=>1,
+            ]);
+            if($assets){
+                return redirect()->back()->with('success', 'Data Updated Successfully.');
+            }
+
+        }
+
 
         public function deleteBlog($ecryptedId){
             $id = decrypt($ecryptedId);
@@ -675,6 +816,52 @@ class AdminController extends Controller
                 return redirect()->back()->with('success', 'Data Saved Successfully.');
             }
         }
+
+        public function editInsight($id){
+            $mainId = decrypt($id);
+            $data = Insight::find($mainId);
+            return view('admin.market_trends.insight.editInsight',compact('data'));
+        }
+
+        public function updateInsight(Request $request){
+            $request->validate([
+                'title' => [
+                    'required','string','max:150',
+                ],
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'description' => [
+                    function ($attribute, $value, $fail) {
+                        if ($value === '<p>&nbsp;</p>') {
+                            $fail($attribute.' is required.');
+                        }
+                    },
+                ],
+            ]);
+            $data = Insight::find($request->dataId);
+            if($request->hasFile('image')) {
+            $image = $request->file('image');
+            $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
+            $news_image = $image->storeAs('uploads', $tempName, 'public');
+             }
+            else{
+                $news_image = $data->image;
+            }
+            $currentDate = date('Y-m-d');
+
+            $assets = $data->update([
+                'title'=>$request->title,
+                'description'=> $request->description,
+                'image'=>$news_image,
+                'date'=>$currentDate,
+                'category'=>$request->category,
+                'status'=>1,
+            ]);
+            if($assets){
+                return redirect()->back()->with('success', 'Data Updated Successfully.');
+            }
+
+        }
+
 
         public function deleteInsight($ecryptedId){
             $id = decrypt($ecryptedId);

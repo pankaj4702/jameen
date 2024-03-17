@@ -6,17 +6,17 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Blog</h1>
+                    <h1>Media</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Blogs</li>
+                        <li class="breadcrumb-item active">media</li>
                     </ol>
                 </div>
             </div>
             <div style="text-align: end;">
-                <a href="{{ route('addBlog') }}"><button class="btn btn-primary">Add Blog</button></a>
+                <a href="{{ route('addMedia') }}"><button class="btn btn-primary">Add Media</button></a>
             </div>
         </div>
     </section>
@@ -37,32 +37,36 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($blogs as $blog)
+                                @foreach($media as $data)
                                     @php
-                                    $dateString = $blog->date;
+                                    $dateString = $data->date;
                                     $dateTime = new DateTime($dateString);
                                     $formatDate = $dateTime->format('F d, Y');
                                     @endphp
-
                                 <tr>
                                     <th scope="row">{{$loop->iteration}}</th>
                                     <td>
-                                        <img src="{{ asset('storage/' . $blog->image) }}" style="width:75px; height:68px;" />
+                                        <img src="{{ asset('storage/' . $data->image) }}" style="width:75px; height:68px;" />
                                     </td>
-                                    <td>{{ $blog->title }}</td>
+                                    <td>{{ $data->title }}</td>
                                     <td>   {{ $formatDate }}</td>
                                     <td>
                                         <div style="display: flex;justify-content:space-between;">
                                         <div>
-                                            <a href="{{route('deleteBlog',['id' => encrypt($blog->id)])}}" id="deleteBlog{{$blog->id }}"></a>
-                                            <button class="btn btn-primary" onclick="deleteBlog({{ $blog->id }})">Delete</button>
+                                            <a href="{{route('deleteMedia',['id' => encrypt($data->id)])}}" id="deleteMedia{{ $data->id }}"></a>
+                                            <a href="{{route('editMedia',['id'=>encrypt($data->id)])}}"><i class="fas fa-edit"></i></a>
+                                            <span onclick="deleteMedia({{ $data->id }})"><i style="color:red;cursor:pointer;" class="fas fa-trash-alt"></i></span>
                                         </div>
+
+
                                     </div>
                                     </td>
                                 </tr>
                                 @endforeach
+
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
@@ -70,7 +74,7 @@
     </section>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        function deleteBlog(id){
+        function deleteMedia(id){
             Swal.fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
@@ -82,10 +86,14 @@
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    document.getElementById('deleteBlog'+id).click();
+                    document.getElementById('deleteMedia'+id).click();
                         }
                     });
+
+
         }
+
     </script>
+
 
 @endsection

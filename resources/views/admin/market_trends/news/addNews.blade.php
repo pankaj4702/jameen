@@ -6,17 +6,18 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1> Media</h1>
+                    <h1> NEWS</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active"> Media</li>
+                        <li class="breadcrumb-item active"><a href="{{ route('getNews') }}">News</a></li>
+                        <li class="breadcrumb-item active">Add News</li>
                     </ol>
                 </div>
             </div>
             <div style="text-align: end;">
-                <a href="{{ route('getMedia') }}"><button class="btn btn-primary">Show Media</button></a>
+                <a href="{{ route('getNews') }}"><button class="btn btn-primary">Show News</button></a>
             </div>
         </div>
     </section>
@@ -26,7 +27,7 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Add Media </h3>
+                            <h3 class="card-title">Add News </h3>
                         </div>
                         @if (count($errors) > 0)
                             <div class = "alert admin-alert">
@@ -44,20 +45,21 @@
                                 </ul>
                             </div>
                         @endif
-                        <form id="quickForm" action="{{ route('storeMedia') }}" method="POST" enctype="multipart/form-data"
+                        <form id="quickForm" action="{{ route('storeNews') }}" method="POST" enctype="multipart/form-data"
                             onsubmit="return validateForm()">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Title <span style="font-size: 11px;"><i></i></span></label>
+                                    <label for="exampleInputEmail1">Title <span style="font-size: 11px;"><i>(title of the news)*</i></span></label>
                                     <input type="" name="title" autocomplete="off" class="form-control"
-                                        id="title" placeholder="Enter Title" value="{{ old('title') }}">
+                                        id="title" placeholder="Enter Title">
                                     <span id="error-title" style="color:rgb(218, 129, 129);"></span>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="formFile" class="form-label">Image  <span style="font-size: 11px;"><i></i></span></label>
-                                    <input class="form-control" type="file" id="image" name="image">
+                                    <img class="d-none" src="" style="width:140px; height:80px;" id="imagePreview"  /><br>
+                                    <label for="formFile" class="form-label">Image  <span style="font-size: 11px;"><i>(image of this news)*</i></span></label>
+                                    <input class="form-control" type="file" id="imageInput" name="image">
                                 </div>
 
                                 <div class="form-group">
@@ -73,4 +75,21 @@
             </div>
 
     </section>
- @endsection
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
+
+        imageInput.addEventListener('change', function() {
+            const file = this.files[0];
+            $('#imagePreview').removeClass('d-none');
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+
+@endsection
