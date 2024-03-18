@@ -483,18 +483,3 @@
         }
     </script>
     @endsection
-    // var m =JSON.parse(data);
-
-    // window.location.href = m.url;
-    //var meetDate = $('#meetingDate').val();
-	//var meetHour = $('#meetHour').val();
-	//if(meetDate == ""){
-	//$('#meetDateError').html('This field is required');
-	//}
-	//if(meetHour == ""){
-	//$('#meetDateError').html('This field is required');
-	//}
-
-
-
-    <a href="{{ route('advertisingCompanyLogo.delete', ['id' => base64_encode($val->id)]) }}" onclick="return confirm('Are you sure you want to delete this item?')">

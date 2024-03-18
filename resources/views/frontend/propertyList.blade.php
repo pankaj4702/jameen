@@ -56,7 +56,7 @@
                                                                             <span class="budget-detail">Min Budget:
                                                                             </span>
                                                                             <input name="-th" type="text"
-                                                                                value="" min="0" max="100"
+                                                                                min="0" max="100"
                                                                                 id="min-budget-price"
                                                                                 class="slider-min-control" />
                                                                         </p>
@@ -64,7 +64,7 @@
                                                                             <span class="budget-detail">Max
                                                                                 Budget:</span>
                                                                             <input name="slider-max" type="text"
-                                                                                value="" min="0" max="100"
+                                                                                min="0" max="100"
                                                                                 id="max-budget-price"
                                                                                 class="slider-max-control" />
                                                                         </p>
@@ -194,7 +194,7 @@
                                                                             color: white;
                                                                             font-family: Bell MT;
                                                                             font-size: 15px;
-                                                                            border: none;" id="getBudget" onclick="getBudget()">
+                                                                            border: none;" id="getArea" onclick="getBudget()" >
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -371,6 +371,35 @@
         });
     </script>
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var phoneInput = document.getElementById("slider-min-control-area");
+            var areainputs = document.getElementById("slider-max-control-area");
+
+            phoneInput.addEventListener("keypress", function(e) {
+                var length = this.value.length;
+
+                if (length > 5) {
+                    e.preventDefault();
+                } else if (e.which !== 8 && e.which !== 0 && (e.which < 48 || e.which > 57)) {
+                    e.preventDefault();
+                } else if (length === 0 && e.which === 48) {
+                    e.preventDefault();
+                }
+            });
+            areainputs.addEventListener("keypress", function(e) {
+                var length = this.value.length;
+
+                if (length > 5) {
+                    e.preventDefault();
+                } else if (e.which !== 8 && e.which !== 0 && (e.which < 48 || e.which > 57)) {
+                    e.preventDefault();
+                } else if (length === 0 && e.which === 48) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+    <script>
         function checkInputValue() {
             try {
                 // Attempt to execute your code
@@ -415,21 +444,14 @@
 
             var minValue = $('#slider-min-control-area').val();
                 var maxValue = $('#slider-max-control-area').val();
-            // $('#getBudget').on('click', function() {
 
-            //         var minValue = $('.slider-min-control').val();
-            //         var maxValue = $('.slider-max-control').val();
-            //         // Your code here when the checkbox is clicked
-            // });
-            // if ($('#property-area').is(':checked')) {
                 var minValue = $('#slider-min-control-area').val();
                 var maxValue = $('#slider-max-control-area').val();
-            // }
 
-            // if ($('#propertyBudget').is(':checked')) {
+
+
                 minBudgetValue = $('#min-budget-price').val();
                 maxBudgetValue = $('#max-budget-price').val();
-            // }
 
             var propertyLocationChecked = $('#locality input:checked').length > 0;
             var propertyAreaChecked = $('#propertyArea input:checked').length > 0;
@@ -440,7 +462,6 @@
             var propertyBathChecked = $('#bathroomsFilter input:checked').length > 0;
             if (!propertyLocationChecked && !propertyAreaChecked && !propertyBudgetChecked && !
                 propertyPostChecked && !propertyConstChecked && !propertyBedChecked && !propertyBathChecked) {
-                // window.location.reload();
             }
 
             configArray.push({
@@ -472,6 +493,7 @@
                     location: location
                 },
                 success: function(response) {
+                    console.log(response);
                     if (response != '') {
                         if (response[0].category_status == 1) {
                             $('#dek-dik').html(` ${response.length} results | Buy`);

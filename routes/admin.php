@@ -28,20 +28,20 @@ Route::prefix('/admin')->middleware('checkAdminAuth')->group(function () {
     Route::get('/property-detail/{id}',[AdminController::class,'property_detail'])->name('property_detail');
     Route::get('/property-delete/{id}',[AdminController::class,'property_delete'])->name('property_delete');
 
-    Route::get('/add-property-attributes',[AdminController::class,'property_attribute'])->name('property_attribute');
+    Route::get('/add/property-attributes',[AdminController::class,'property_attribute'])->name('property_attribute');
     Route::post('/store-attributes',[AdminController::class,'store_attributes'])->name('store_attribute');
     Route::get('/delete-status/{id}',[AdminController::class,'deleteStatus'])->name('deleteStatus');
     Route::get('/delete-source/{id}',[AdminController::class,'deleteSource'])->name('deleteSource');
 
-    Route::get('/add-city',[AdminController::class,'addCity'])->name('addCity');
+    Route::get('/add/city',[AdminController::class,'addCity'])->name('addCity');
     Route::post('/store-city',[AdminController::class,'store_city'])->name('storeCity');
     Route::get('/delete-city/{id}',[AdminController::class,'deleteCity'])->name('deleteCity');
 
-    Route::get('/add-post-user',[AdminController::class,'addPostUser'])->name('addPostUser');
+    Route::get('/add/post-user',[AdminController::class,'addPostUser'])->name('addPostUser');
     Route::get('/delete-post-user/{id}',[AdminController::class,'deletePostUser'])->name('deletePostUser');
     Route::post('/store-post-user',[AdminController::class,'storePostUser'])->name('storePostUser');
 
-    Route::get('/add-testimonial',[AdminController::class,'addTestimonial'])->name('addTestimonial');
+    Route::get('/add/testimonial',[AdminController::class,'addTestimonial'])->name('addTestimonial');
     Route::get('/testimonials',[AdminController::class,'allTestimonial'])->name('Testimonials');
     Route::post('/store-testimonial',[AdminController::class,'storeTestimonial'])->name('storeTestimonial');
     Route::get('/delete-testimonial/{id}',[AdminController::class,'deleteTestimonial'])->name('deleteTestimonial');
@@ -111,7 +111,7 @@ Route::prefix('/admin')->middleware('checkAdminAuth')->group(function () {
         Route::post('/store-team-heading',[AdminController::class,'storeCorporateHeading'])->name('storeCorporateHeading');
 
     });
-
+    // faq
     Route::prefix('/admin/faq')->middleware('checkAdminAuth')->group(function () {
         Route::get('/faq',[AdminController::class,'Faq'])->name('Faq');
         Route::get('/add-faq',[AdminController::class,'addFaq'])->name('addFaq');
@@ -119,6 +119,13 @@ Route::prefix('/admin')->middleware('checkAdminAuth')->group(function () {
         Route::get('/removeFaq/{id}',[AdminController::class,'deletefaq'])->name('removeFaq');
 
     });
+    Route::prefix('/admin/home')->middleware('checkAdminAuth')->group(function () {
+        Route::get('/main-section',[AdminController::class,'mainSection'])->name('mainSection');
+        Route::post('/store-main-section',[AdminController::class,'storeMainSection'])->name('storeMainSection');
+
+    });
+
+
 
 
 

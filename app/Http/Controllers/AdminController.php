@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use App\Models\{Property_source,Property_status,Property,Configuration,City,PostUser,Service,Testimonial,ServiceCategory,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam,Faq,TeamHeading};
+use App\Models\{Property_source,Property_status,Property,Configuration,City,PostUser,Service,Testimonial,ServiceCategory,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam,Faq,TeamHeading,MainSection};
 use GuzzleHttp\Client;
 use DB;
 use Hash;
@@ -193,7 +193,7 @@ class AdminController extends Controller
             }
         }
         $featureImage = implode(',',$foundValues);
-        $jsonConfiguration = json_encode($request->configuration);  
+        $jsonConfiguration = json_encode($request->configuration);
         $feature_image = PropertyCategory::where('id', $request->property_cat)->first();
         $images = $request->file('image');
         $myarray = [];
@@ -780,11 +780,11 @@ class AdminController extends Controller
 
         public function Insight(){
             $insights = Insight::orderBy('id','desc')->get();
-            return view('admin.market_trends.insight',compact('insights'));
+            return view('admin.market_trends.insight.insight',compact('insights'));
         }
 
         public function getInsight(){
-            return view('admin.market_trends.addInsight');
+            return view('admin.market_trends.insight.addInsight');
         }
 
         public function storeInsight(Request $request){
@@ -1138,6 +1138,35 @@ class AdminController extends Controller
                 $faq->delete();
                 return redirect()->back();
             }
+        }
+
+        public function mainSection(){
+            $section = MainSection::first();
+            $sectionImages = explode(',',$section->images);
+            return view('admin.home.mainSection',compact('section','sectionImages'));
+        }
+
+        public function storeMainSection(Request $request){
+            // dd($request->all());
+            $images = [];
+            if ($request->hasFile('image')) {
+            foreach ($request->file('image') as $key => $image) {
+                $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
+                $assetImage = $image->storeAs('uploads', $tempName, 'public');
+                $images[] = $assetImage;
+            }
+            $secImage = implode(',',$images);
+        }
+            $data = MainSection::find($request->sectionId);
+            $section = $data->update([
+                'main_heading'=>$request->main_heading,
+                'description'=> $request->description,
+                'images'=>$secImage,
+            ]);
+            if($section){
+                return redirect()->back()->with('success', 'Data Updated Successfully.');
+            }
+
         }
 
         }

@@ -7,6 +7,7 @@
 
         <script>
         function getBudget(){
+
                 var type = $('#type-id').data('value');
             var status_id = $('#catstatus-id').data('value');
             var configArray = [];
@@ -38,12 +39,24 @@
                 var minValue = $('#slider-min-control-area').val();
                 var maxValue = $('#slider-max-control-area').val();
             // }
+            if ( minValue.trim() === '') {
+                minValue = 0;
+            }
+            if ( maxValue.trim() === '') {
+                maxValue = 0;
+            }
+
 
             // if ($('#propertyBudget').is(':checked')) {
                 minBudgetValue = $('#min-budget-price').val();
                 maxBudgetValue = $('#max-budget-price').val();
             // }
-
+            if ( minBudgetValue.trim() === '') {
+                minBudgetValue = 0;
+            }
+            if ( maxBudgetValue.trim() === '') {
+                maxBudgetValue = 0;
+            }
 
 
             var propertyLocationChecked = $('#locality input:checked').length > 0;
@@ -95,6 +108,7 @@
                 success: function(response) {
 
                     if (response != '') {
+
                         if (response[0].category_status == 1) {
                             $('#dek-dik').html(` ${response.length} results | Buy`);
                         }

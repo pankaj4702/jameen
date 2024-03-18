@@ -211,7 +211,6 @@ class HomeController extends Controller
 
 
 
-
         $propertyArray = [$bedroom,$bathroom,$minvalue,$maxvalue,$minBudget,$maxBudget,$categories,$postBy,$status,$location];
         $isNull = true;
         foreach ($propertyArray as $value) {
@@ -220,7 +219,6 @@ class HomeController extends Controller
                 // break;
             }
         }
-        if($isNull == false){
 
         $properties = Property::join('property_categories', 'properties.property_category', '=', 'property_categories.id')
         ->leftjoin('property_status', 'properties.property_status', '=', 'property_status.id');
@@ -247,7 +245,6 @@ class HomeController extends Controller
                 }
             });
         }
-
 
         if (!empty($statusArray[0])) {
             $properties->whereIn('properties.property_status', $statusArray);
@@ -285,13 +282,7 @@ class HomeController extends Controller
             $property->images = explode(',', $property->images);
             $property->encrptId = Crypt::encrypt($property->id);
         });
-
         return response()->json($properties);
-    }
-    else{
-        $properties = '';
-        return response()->json($properties);
-    }
 
     }
 

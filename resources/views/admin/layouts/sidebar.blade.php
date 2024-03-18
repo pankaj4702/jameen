@@ -35,12 +35,48 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
+          {{-- <li class="nav-item menu-open">
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ route('dashboard') }}" class="nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
-                  <p>Dashboard</p>
+                  <p>Home</p>
+                </a>
+              </li>
+            </ul>
+          </li> --}}
+          <li class="nav-item {{ request()->is() ? ' menu-open' : '' }}">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Home
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+
+              <li class="nav-item">
+                <a href="{{ route('mainSection') }}" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Main Section</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>About Section</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>check out Section</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="}" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Blog Section</p>
                 </a>
               </li>
             </ul>
@@ -78,44 +114,44 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+
+          <li class="nav-item {{ request()->is(['admin/add/*','admin/testimonials']) ? ' menu-open' : '' }}">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-              Add
-                <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">4</span>
-              </p>
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                    Add
+                    <i class="fas fa-angle-left right"></i>
+                    <span class="badge badge-info right">4</span>
+                </p>
             </a>
             <ul class="nav nav-treeview">
-
+                <li class="nav-item">
+                    <a href="{{ route('property_attribute') }}" class="nav-link {{ request()->is('admin/add/property-attributes') ? 'active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Property Attribute</p>
+                    </a>
+                </li>
               <li class="nav-item">
-                <a href="{{route('property_attribute')}}" class="nav-link {{ request()->is('admin/add-property-attributes') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Property Attribute</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('addCity')}}"  class="nav-link {{ request()->is('admin/add-city') ? 'active' : '' }}">
+                <a href="{{route('addCity')}}"  class="nav-link {{ request()->is('admin/add/city') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>City </p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('addPostUser')}}"  class="nav-link {{ request()->is('admin/add-post-user') ? 'active' : '' }}">
+                <a href="{{route('addPostUser')}}"  class="nav-link {{ request()->is('admin/add/post-user') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Post User</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('addTestimonial')}}"  class="nav-link {{ request()->is('admin/add-testimonial') ? 'active' : '' }}">
+                <a href="{{route('addTestimonial')}}"  class="nav-link {{ request()->is(['admin/add/testimonial','admin/testimonials']) ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Testimonial </p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item">
+          <li class="nav-item {{ request()->is('admin/service/*') ? ' menu-open' : '' }}">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
@@ -126,14 +162,14 @@
             <ul class="nav nav-treeview">
 
               <li class="nav-item">
-                <a href="{{ route('getService') }}" class="nav-link {{ request()->is('admin/service/add-service') ? 'active' : '' }}">
+                <a href="{{ route('getService') }}" class="nav-link {{ request()->is(['admin/service/add-service','admin/service/services']) ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p> Add Services</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item">
+          <li class="nav-item {{ request()->is('admin/market-trend/*') ? ' menu-open' : '' }}">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-church"></i>
               <p>
@@ -144,32 +180,32 @@
             <ul class="nav nav-treeview">
 
               <li class="nav-item">
-                <a href="{{ route('getNews') }}" class="nav-link {{ request()->is('admin/market-trend/News') ? 'active' : '' }}">
+                <a href="{{ route('getNews') }}" class="nav-link {{ request()->is(['admin/market-trend/News','admin/market-trend/add-news','admin/market-trend/edit-news/*']) ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>News</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('getMedia') }}" class="nav-link {{ request()->is('admin/market-trend/media') ? 'active' : '' }}">
+                <a href="{{ route('getMedia') }}" class="nav-link {{ request()->is(['admin/market-trend/media','admin/market-trend/add-media','admin/market-trend/edit-media/*']) ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p> Media</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('getBlog') }}" class="nav-link {{ request()->is('admin/market-trend/blog') ? 'active' : '' }}"">
+                <a href="{{ route('getBlog') }}" class="nav-link {{ request()->is(['admin/market-trend/blog','admin/market-trend/add-blog','admin/market-trend/edit-blog/*']) ? 'active' : '' }}"">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Blog</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('getInsight') }}" class="nav-link {{ request()->is('admin/market-trend/insight') ? 'active' : '' }}">
+                <a href="{{ route('getInsight') }}" class="nav-link {{ request()->is(['admin/market-trend/insight','admin/market-trend/add-property-insight','admin/market-trend/edit-property-insight/*']) ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Insight</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item">
+          <li class="nav-item {{ request()->is('admin/about/*') ? ' menu-open' : '' }}">
             <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-edit"></i>
               <p>
@@ -180,27 +216,27 @@
             <ul class="nav nav-treeview">
 
               <li class="nav-item">
-                <a href="{{ route('getCompanyProfile') }}" class="nav-link {{ request()->is('admin/about/add-profile') ? 'active' : '' }}">
+                <a href="{{ route('getCompanyProfile') }}" class="nav-link {{ request()->is(['admin/about/add-profile','admin/about/profiles']) ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p> Company Profile</p>
                 </a>
               </li>
 
               <li class="nav-item">
-                <a href="{{ route('getCompanyMessageCeo') }}" class="nav-link {{ request()->is('admin/about/ceo-message') ? 'active' : '' }}">
+                <a href="{{ route('getCompanyMessageCeo') }}" class="nav-link {{ request()->is(['admin/about/ceo-message']) ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ceo Message</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('getCompanyMessageChairman') }}" class="nav-link {{ request()->is('admin/about/chairman-message') ? 'active' : '' }}">
+                <a href="{{ route('getCompanyMessageChairman') }}" class="nav-link {{ request()->is(['admin/about/chairman-message']) ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Chairman Message</p>
                 </a>
               </li>
 
               <li class="nav-item">
-                <a href="{{ route('getCorporateTeam') }}" class="nav-link {{ request()->is('admin/about/add-corporate-team') ? 'active' : '' }}">
+                <a href="{{ route('getCorporateTeam') }}" class="nav-link {{ request()->is(['admin/about/add-corporate-team','admin/about/corporate-team','admin/about/corporate-team-heading']) ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Corporate Team</p>
                 </a>
