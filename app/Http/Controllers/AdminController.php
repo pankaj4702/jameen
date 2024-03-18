@@ -193,7 +193,7 @@ class AdminController extends Controller
             }
         }
         $featureImage = implode(',',$foundValues);
-        $jsonConfiguration = json_encode($request->configuration);
+        $jsonConfiguration = json_encode($request->configuration);  
         $feature_image = PropertyCategory::where('id', $request->property_cat)->first();
         $images = $request->file('image');
         $myarray = [];
