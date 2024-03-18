@@ -6,28 +6,31 @@
         <div class="container">
             <div class="apartment-inner">
                 <div class="apartment-inner-head">
-                    @if(isset($cat_name))
-                    <div class="apartment-breadcumb">
+                    @if (isset($cat_name))
+                        <div class="apartment-breadcumb">
 
-                            <a href="{{ route('home') }}">Home </a> > <span><a href="{{ route('propertyList',['id'=>encrypt( $property_type->status )]) }}">{{ $cat_name }}</a></span> > <span>{{ $property_type->property_name }}</span><span>{{ $property_type->category_name }}</span>
+                            <a href="{{ route('home') }}">Home </a> > <span><a
+                                    href="{{ route('propertyList', ['id' => encrypt($property_type->status)]) }}">{{ $cat_name }}</a></span>
+                            >
+                            <span>{{ $property_type->property_name }}</span><span>{{ $property_type->category_name }}</span>
 
-                    </div>
-                        @elseif($property_cat_status_id->category_status == 1)
-                    <div class="apartment-breadcumb">
+                        </div>
+                    @elseif($property_cat_status_id->category_status == 1)
+                        <div class="apartment-breadcumb">
                             <a href="{{ route('home') }}">Home </a> > <span>Buy</span>
-                    </div>
+                        </div>
                     @elseif($property_cat_status_id->category_status == 2)
-                    <div class="apartment-breadcumb">
+                        <div class="apartment-breadcumb">
                             <a href="{{ route('home') }}">Home </a> > <span>Rent</span>
-                    </div>
+                        </div>
                     @elseif($property_cat_status_id->category_status == 3)
-                    <div class="apartment-breadcumb">
+                        <div class="apartment-breadcumb">
                             <a href="{{ route('home') }}">Home </a> > <span>PG</span>
-                    </div>
+                        </div>
                     @elseif($property_cat_status_id->category_status == 4)
-                    <div class="apartment-breadcumb">
+                        <div class="apartment-breadcumb">
                             <a href="{{ route('home') }}">Home </a> > <span>Commercial</span>
-                    </div>
+                        </div>
                     @endif
                 </div>
                 <div class="apartment-inner-bottom">
@@ -48,7 +51,7 @@
                                                         <div class="l-row">
                                                             <div class="l-column">
                                                                 <div id="slider" class="push-bottom">
-                                                                    <div class="results push-bottom" >
+                                                                    <div class="results push-bottom">
                                                                         <p>
                                                                             <span class="budget-detail">Min Budget:
                                                                             </span>
@@ -65,11 +68,18 @@
                                                                                 id="max-budget-price"
                                                                                 class="slider-max-control" />
                                                                         </p>
-                                                                        <input type="checkbox"
-                                                                            class="property-type-checkbox d-none" id="propertyBudget">
+                                                                        {{-- <input type="checkbox" class="property-type-checkbox" id="propertyBudget">
                                                                         <label for="propertyBudget" class="areabtn">
                                                                             <span class="ar-apl-btn">apply</span>
-                                                                        </label>
+                                                                        </label> --}}
+                                                                        <input class="ar-apl-btn" type="button" value="apply"
+                                                                            style="    width: 3em;
+                                                                            background-color: #f26c61;
+                                                                            border-radius: 10px;
+                                                                            color: white;
+                                                                            font-family: Bell MT;
+                                                                            font-size: 15px;
+                                                                            border: none;" id="getBudget" onclick="getBudget()">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -157,25 +167,34 @@
                                                                         <p>
                                                                             <span class="budget-detail">Min Area:
                                                                             </span>
-                                                                            <input name="-th" type="number"
-                                                                                min="0"
-                                                                                max="100" id="slider-min-control"
+                                                                            <input name="-th" type="text"
+                                                                                min="0" max="100"
+                                                                                id="slider-min-control-area"
                                                                                 class="slider-min-control" />
                                                                         </p>
                                                                         <p>
                                                                             <span class="budget-detail">Max
                                                                                 Area:</span>
-                                                                            <input name="slider-max" type="number"
-                                                                                min="0"
-                                                                                max="100" id="slider-max-control"
+                                                                            <input name="slider-max" type="text"
+                                                                                min="0" max="100"
+                                                                                id="slider-max-control-area"
                                                                                 class="slider-max-control" />
+
                                                                         </p>
-                                                                        <input type="checkbox" id="property-area"
+                                                                        {{-- <input type="checkbox" id="property-area"
                                                                             class="property-type-checkbox d-none"
                                                                             value="1">
                                                                         <label for="property-area" class="areabtn">
                                                                             <span class="ar-apl-btn">apply</span>
-                                                                        </label>
+                                                                        </label> --}}
+                                                                        <input class="ar-apl-btn" type="button" value="apply"
+                                                                            style="    width: 3em;
+                                                                            background-color: #f26c61;
+                                                                            border-radius: 10px;
+                                                                            color: white;
+                                                                            font-family: Bell MT;
+                                                                            font-size: 15px;
+                                                                            border: none;" id="getBudget" onclick="getBudget()">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -189,15 +208,15 @@
                                                 <h4>Localities</h4>
                                             </div>
                                             <div class="property-type-apartment number-bedrooms">
-                                                    @foreach ($cities as $key => $city)
-                                                        <div class="location-form">
-                                                            <input type="checkbox" id="location{{ $key }}"
-                                                                class="property-type-checkbox" name="location1"
-                                                                value="{{ $city->name }}" />
-                                                            <label
-                                                                for="location{{ $key }}">{{ $city->name }}</label>
-                                                        </div>
-                                                    @endforeach
+                                                @foreach ($cities as $key => $city)
+                                                    <div class="location-form">
+                                                        <input type="checkbox" id="location{{ $key }}"
+                                                            class="property-type-checkbox" name="location1"
+                                                            value="{{ $city->name }}" />
+                                                        <label
+                                                            for="location{{ $key }}">{{ $city->name }}</label>
+                                                    </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -207,37 +226,38 @@
                                 <div class="apartment-inner-right">
                                     <div class="jfsio" style="display: flex;justify-content: space-between;">
                                         @if (isset($property_type))
-                                        <div class="apartment-right-head" id="type-id"
-                                            data-value = "{{ $property_type->id }}">
-                                            <h2 id='property_count'><span id="pro_len">{{ count($properties) }} </span>
-                                                results |
-                                                <b>{{ $property_type->category_name }}</b>
-                                            </h2>
-                                        </div>
-                                    @endif
-                                    @if (isset($property_cat_status_id))
-                                        @if ($property_cat_status_id->category_status == 1)
-                                            <div class="apartment-right-head" id="catstatus-id"
-                                                data-value = "{{ $property_cat_status_id->category_status }}">
-                                                <h2 id='dek-dik'>{{ count($properties) }} results | Buy </h2>
-                                            </div>
-                                        @elseif($property_cat_status_id->category_status == 2)
-                                            <div class="apartment-right-head" id="catstatus-id"
-                                                data-value = "{{ $property_cat_status_id->category_status }}">
-                                                <h2 id='dek-dik'>{{ count($properties) }} results | Rent </h2>
-                                            </div>
-                                        @elseif($property_cat_status_id->category_status == 3)
-                                            <div class="apartment-right-head" id="catstatus-id"
-                                                data-value = "{{ $property_cat_status_id->category_status }}">
-                                                <h2 id='dek-dik'>{{ count($properties) }} results | PG </h2>
-                                            </div>
-                                        @elseif($property_cat_status_id->category_status == 4)
-                                            <div class="apartment-right-head" id="catstatus-id"
-                                                data-value = "{{ $property_cat_status_id->category_status }}">
-                                                <h2 id='dek-dik'>{{ count($properties) }} results | Commercial </h2>
+                                            <div class="apartment-right-head" id="type-id"
+                                                data-value = "{{ $property_type->id }}">
+                                                <h2 id='property_count'><span id="pro_len">{{ count($properties) }}
+                                                    </span>
+                                                    results |
+                                                    <b>{{ $property_type->category_name }}</b>
+                                                </h2>
                                             </div>
                                         @endif
-                                    @endif
+                                        @if (isset($property_cat_status_id))
+                                            @if ($property_cat_status_id->category_status == 1)
+                                                <div class="apartment-right-head" id="catstatus-id"
+                                                    data-value = "{{ $property_cat_status_id->category_status }}">
+                                                    <h2 id='dek-dik'>{{ count($properties) }} results | Buy </h2>
+                                                </div>
+                                            @elseif($property_cat_status_id->category_status == 2)
+                                                <div class="apartment-right-head" id="catstatus-id"
+                                                    data-value = "{{ $property_cat_status_id->category_status }}">
+                                                    <h2 id='dek-dik'>{{ count($properties) }} results | Rent </h2>
+                                                </div>
+                                            @elseif($property_cat_status_id->category_status == 3)
+                                                <div class="apartment-right-head" id="catstatus-id"
+                                                    data-value = "{{ $property_cat_status_id->category_status }}">
+                                                    <h2 id='dek-dik'>{{ count($properties) }} results | PG </h2>
+                                                </div>
+                                            @elseif($property_cat_status_id->category_status == 4)
+                                                <div class="apartment-right-head" id="catstatus-id"
+                                                    data-value = "{{ $property_cat_status_id->category_status }}">
+                                                    <h2 id='dek-dik'>{{ count($properties) }} results | Commercial </h2>
+                                                </div>
+                                            @endif
+                                        @endif
 
 
                                     </div>
@@ -303,30 +323,32 @@
                                         </div>
                                     </div>
                                 </div>
-                                @if(count($properties) == 21)
-                                <div class=" cls-listing-pg" id="paginate">
-                                    <div class="paginate-nav-link">
-                                        @if ($properties->onFirstPage())
-                                            <span class="disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
-                                                <span aria-hidden="true">
-                                                    < Previous</span>
-                                                </span>
-                                            @else
-                                                <a href="{{ $properties->previousPageUrl() }}" rel="prev"
+                                @if (count($properties) == 21)
+                                    <div class=" cls-listing-pg" id="paginate">
+                                        <div class="paginate-nav-link">
+                                            @if ($properties->onFirstPage())
+                                                <span class="disabled" aria-disabled="true"
                                                     aria-label="@lang('pagination.previous')">
-                                                    < Previous</a>
-                                        @endif
+                                                    <span aria-hidden="true">
+                                                        < Previous</span>
+                                                    </span>
+                                                @else
+                                                    <a href="{{ $properties->previousPageUrl() }}" rel="prev"
+                                                        aria-label="@lang('pagination.previous')">
+                                                        < Previous</a>
+                                            @endif
 
-                                        @if ($properties->hasMorePages())
-                                            <a href="{{ $properties->nextPageUrl() }}" rel="next"
-                                                aria-label="@lang('pagination.next')">Next ></a>
-                                        @else
-                                            <span class="disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
-                                                <span aria-hidden="true">Next ></span>
-                                            </span>
-                                        @endif
+                                            @if ($properties->hasMorePages())
+                                                <a href="{{ $properties->nextPageUrl() }}" rel="next"
+                                                    aria-label="@lang('pagination.next')">Next ></a>
+                                            @else
+                                                <span class="disabled" aria-disabled="true"
+                                                    aria-label="@lang('pagination.next')">
+                                                    <span aria-hidden="true">Next ></span>
+                                                </span>
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
                                 @endif
                             </div>
                         </div>
@@ -360,8 +382,8 @@
         }
     </script>
     <!-- filteration -->
-    <script>
 
+    <script>
         $('.property-type-checkbox').on('change', function() {
 
             var type = $('#type-id').data('value');
@@ -391,27 +413,23 @@
             var minValue = "";
             var maxValue = "";
 
-            if ($('#property-area').is(':checked')) {
-                var minValue = $('#slider-min-control').val();
-                var maxValue = $('#slider-max-control').val();
-            }
-            // else{
-            //     $('#slider-min-control').val('');
-            //     $('#slider-max-control').val('');
+            var minValue = $('#slider-min-control-area').val();
+                var maxValue = $('#slider-max-control-area').val();
+            // $('#getBudget').on('click', function() {
+
+            //         var minValue = $('.slider-min-control').val();
+            //         var maxValue = $('.slider-max-control').val();
+            //         // Your code here when the checkbox is clicked
+            // });
+            // if ($('#property-area').is(':checked')) {
+                var minValue = $('#slider-min-control-area').val();
+                var maxValue = $('#slider-max-control-area').val();
             // }
 
-            if($('#propertyBudget').is(':checked')) {
-             minBudgetValue = $('#min-budget-price').val();
+            // if ($('#propertyBudget').is(':checked')) {
+                minBudgetValue = $('#min-budget-price').val();
                 maxBudgetValue = $('#max-budget-price').val();
-            }
-            // else if (!($('#propertyBudget').is(':checked'))) {
-            //     alert('test');
-            //     $('#min-budget-price').val('');
-            //     $('#max-budget-price').val('');
-
             // }
-
-
 
             var propertyLocationChecked = $('#locality input:checked').length > 0;
             var propertyAreaChecked = $('#propertyArea input:checked').length > 0;
@@ -420,8 +438,9 @@
             var propertyConstChecked = $('#constructionStatusFilter input:checked').length > 0;
             var propertyBedChecked = $('#bedroomsFilter input:checked').length > 0;
             var propertyBathChecked = $('#bathroomsFilter input:checked').length > 0;
-            if (!propertyLocationChecked && !propertyAreaChecked && !propertyBudgetChecked && !propertyPostChecked && !propertyConstChecked && !propertyBedChecked && !propertyBathChecked) {
-                window.location.reload();
+            if (!propertyLocationChecked && !propertyAreaChecked && !propertyBudgetChecked && !
+                propertyPostChecked && !propertyConstChecked && !propertyBedChecked && !propertyBathChecked) {
+                // window.location.reload();
             }
 
             configArray.push({
@@ -498,22 +517,17 @@
                                     ${objBed}
                                     ${objBath}`);
                         });
-                    }
-                    else{
-                        // window.location.reload();
-                         $('#pro_len').html(`${response.length}`);
-                         $('#card-box').html(``);
-                         $('#paginate').html(``);
-                         $('#card-box').html(`<div>No items found.</div>`);
+                    } else {
+                        $('#pro_len').html(`${response.length}`);
+                        $('#card-box').html(``);
+                        $('#paginate').html(``);
+                        $('#card-box').html(`<div>No items found.</div>`);
                     }
                 },
-                error: function(error) {
-                }
+                error: function(error) {}
             });
         });
     </script>
-
-
 
 
 @endsection

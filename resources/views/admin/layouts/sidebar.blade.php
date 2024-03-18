@@ -50,7 +50,7 @@
                 <i class="nav-icon far fa-plus-square"></i>
               <p>
                 Add Category
-                <span class="right badge badge-danger">New</span>
+                {{-- <span class="right badge badge-danger">New</span> --}}
               </p>
             </a>
           </li>

@@ -190,6 +190,7 @@ class HomeController extends Controller
     }
 
     public function propertyFilter(Request $request){
+        // dd($request->all());
         $minvalue = $request->input('min_area');
         $maxvalue = $request->input('max_area');
         $minBudget = $request->input('min_budget');
@@ -209,7 +210,9 @@ class HomeController extends Controller
         $bathroom = $configurations['bathroom'];
 
 
-        $propertyArray = [$bedroom,$bathroom,$minvalue,$maxvalue,$minBudget,$maxBudget,$categories,$postBy,$status,$location];  
+
+
+        $propertyArray = [$bedroom,$bathroom,$minvalue,$maxvalue,$minBudget,$maxBudget,$categories,$postBy,$status,$location];
         $isNull = true;
         foreach ($propertyArray as $value) {
             if ($value !== null) {
@@ -282,6 +285,7 @@ class HomeController extends Controller
             $property->images = explode(',', $property->images);
             $property->encrptId = Crypt::encrypt($property->id);
         });
+
         return response()->json($properties);
     }
     else{

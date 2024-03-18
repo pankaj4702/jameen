@@ -1,22 +1,23 @@
 @extends('admin.main.main')
 
 @section('content-admin')
-
+    {{-- @dd($data) --}}
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1> NEWS</h1>
+                    <h1> Blog</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active"> News</li>
+                        <li class="breadcrumb-item active"><a href="{{ route('getBlog') }}">Blog</a></li>
+                        <li class="breadcrumb-item active">Edit Blog</li>
                     </ol>
                 </div>
             </div>
             <div style="text-align: end;">
-                <a href="{{ route('getNews') }}"><button class="btn btn-primary">Show News</button></a>
+                <a href="{{ route('getBlog') }}"><button class="btn btn-primary">Show Blog</button></a>
             </div>
         </div>
     </section>
@@ -26,7 +27,7 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Add News </h3>
+                            <h3 class="card-title">Edit Blog </h3>
                         </div>
                         @if (count($errors) > 0)
                             <div class = "alert admin-alert">
@@ -44,28 +45,30 @@
                                 </ul>
                             </div>
                         @endif
-                        <form id="quickForm" action="{{ route('storeNews') }}" method="POST" enctype="multipart/form-data"
+                        <form id="quickForm" action="{{ route('updateBlog') }}" method="POST" enctype="multipart/form-data"
                             onsubmit="return validateForm()">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
+                                    <input type="hidden" name="dataId" value="{{$data->id}}">
                                     <label for="exampleInputEmail1">Title <span style="font-size: 11px;"><i>(title of the news)*</i></span></label>
                                     <input type="" name="title" autocomplete="off" class="form-control"
-                                        id="title" placeholder="Enter Title">
+                                        id="title" placeholder="Enter Title" value="{{$data->title}}">
                                     <span id="error-title" style="color:rgb(218, 129, 129);"></span>
                                 </div>
 
                                 <div class="mb-3">
+                                    <img src="{{ asset('storage/' . $data->image) }}" style="width:140px; height:80px;" id="imagePreview" /><br>
                                     <label for="formFile" class="form-label">Image  <span style="font-size: 11px;"><i>(image of this news)*</i></span></label>
-                                    <input class="form-control" type="file" id="image" name="image">
+                                    <input class="form-control" type="file" id="imageInput" name="image">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Description <span style="font-size: 11px;"><i></i></span></label>
-                                    <textarea class="form-control description" name="description" id="description" rows="10" value="{{ old('description') }}"></textarea>
+                                    <textarea class="form-control description" name="description" id="description" rows="10" value="{{ old('description') }}">{{$data->description}}</textarea>
                                 </div>
 
-                                <input type="submit" class="btn btn-primary" value="Submit">
+                                <input type="submit" class="btn btn-primary" value="Update">
                             </div>
                         </form>
                     </div>
@@ -73,6 +76,20 @@
             </div>
 
     </section>
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
 
+        imageInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 
 @endsection

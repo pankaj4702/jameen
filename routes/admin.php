@@ -63,24 +63,34 @@ Route::prefix('/admin')->middleware('checkAdminAuth')->group(function () {
 // admin market trends
     Route::prefix('/admin/market-trend')->middleware('checkAdminAuth')->group(function () {
         Route::get('/add-news',[AdminController::class,'getNews'])->name('addNews');
+        Route::get('/edit-news/{id}',[AdminController::class,'editNews'])->name('editNews');
         Route::get('/News',[AdminController::class,'News'])->name('getNews');
         Route::get('/delete-news/{id}',[AdminController::class,'deleteNews'])->name('deleteNews');
         Route::post('/store-news',[AdminController::class,'storeNews'])->name('storeNews');
+        Route::post('/update-news',[AdminController::class,'updateNews'])->name('updateNews');
 
         Route::get('/add-media',[AdminController::class,'getMedia'])->name('addMedia');
+        Route::get('/edit-media/{id}',[AdminController::class,'editMedia'])->name('editMedia');
         Route::get('/media',[AdminController::class,'Media'])->name('getMedia');
         Route::get('/delete-media/{id}',[AdminController::class,'deleteMedia'])->name('deleteMedia');
         Route::post('/store-media',[AdminController::class,'storeMedia'])->name('storeMedia');
+        Route::post('/update-media',[AdminController::class,'updateMedia'])->name('updateMedia');
+
 
         Route::get('/add-blog',[AdminController::class,'getBlog'])->name('addBlog');
+        Route::get('/edit-blog/{id}',[AdminController::class,'editBlog'])->name('editBlog');
         Route::get('/blog',[AdminController::class,'Blog'])->name('getBlog');
         Route::get('/delete-blog/{id}',[AdminController::class,'deleteBlog'])->name('deleteBlog');
         Route::post('/store-blog',[AdminController::class,'storeBlog'])->name('storeBlog');
+        Route::post('/update-blog',[AdminController::class,'updateBlog'])->name('updateBlog');
 
         Route::get('/add-property-insight',[AdminController::class,'getInsight'])->name('addInsight');
+        Route::get('/edit-property-insight/{id}',[AdminController::class,'editInsight'])->name('editInsight');
         Route::get('/insight',[AdminController::class,'Insight'])->name('getInsight');
         Route::get('/delete-insight/{id}',[AdminController::class,'deleteInsight'])->name('deleteInsight');
         Route::post('/store-insight',[AdminController::class,'storeInsight'])->name('storeInsight');
+        Route::post('/update-insight',[AdminController::class,'updateInsight'])->name('updateInsight');
+
     });
 
     //Admin about section
