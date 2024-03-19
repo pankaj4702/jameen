@@ -7,38 +7,29 @@
                 <div class="col-md-6">
                     <div class="banner-left">
                         <div class="banner-left-contect">
+                            {{-- @dd($mainSectionData) --}}
                             <h6>Jameen online</h6>
-                            <h2>Jameen online Made Real Easy</h2>
-                            <p>
-                                Etiam eget elementum elit. Aenean dignissim dapibus vestibulum. Integer a dolor eu sapien sodales vulputate ac in purus.
-                            </p>
+                            <h2>{{ $mainSectionData->main_heading }}</h2>
+                            {{-- <p> --}}
+                                {!! $mainSectionData->description !!}
+                                {{-- Etiam eget elementum elit. Aenean dignissim dapibus vestibulum. Integer a dolor eu sapien sodales vulputate ac in purus.                            </p> --}}
                         </div>
                     </div>
                 </div>
+                @php
+                $images = explode(',',$mainSectionData->images);
+                @endphp
                 <div class="col-md-6">
                     <div class="banner-right">
                         <div class="banner-left-slider">
                             <div class="owl-carousel banner-left-slider-inner owl-theme">
+                                @foreach($images as $image)
                                 <div class="item">
                                     <figure>
-                                        <img src="{{ asset('images/slider-one.png') }}" alt="Slider-image" class="slide-img-home" />
+                                        <img src="{{ asset('storage/' . $image) }}" alt="Slider-image" class="slide-img-home" />
                                     </figure>
                                 </div>
-                                <div class="item">
-                                    <figure>
-                                        <img src="{{ asset('images/industry-one.png') }}" alt="Slider-image" class="slide-img-home" />
-                                    </figure>
-                                </div>
-                                <div class="item">
-                                    <figure>
-                                         <img src="{{ asset('images/inspiration-one.png') }}" alt="Slider-image" class="slide-img-home" />
-                                    </figure>
-                                </div>
-                                <div class="item">
-                                    <figure>
-                                        <img src="{{ asset('images/report-banner.png') }}" alt="Slider-image" class="slide-img-home" />
-                                    </figure>
-                                </div>
+                                @endforeach
                             </div>
                             <figure class="slider-shape spin-sec">
                                 <img src="images/slider-shape.png" />
@@ -78,46 +69,30 @@
     <div class="container-fluid">
         <div class="partner-logo-inner">
             <div class="partner-logo-head">
-                <h2>Trusted by 100+ Companies across the globe!</h2>
+                <h2>{{$companyLogos->title}}</h2>
             </div>
+            @php
+                $images = explode(',',$companyLogos->images)
+            @endphp
             <div class="partner-logo-slider">
                 <div class="owl-carousel partner-logo-slider-inner owl-theme">
+                    @foreach($images as $logo)
                     <div class="item">
                         <figure>
-                            <img src="images/google.png" />
+                            <img src="{{ asset('storage/' . $logo) }}" />
                         </figure>
                     </div>
-                    <div class="item">
-                        <figure>
-                            <img src="images/amazon.png" />
-                        </figure>
-                    </div>
-                    <div class="item">
-                        <figure>
-                            <img src="images/logitech.png" />
-                        </figure>
-                    </div>
-                    <div class="item">
-                        <figure>
-                            <img src="images/spotify.png" />
-                        </figure>
-                    </div>
-                    <div class="item">
-                        <figure>
-                            <img src="images/samsung.png" />
-                        </figure>
-                    </div>
-                    <div class="item">
-                        <figure>
-                            <img src="images/netflex.png" />
-                        </figure>
-                    </div>
+                    @endforeach
+
                 </div>
             </div>
         </div>
     </div>
 </section>
 <!--About-section-->
+@php
+    $image = explode(',',$aboutSectionData->images);
+@endphp
 <section class="about">
     <div class="container">
         <div class="about-inner">
@@ -126,15 +101,15 @@
                     <div class="about-left">
                         <div class="about-left-img">
                             <figure class="personal-loan-effect-img">
-                                <img src="images/about-one.png" />
+                                <img src="{{ asset('storage/' . $image[0]) }}" />
                             </figure>
                         </div>
                         <div class="about-right-img">
                             <figure class="about-effect-img">
-                                <img src="images/about-two.png" />
+                                <img src="{{ asset('storage/' . $image[1]) }}" />
                             </figure>
                             <figure class="about-effect-img">
-                                <img src="images/about-three.png" />
+                                <img src="{{ asset('storage/' . $image[2]) }}" />
                             </figure>
                         </div>
                         <figure class="about-shape spin">
@@ -149,10 +124,8 @@
                     <div class="about-right">
                         <div class="about-right-top">
                             <h3>WHO ARE WE</h3>
-                            <h2>About Jameen Properties</h2>
-                            <p>
-                                Donec porttitor euismod dignissim. Nullam a lacinia ipsum, nec dignissim purus. Nulla convallis ipsum molestie nibh malesuada, ac malesuada leo volutpat.
-                            </p>
+                            <h2>{{ $aboutSectionData->main_heading }}</h2>
+                           {!! $aboutSectionData->description !!}
                         </div>
                         <div class="about-right-bottom">
                             <ul>
@@ -381,9 +354,12 @@
         <div class="inspiration-inner">
             <div class="inspiration-inner-head">
                 <h3>CHECKOUT OUR NEW</h3>
-                <h2>Looking For Inspiration</h2>
-                <p>Find Your Dream Property</p>
+                <h2>{{ $checkoutData->main_heading }}</h2>
+                {!! $checkoutData->description  !!}
             </div>
+            @php
+                $checkoutImage = explode(',',$checkoutData->images);
+            @endphp
             <div class="inspiration-inner-bottom">
                 <div class="row">
                     <ul class="inspiration-inner-bottom-content">
@@ -396,7 +372,7 @@
                                 $cities = count($city);
                             @endphp
                             <figure>
-                                <img src="{{ asset('images/inspiration-one.png') }}" />
+                                <img src="{{ asset('storage/' . $checkoutImage[0]) }}" />
                             </figure>
                             <div class="inspiration-bottom-detail">
                                 <h4>{{$cities}}</h4>
@@ -414,7 +390,7 @@
                                 $cities = count($city);
                             @endphp
                             <figure>
-                                <img src="{{ asset('images/inspiration-two.png') }}" />
+                                <img src="{{ asset('storage/' . $checkoutImage[1]) }}" />
                             </figure>
                             <div class="inspiration-bottom-detail">
                                 <h4>{{$cities}}</h4>
@@ -432,7 +408,7 @@
                                 $cities = count($city);
                             @endphp
                             <figure>
-                                <img src="{{ asset('images/inspiration-three.png') }}" />
+                                <img src="{{ asset('storage/' . $checkoutImage[2]) }}" />
                             </figure>
                             <div class="inspiration-bottom-detail">
                                 <h4>{{$cities}}</h4>
@@ -450,7 +426,7 @@
                                 $cities = count($city);
                             @endphp
                             <figure>
-                                <img src="{{ asset('images/inspiration-four.png') }}" />
+                                <img src="{{ asset('storage/' . $checkoutImage[3]) }}" />
                             </figure>
                             <div class="inspiration-bottom-detail">
                                 <h4>{{$cities}}</h4>
@@ -468,7 +444,7 @@
                                 $cities = count($city);
                             @endphp
                             <figure>
-                                <img src="{{ asset('images/inspiration-five.png') }}" />
+                                <img src="{{ asset('storage/' . $checkoutImage[4]) }}" />
                             </figure>
                             <div class="inspiration-bottom-detail">
                                 <h4>{{$cities}}</h4>
@@ -495,10 +471,10 @@
                 <div class="col-md-6">
                     <div class="industry-inner-left">
                         <figure>
-                            <img src="{{ asset('images/industry-one.png') }}" />
+                            <img src="{{ asset('storage/' . $blogImage[0]) }}" />
                         </figure>
                         <figure class="industry-left-shape">
-                            <img src="{{ asset('images/industry-two.png') }}" />
+                            <img src="{{ asset('storage/' . $blogImage[1]) }}" />
                         </figure>
                          <figure class="industry-left-cricle">
                             <img src="{{ asset('images/industry-cricle.png') }}" />

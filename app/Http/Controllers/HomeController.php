@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-use App\Models\{Property_status,Property,City,PostUser,Testimonial,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam,TeamHeading};
+use App\Models\{Property_status,Property,City,PostUser,Testimonial,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam,TeamHeading,MainSection,AboutSection,CompanyLogo,CheckoutSection,BlogSection};
 use Session;
 use GuzzleHttp\Client;
 use DB;
@@ -22,7 +22,14 @@ class HomeController extends Controller
             $project->images = explode(',', $project->images);
         });
         $testimonials = Testimonial::orderBy('id','desc')->take(5)->where('status',1)->get();
-      return view('frontend.home',compact('projects','testimonials'));
+        $mainSectionData = MainSection::first();
+        $aboutSectionData = AboutSection::first();
+        $companyLogos = CompanyLogo::first();
+        $checkoutData = CheckoutSection::first();
+        $blogData = BlogSection::first();
+        $blogImage = explode(',',$blogData->images);
+
+      return view('frontend.home',compact('projects','testimonials','mainSectionData','aboutSectionData','companyLogos','checkoutData','blogImage'));
     }
 
     public function propertyList($id){

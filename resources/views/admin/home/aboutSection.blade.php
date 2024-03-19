@@ -10,12 +10,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Main Section</h1>
+                    <h1>About Section</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">main section</li>
+                        <li class="breadcrumb-item active">about section</li>
                     </ol>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Add Main Section Content </h3>
+                                <h3 class="card-title">Add About Section Content </h3>
                             </div>
                             @if (count($errors) > 0)
                                 <div class = "alert admin-alert" >
@@ -46,10 +46,9 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form id="quickForm" action="{{ route('storeMainSection') }}" method="POST" enctype="multipart/form-data"
+                            <form id="quickForm" action="{{ route('updateAboutSection') }}" method="POST" enctype="multipart/form-data"
                                 onsubmit="return validateForm()">
                                 @csrf
-                                <input type="hidden" name="sectionId" value="{{ $section->id }}">
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Main Heading</label>
@@ -66,19 +65,19 @@
                                     </div>
                                     </div>
 
-                                    <div id="imageInputs">
-                                        @if($sectionImages[0] !== "")
-                                        @foreach($sectionImages as $key => $image)
                                         <div>
-                                            <input type="file" accept="image/*" name="image[{{ $key }}]" onchange="updatePreview(this)">
-                                            <img style="width:120px; height:90px;" src="{{ asset('storage/' . $image) }}">
-                                            <a href="{{ route('deleteMainImage',['id'=>$key]) }}"><i class="fas fa-trash" style="margin-left:40px;color:white;"></i></a>
+                                            <input type="file" accept="image/*" name="image[]" onchange="updatePreview(this)">
+                                            <img style="width:120px; height:90px;" src="{{ asset('storage/' . $sectionImages[0]) }}">
+                                        </div><br>
+                                        <div>
+                                            <input type="file" accept="image/*" name="image[]" onchange="updatePreview(this)">
+                                            <img style="width:120px; height:90px;" src="{{ asset('storage/' . $sectionImages[1]) }}">
+                                        </div><br>
+                                        <div>
+                                            <input type="file" accept="image/*" name="image[]" onchange="updatePreview(this)">
+                                            <img style="width:120px; height:90px;" src="{{ asset('storage/' . $sectionImages[2]) }}">
                                         </div>
-                                        @endforeach
-                                        @endif
-                                        <!-- Placeholder for dynamic image input fields -->
-                                    </div>
-                                    <button class="btn btn-primary " type="button" id="addImageButton"><i class="fas fa-plus"></i></button>
+
                                     <button type="submit" class="btn btn-primary " id="submit">Update</button>
                                 </div>
                             </form>
@@ -104,43 +103,6 @@ function updatePreview(input) {
         reader.readAsDataURL(file);
     }
 }
-        // Function to create a new image input field with preview
-function createImageInput() {
-    // Create elements
-    var container = document.createElement('div');
-    var input = document.createElement('input');
-    var preview = document.createElement('img');
-    preview.style.width = '120px';
-    preview.style.height = '90px';
-    // Set attributes
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.name = 'image[]';
-
-    // Event listener for image selection
-    input.addEventListener('change', function() {
-        var file = this.files[0];
-        if (file) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    // Append elements to container
-    container.appendChild(input);
-    container.appendChild(preview);
-
-    // Append container to the main container
-    document.getElementById('imageInputs').appendChild(container);
-}
-
-// Event listener for adding image input fields
-document.getElementById('addImageButton').addEventListener('click', function() {
-    createImageInput();
-});
 
     </script>
 

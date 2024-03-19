@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use App\Models\{Property_source,Property_status,Property,Configuration,City,PostUser,Service,Testimonial,ServiceCategory,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam,Faq,TeamHeading,MainSection};
+use App\Models\{Property_source,Property_status,Property,Configuration,City,PostUser,Service,Testimonial,ServiceCategory,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam,Faq,TeamHeading,MainSection,AboutSection,CompanyLogo,CheckoutSection,BlogSection};
 use GuzzleHttp\Client;
 use DB;
 use Hash;
@@ -1147,27 +1147,253 @@ class AdminController extends Controller
         }
 
         public function storeMainSection(Request $request){
-            // dd($request->all());
-            $images = [];
-            if ($request->hasFile('image')) {
-            foreach ($request->file('image') as $key => $image) {
-                $tempName = uniqid('asset_', true) . '.' . $image->getClientOriginalExtension();
-                $assetImage = $image->storeAs('uploads', $tempName, 'public');
-                $images[] = $assetImage;
-            }
-            $secImage = implode(',',$images);
-        }
+            $request->validate([
+                'main_heading' => [
+                    'required','string','max:50',
+                ],
+                'description' => 'required',
+            ]);
             $data = MainSection::find($request->sectionId);
+            $images = '';
+            if ($request->hasFile('image')) {
+                // dd($request->file('image'));
+                $keys = array_keys($request->file('image'));
+
+
+            $myImages = explode(',', $data->images);
+            foreach ($keys as $key) {
+                $tempName = uniqid('asset_', true) . '.' . $request->file('image')[$key]->getClientOriginalExtension();
+                $assetImage = $request->file('image')[$key]->storeAs('uploads', $tempName, 'public');
+
+                $myImages[$key] = $assetImage;
+                // dd($myImage);
+            }
+            $updatedImages = implode(',', $myImages);
+            $images = $updatedImages;
+        }
+        else{
+            $images = $data->images;
+        }
+
             $section = $data->update([
                 'main_heading'=>$request->main_heading,
                 'description'=> $request->description,
-                'images'=>$secImage,
+                'images'=>$images,
             ]);
             if($section){
                 return redirect()->back()->with('success', 'Data Updated Successfully.');
             }
 
         }
+
+        public function deleteMainImage($id){
+            $data = MainSection::first();
+            $imageArray = explode(',',$data->images);
+            unset($imageArray[$id]);
+            $images = implode(',',$imageArray);
+            $section = $data->update([
+                'images'=>$images,
+            ]);
+            if($section){
+                return redirect()->back()->with('success', 'Deleted Successfully.');
+            }
+        }
+
+        public function aboutSection(){
+
+            $section = AboutSection::first();
+            $sectionImages = explode(',',$section->images);
+            // dd($sectionImages);
+            return view('admin.home.aboutSection',compact('section','sectionImages'));
+        }
+
+        public function updateAboutSection(Request $request){
+            $request->validate([
+                'main_heading' => [
+                    'required','string','max:50',
+                ],
+                'description' => 'required',
+            ]);
+            $data = AboutSection::first();
+            $images = '';
+            if ($request->hasFile('image')) {
+                // dd($request->file('image'));
+                $keys = array_keys($request->file('image'));
+
+
+            $myImages = explode(',', $data->images);
+            foreach ($keys as $key) {
+                $tempName = uniqid('asset_', true) . '.' . $request->file('image')[$key]->getClientOriginalExtension();
+                $assetImage = $request->file('image')[$key]->storeAs('uploads', $tempName, 'public');
+
+                $myImages[$key] = $assetImage;
+                // dd($myImage);
+            }
+            $updatedImages = implode(',', $myImages);
+            $images = $updatedImages;
+            }
+             else
+             {
+            $images = $data->images;
+            }
+          $section = $data->update([
+            'main_heading'=>$request->main_heading,
+            'description'=> $request->description,
+            'images'=>$images,
+            ]);
+            if($section){
+                 return redirect()->back()->with('success', 'Data Updated Successfully.');
+            }
+        }
+
+        public function companyLogoSection(){
+            $section = CompanyLogo::first();
+            $sectionImages = explode(',',$section->images);
+            return view('admin.home.companyLogo',compact('section','sectionImages'));
+
+        }
+
+        public function updateCompanyLoog(Request $request){
+            // dd($request->all());
+            $request->validate([
+                'title' => [
+                    'required','string','max:100',
+                ],
+            ]);
+            $data = CompanyLogo::first();
+            $images = '';
+            if ($request->hasFile('image')) {
+                // dd($request->file('image'));
+                $keys = array_keys($request->file('image'));
+
+
+            $myImages = explode(',', $data->images);
+            foreach ($keys as $key) {
+                $tempName = uniqid('asset_', true) . '.' . $request->file('image')[$key]->getClientOriginalExtension();
+                $assetImage = $request->file('image')[$key]->storeAs('uploads', $tempName, 'public');
+
+                $myImages[$key] = $assetImage;
+            }
+            $updatedImages = implode(',', $myImages);
+            $images = $updatedImages;
+            }
+            else{
+                $images = $data->images;
+            }
+
+            $section = $data->update([
+                'title'=>$request->title,
+                'images'=>$images,
+            ]);
+            if($section){
+                return redirect()->back()->with('success', 'Data Updated Successfully.');
+            }
+        }
+
+        public function deleteCompanyLogo($id){
+            $data = CompanyLogo::first();
+            $imageArray = explode(',',$data->images);
+            unset($imageArray[$id]);
+            $images = implode(',',$imageArray);
+            $section = $data->update([
+                'images'=>$images,
+            ]);
+            if($section){
+                return redirect()->back()->with('success', 'Deleted Successfully.');
+            }
+        }
+
+        public function checkoutSection(){
+            $section = CheckoutSection::first();
+            $sectionImages = explode(',',$section->images);
+            $cities = City::all();
+
+            $abc = explode(',',$section->city_id);
+
+            return view('admin.home.checoutSection',compact('section','sectionImages','cities','abc'));
+        }
+
+        public function updateCheckoutSection(Request $request){
+
+            // dd( implode(',',$request->city));
+            $request->validate([
+                'main_heading' => [
+                    'required','string','max:50',
+                ],
+                'description' => 'required',
+            ]);
+            $data = CheckoutSection::first();
+            $images = '';
+            if ($request->hasFile('image')) {
+                // dd($request->file('image'));
+                $keys = array_keys($request->file('image'));
+
+
+            $myImages = explode(',', $data->images);
+            foreach ($keys as $key) {
+                $tempName = uniqid('asset_', true) . '.' . $request->file('image')[$key]->getClientOriginalExtension();
+                $assetImage = $request->file('image')[$key]->storeAs('uploads', $tempName, 'public');
+
+                $myImages[$key] = $assetImage;
+                // dd($myImage);
+            }
+            $updatedImages = implode(',', $myImages);
+            $images = $updatedImages;
+            }
+             else
+             {
+            $images = $data->images;
+            }
+            $cityIds = implode(',',$request->city);
+            // dd($cityIds);
+          $section = $data->update([
+            'main_heading'=>$request->main_heading,
+            'description'=> $request->description,
+            'images'=>$images,
+            'city_id'=>$cityIds,
+            ]);
+            if($section){
+                 return redirect()->back()->with('success', 'Data Updated Successfully.');
+            }
+        }
+
+        public function blogSection(){
+            $section = BlogSection::first();
+            $sectionImages = explode(',',$section->images);
+
+            return view('admin.home.blogSection',compact('sectionImages'));
+        }
+
+        public function updateBlogSection(Request $request){
+            // dd($request->all());
+            $data = BlogSection::first();
+            $images = '';
+            if ($request->hasFile('image')) {
+                $keys = array_keys($request->file('image'));
+
+            $myImages = explode(',', $data->images);
+            foreach ($keys as $key) {
+                $tempName = uniqid('asset_', true) . '.' . $request->file('image')[$key]->getClientOriginalExtension();
+                $assetImage = $request->file('image')[$key]->storeAs('uploads', $tempName, 'public');
+
+                $myImages[$key] = $assetImage;
+            }
+            $updatedImages = implode(',', $myImages);
+            $images = $updatedImages;
+            }
+             else
+             {
+            $images = $data->images;
+            }
+          $section = $data->update([
+            'images'=>$images,
+            ]);
+            if($section){
+                 return redirect()->back()->with('success', 'Data Updated Successfully.');
+            }
+        }
+
+
 
         }
 

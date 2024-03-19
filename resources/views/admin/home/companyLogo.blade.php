@@ -10,12 +10,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Main Section</h1>
+                    <h1>Company Logo Section</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">main section</li>
+                        <li class="breadcrumb-item active">company logo section</li>
                     </ol>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Add Main Section Content </h3>
+                                <h3 class="card-title">Add Company Logo</h3>
                             </div>
                             @if (count($errors) > 0)
                                 <div class = "alert admin-alert" >
@@ -46,18 +46,14 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form id="quickForm" action="{{ route('storeMainSection') }}" method="POST" enctype="multipart/form-data"
+                            <form id="quickForm" action="{{ route('updateCompanyLoog') }}" method="POST" enctype="multipart/form-data"
                                 onsubmit="return validateForm()">
                                 @csrf
                                 <input type="hidden" name="sectionId" value="{{ $section->id }}">
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Main Heading</label>
-                                        <input class="form-control" name="main_heading" id="main_heading" value="{{ $section->main_heading }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Description</label>
-                                        <textarea class="form-control description" name="description" id="description" rows="10" >{{ $section->description  }}</textarea>
+                                        <label for="exampleFormControlSelect1">Title</label>
+                                        <input class="form-control" name="title" id="title" value="{{ $section->title }}">
                                     </div>
 
                                     <div class="form-group">
@@ -72,7 +68,7 @@
                                         <div>
                                             <input type="file" accept="image/*" name="image[{{ $key }}]" onchange="updatePreview(this)">
                                             <img style="width:120px; height:90px;" src="{{ asset('storage/' . $image) }}">
-                                            <a href="{{ route('deleteMainImage',['id'=>$key]) }}"><i class="fas fa-trash" style="margin-left:40px;color:white;"></i></a>
+                                            <a href="{{ route('deleteCompanyLogo',['id'=>$key]) }}"><i class="fas fa-trash" style="margin-left:40px;color:white;"></i></a>
                                         </div>
                                         @endforeach
                                         @endif

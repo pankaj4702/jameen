@@ -494,9 +494,10 @@ header .navbar {
 .banner-left-slider .owl-dots {
     display: flex;
     align-items: center;
-    column-gap: 38px;
+    column-gap: 18px;
     position: absolute;
     bottom: -11px;
+    width: 100%;
 }
 
 .banner-left-slider .owl-dot.active {
@@ -3689,6 +3690,8 @@ footer {
     flex-direction: column;
     row-gap: 60px;
     max-width: 320px;
+    top: 0;
+    position: sticky;
 }
 
 .apartment-mobile {

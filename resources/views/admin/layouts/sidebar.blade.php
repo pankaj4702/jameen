@@ -45,7 +45,7 @@
               </li>
             </ul>
           </li> --}}
-          <li class="nav-item {{ request()->is() ? ' menu-open' : '' }}">
+          <li class="nav-item {{ request()->is(['admin/home/*']) ? ' menu-open' : '' }}">
             <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -56,25 +56,31 @@
             <ul class="nav nav-treeview">
 
               <li class="nav-item">
-                <a href="{{ route('mainSection') }}" class="nav-link ">
+                <a href="{{ route('mainSection') }}" class="nav-link {{ request()->is('admin/home/main-section') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Main Section</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link ">
+                <a href="{{ route('companyLogoSection') }}" class="nav-link {{ request()->is('admin/home/company-logo-section') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Company Logo</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('aboutSection') }}" class="nav-link {{ request()->is('admin/home/about-section') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>About Section</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link ">
+                <a href="{{ route('checkoutSection') }}" class="nav-link {{ request()->is('admin/home/checkout-section') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>check out Section</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="}" class="nav-link ">
+                <a href="{{ route('blogSection') }}" class="nav-link {{ request()->is('admin/home/blog-section') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Blog Section</p>
                 </a>
@@ -114,7 +120,6 @@
               </p>
             </a>
           </li>
-
           <li class="nav-item {{ request()->is(['admin/add/*','admin/testimonials']) ? ' menu-open' : '' }}">
             <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-copy"></i>
@@ -260,7 +265,6 @@
               </p>
             </a>
           </li>
-
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

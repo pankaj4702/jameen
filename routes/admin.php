@@ -119,9 +119,27 @@ Route::prefix('/admin')->middleware('checkAdminAuth')->group(function () {
         Route::get('/removeFaq/{id}',[AdminController::class,'deletefaq'])->name('removeFaq');
 
     });
+    // home
     Route::prefix('/admin/home')->middleware('checkAdminAuth')->group(function () {
+        // main section
         Route::get('/main-section',[AdminController::class,'mainSection'])->name('mainSection');
         Route::post('/store-main-section',[AdminController::class,'storeMainSection'])->name('storeMainSection');
+        Route::get('/delete-main-section-image/{id}',[AdminController::class,'deleteMainImage'])->name('deleteMainImage');
+        // about section
+        Route::get('/about-section',[AdminController::class,'aboutSection'])->name('aboutSection');
+        Route::post('/update-about-section',[AdminController::class,'updateAboutSection'])->name('updateAboutSection');
+        // company logo
+        Route::get('/company-logo-section',[AdminController::class,'companyLogoSection'])->name('companyLogoSection');
+        Route::post('/update-company-logo',[AdminController::class,'updateCompanyLoog'])->name('updateCompanyLoog');
+        Route::get('/delete-company-logo/{id}',[AdminController::class,'deleteCompanyLogo'])->name('deleteCompanyLogo');
+        // checkout section
+        Route::get('/checkout-section',[AdminController::class,'checkoutSection'])->name('checkoutSection');
+        Route::post('/update-checkout-section',[AdminController::class,'updateCheckoutSection'])->name('updateCheckoutSection');
+        // blog section
+        Route::get('/blog-section',[AdminController::class,'blogSection'])->name('blogSection');
+        Route::post('/update-blog-section',[AdminController::class,'updateBlogSection'])->name('updateBlogSection');
+
+
 
     });
 

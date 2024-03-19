@@ -17,6 +17,9 @@
        <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ route('logoutAdmin') }}" class="nav-link">Logout</a>
       </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="" class="nav-link">Profile</a>
+      </li>
       <!-- Messages Dropdown Menu -->
 
       <!-- Notifications Dropdown Menu -->

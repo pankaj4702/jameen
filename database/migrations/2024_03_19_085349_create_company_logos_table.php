@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('main_sections', function (Blueprint $table) {
+        Schema::create('company_logos', function (Blueprint $table) {
             $table->id();
-            $table->string('main_heading')->nullable();
-            $table->longText('description')->nullbale();
+            $table->string('title')->nullable();
             $table->longText('images')->nullable();
             $table->timestamps();
         });
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('main_sections');
+        Schema::dropIfExists('company_logos');
     }
 };
