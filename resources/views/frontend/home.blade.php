@@ -359,13 +359,28 @@
             </div>
             @php
                 $checkoutImage = explode(',',$checkoutData->images);
+                $checkoutCity = explode(',',$checkoutData->city_id);
+                $cityData = [];
+
+                foreach ($checkoutCity as $cityId) {
+                    foreach ($cities as $city) {
+                        if ($city->id == $cityId) {
+                            $cityData[] = [
+                                'cityid' => $city->id,
+                                'cityname' => $city->name
+                            ];
+                            break;
+                        }
+                    }
+                }
+                // dd($cityData);
             @endphp
             <div class="inspiration-inner-bottom">
                 <div class="row">
                     <ul class="inspiration-inner-bottom-content">
                         <li> <div class="inspiration-bottom-inner">
                             @php
-                                $keyword = 'jaipur';
+                                $keyword = lcfirst($cityData[0]['cityname']);
                                 $city = DB::table('properties')
                                     ->where('property_location', 'like', '%' . $keyword . '%')
                                     ->get();
@@ -376,14 +391,14 @@
                             </figure>
                             <div class="inspiration-bottom-detail">
                                 <h4>{{$cities}}</h4>
-                                <p>Jaipur</p>
+                                <p>{{$cityData[0]['cityname']}}</p>
                             </div>
                         </div></li>
 
                     <li>
                         <div class="inspiration-bottom-inner">
                             @php
-                                $keyword = 'gurugram';
+                                $keyword = lcfirst($cityData[1]['cityname']);
                                 $city = DB::table('properties')
                                     ->where('property_location', 'like', '%' . $keyword . '%')
                                     ->get();
@@ -394,14 +409,14 @@
                             </figure>
                             <div class="inspiration-bottom-detail">
                                 <h4>{{$cities}}</h4>
-                                <p>Gurugram</p>
+                                <p>{{$cityData[1]['cityname']}}</p>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="inspiration-bottom-inner">
                             @php
-                                $keyword = 'noida';
+                                $keyword = lcfirst($cityData[2]['cityname']);
                                 $city = DB::table('properties')
                                     ->where('property_location', 'like', '%' . $keyword . '%')
                                     ->get();
@@ -412,14 +427,14 @@
                             </figure>
                             <div class="inspiration-bottom-detail">
                                 <h4>{{$cities}}</h4>
-                                <p>Noida</p>
+                                <p>{{$cityData[2]['cityname']}}</p>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="inspiration-bottom-inner">
                             @php
-                                $keyword = 'gaziabad';
+                                $keyword = lcfirst($cityData[3]['cityname']);
                                 $city = DB::table('properties')
                                     ->where('property_location', 'like', '%' . $keyword . '%')
                                     ->get();
@@ -430,14 +445,14 @@
                             </figure>
                             <div class="inspiration-bottom-detail">
                                 <h4>{{$cities}}</h4>
-                                <p>Gaziabad</p>
+                                <p>{{$cityData[3]['cityname']}}</p>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="inspiration-bottom-inner">
                             @php
-                                $keyword = 'alwar';
+                                $keyword = lcfirst($cityData[4]['cityname']);
                                 $city = DB::table('properties')
                                     ->where('property_location', 'like', '%' . $keyword . '%')
                                     ->get();
@@ -448,7 +463,7 @@
                             </figure>
                             <div class="inspiration-bottom-detail">
                                 <h4>{{$cities}}</h4>
-                                <p>Alwar</p>
+                                <p>{{$cityData[4]['cityname']}}</p>
                             </div>
                         </div>
                     </li>

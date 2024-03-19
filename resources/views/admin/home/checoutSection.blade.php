@@ -64,14 +64,15 @@
                                     <div id="featureContainer">
                                     </div>
                                     </div>
-                                    {{-- @dd($abc[4]) --}}
                                         <div>
                                             <input type="file" accept="image/*" name="image[]" onchange="updatePreview(this)">
                                             <img style="width:120px; height:90px;" src="{{ asset('storage/' . $sectionImages[0]) }}">
                                             <select  name="city[]" style="width:150px; margin-left:100px;">
-                                                <option value="{{ $abc[0] }}">{{ $abc[0] }}</option>
-                                                @foreach($cities as $city)
+                                                <option value="{{$cityData[0]['cityid']}}">{{$cityData[0]['cityname']}}</option>
+                                                 @foreach($cities as $city)
+                                                 @if($city->id !== $cityData[0]['cityid'])
                                                 <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                                 @endif
                                                 @endforeach
                                               </select>
                                         </div><br>
@@ -79,9 +80,11 @@
                                             <input type="file" accept="image/*" name="image[]" onchange="updatePreview(this)">
                                             <img style="width:120px; height:90px;" src="{{ asset('storage/' . $sectionImages[1]) }}">
                                             <select  name="city[]" style="width:150px; margin-left:100px;">
-                                                <option value="{{ $abc[1] }}">{{ $abc[1] }}</option>
+                                                <option value="{{$cityData[1]['cityid']}}">{{$cityData[1]['cityname']}}</option>
                                                 @foreach($cities as $city)
+                                                @if($city->id !== $cityData[1]['cityid'])
                                                 <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                                @endif
                                                 @endforeach
                                               </select>
                                         </div><br>
@@ -89,9 +92,11 @@
                                             <input type="file" accept="image/*" name="image[]" onchange="updatePreview(this)">
                                             <img style="width:120px; height:90px;" src="{{ asset('storage/' . $sectionImages[2]) }}">
                                             <select  name="city[]" style="width:150px; margin-left:100px;">
-                                                <option value="{{ $abc[2] }}">{{ $abc[2] }}</option>
+                                                <option value="{{$cityData[2]['cityid']}}">{{$cityData[2]['cityname']}}</option>
                                                 @foreach($cities as $city)
+                                                @if($city->id !== $cityData[2]['cityid'])
                                                 <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                                 @endif
                                                 @endforeach
                                               </select>
                                         </div><br>
@@ -99,9 +104,11 @@
                                             <input type="file" accept="image/*" name="image[]" onchange="updatePreview(this)">
                                             <img style="width:120px; height:90px;" src="{{ asset('storage/' . $sectionImages[3]) }}">
                                             <select  name="city[]" style="width:150px; margin-left:100px;">
-                                                <option value="{{ $abc[3] }}">{{ $abc[3] }}</option>
-                                                @foreach($cities as $city)
+                                                <option value="{{$cityData[3]['cityid']}}">{{$cityData[3]['cityname']}}</option>
+                                                 @foreach($cities as $city)
+                                                 @if($city->id !== $cityData[3]['cityid'])
                                                 <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                                 @endif
                                                 @endforeach
                                               </select>
                                         </div><br>
@@ -109,9 +116,11 @@
                                             <input type="file" accept="image/*" name="image[]" onchange="updatePreview(this)">
                                             <img style="width:120px; height:90px;" src="{{ asset('storage/' . $sectionImages[4]) }}">
                                             <select name="city[]" style="width:150px; margin-left:100px;">
-                                                <option value="{{ $abc[4] }}">{{ $abc[4] }}</option>
+                                                <option value="{{$cityData[4]['cityid']}}">{{$cityData[4]['cityname']}}</option>
                                                 @foreach($cities as $city)
+                                                 @if($city->id !== $cityData[4]['cityid'])
                                                 <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                                 @endif
                                                 @endforeach
                                               </select>
                                         </div>

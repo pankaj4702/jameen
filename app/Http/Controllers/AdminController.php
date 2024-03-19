@@ -1309,8 +1309,21 @@ class AdminController extends Controller
             $cities = City::all();
 
             $abc = explode(',',$section->city_id);
+            $cityData = [];
 
-            return view('admin.home.checoutSection',compact('section','sectionImages','cities','abc'));
+            foreach ($abc as $cityId) {
+                foreach ($cities as $city) {
+                    if ($city->id == $cityId) {
+                        $cityData[] = [
+                            'cityid' => $city->id,
+                            'cityname' => $city->name
+                        ];
+                        break;
+                    }
+                }
+            }
+        // dd($cityData);
+            return view('admin.home.checoutSection',compact('section','sectionImages','cities','cityData'));
         }
 
         public function updateCheckoutSection(Request $request){

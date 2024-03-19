@@ -26,10 +26,11 @@ class HomeController extends Controller
         $aboutSectionData = AboutSection::first();
         $companyLogos = CompanyLogo::first();
         $checkoutData = CheckoutSection::first();
+        $cities= City::all();
         $blogData = BlogSection::first();
         $blogImage = explode(',',$blogData->images);
 
-      return view('frontend.home',compact('projects','testimonials','mainSectionData','aboutSectionData','companyLogos','checkoutData','blogImage'));
+      return view('frontend.home',compact('projects','testimonials','mainSectionData','aboutSectionData','companyLogos','checkoutData','blogImage','cities'));
     }
 
     public function propertyList($id){
