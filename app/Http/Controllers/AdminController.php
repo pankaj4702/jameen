@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use App\Models\{Property_source,Property_status,Property,Configuration,City,PostUser,Service,Testimonial,ServiceCategory,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam,Faq,TeamHeading,MainSection,AboutSection,CompanyLogo,CheckoutSection,BlogSection};
+use App\Models\{Property_source,Property_status,Property,Configuration,City,PostUser,Service,Testimonial,ServiceCategory,InquiryData,PropertyCategory,FeatureAmenities,News,Media,Blog,Insight,CompanyProfile,CompanyMessage,CorporateTeam,Faq,TeamHeading,MainSection,AboutSection,CompanyLogo,CheckoutSection,BlogSection,Admin_user};
 use GuzzleHttp\Client;
 use DB;
 use Hash;
@@ -23,7 +23,8 @@ class AdminController extends Controller
     }
 
     public function adminProfile(){
-        return view('admin.profile');
+        $data = Admin_user::first();
+        return view('admin.profile',compact('data'));
     }
 
     public function login(Request $request){
@@ -1408,6 +1409,34 @@ class AdminController extends Controller
             if($section){
                  return redirect()->back()->with('success', 'Data Updated Successfully.');
             }
+        }
+
+        public function updateProfile(Request $request){
+            // dd($request->all());
+            $data = Admin_user::first();
+            if($request->new_password !== null && $request->current_password !== null ){
+                if (Hash::check($request->current_password, $data->password)) {
+                    $hashedPassword = Hash::make($request->new_password);
+                    $section = $data->update([
+                        'name'=>$request->name,
+                        'email'=>$data->email,
+                        'password'=>$hashedPassword,
+                        'status'=>1,
+                        ]);
+                } else {
+                    dd('test');
+                    return redirect()->back()->with('error','Current password not match');
+                }
+
+            }
+            $section = $data->update([
+                'name'=>$request->name,
+                'email'=>$data->email,
+                'password'=>$data->password,
+                'status'=>1,
+                ]);
+            return redirect()->back();
+
         }
 
 

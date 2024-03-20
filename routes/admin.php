@@ -142,6 +142,8 @@ Route::prefix('/admin')->middleware('checkAdminAuth')->group(function () {
         Route::get('/blog-section',[AdminController::class,'blogSection'])->name('blogSection');
         Route::post('/update-blog-section',[AdminController::class,'updateBlogSection'])->name('updateBlogSection');
 
+        // profile
+        Route::post('/update-profile',[AdminController::class,'updateProfile'])->name('updateProfile');
 
 
     });

@@ -46,29 +46,30 @@
                   <!-- /.tab-pane -->
 
                   <div class="tab-pane active" id="settings">
-                    <form class="form-horizontal">
+                    <form action="{{route('updateProfile')}}" method="post" class="form-horizontal">
+                        @csrf
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputName" placeholder="Name">
+                          <input type="text" class="form-control" id="inputName" name="name" placeholder="Name" value="{{$data->name}}">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                          <input type="text" class="form-control" name="mailId" id="inputEmail" placeholder="Email"  value="{{$data->email}}" disabled>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="inputName2" class="col-sm-2 col-form-label">New password</label>
+                        <label for="inputName2" class="col-sm-2 col-form-label">New Password</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName2" placeholder="new password">
+                          <input type="password" class="form-control" name="new_password" id="inputName2" placeholder="new password">
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="inputExperience" class="col-sm-2 col-form-label">Current password</label>
+                        <label for="inputName2" class="col-sm-2 col-form-label">Current Password</label>
                         <div class="col-sm-10">
-                          <textarea class="form-control" id="inputExperience" placeholder="current password"></textarea>
+                          <input type="password" class="form-control" id="inputName2" name="current_password" placeholder="new password">
                         </div>
                       </div>
                       {{-- <div class="form-group row">

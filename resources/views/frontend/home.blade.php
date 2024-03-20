@@ -201,7 +201,6 @@
 
 <!--Project-section-->
 @if(isset($projects))
-{{-- @dd($projects) --}}
 <section class="project">
     <div class="container">
         <div class="project-inner">
