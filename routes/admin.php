@@ -10,7 +10,10 @@ Route::prefix('/admin')->group(function () {
 });
 
 Route::prefix('/admin')->middleware('checkAdminAuth')->group(function () {
+
     Route::get('/dashboard',[AdminController::class,'dashboard'])->name('dashboard');
+    Route::get('/profile',[AdminController::class,'adminProfile'])->name('adminProfile');
+
 
     Route::get('/add-category',[AdminController::class,'addCategory'])->name('addCategory');
     Route::post('/store-category',[AdminController::class,'storeCategory'])->name('storeCategory');

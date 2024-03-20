@@ -22,6 +22,10 @@ class AdminController extends Controller
             }
     }
 
+    public function adminProfile(){
+        return view('admin.profile');
+    }
+
     public function login(Request $request){
         $request->validate([
             'email' => 'required|email',
