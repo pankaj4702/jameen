@@ -76,7 +76,7 @@
               <li class="nav-item">
                 <a href="{{ route('checkoutSection') }}" class="nav-link {{ request()->is('admin/home/checkout-section') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>check out Section</p>
+                  <p>Checkout Section</p>
                 </a>
               </li>
               <li class="nav-item">
