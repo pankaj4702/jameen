@@ -32,6 +32,29 @@
                 <ul class="nav nav-pills">
                   <li class="nav-item active"><a class="nav-link active" href="#settings" data-toggle="tab">Edit Profile</a></li>
                 </ul>
+                @if (count($errors) > 0)
+                <div class = "alert admin-alert">
+                    <ul class="title_count1">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session('error'))
+                            <div class="alert admin-alert">
+                                <ul>
+                                    <li> {{ session('error') }}</li>
+                                </ul>
+                            </div>
+                        @endif
+            @if (session('success'))
+            <div class="alert admin-alert-success">
+                <ul>
+                    <li> {{ session('success') }}</li>
+                </ul>
+            </div>
+             @endif
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content">
@@ -64,6 +87,7 @@
                         <label for="inputName2" class="col-sm-2 col-form-label">New Password</label>
                         <div class="col-sm-10">
                           <input type="password" class="form-control" name="new_password" id="inputName2" placeholder="new password">
+                          <span style="font-size: 11px;"><i>Password must be at least one uppercase letter, one lowercase letter, one digit, and one special character.</i></span>
                         </div>
                       </div>
                       <div class="form-group row">
@@ -72,21 +96,7 @@
                           <input type="password" class="form-control" id="inputName2" name="current_password" placeholder="new password">
                         </div>
                       </div>
-                      {{-- <div class="form-group row">
-                        <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                            </label>
-                          </div>
-                        </div>
-                      </div> --}}
+
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
                           <button type="submit" class="btn btn-primary">Submit</button>

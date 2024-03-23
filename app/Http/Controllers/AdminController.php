@@ -1413,9 +1413,18 @@ class AdminController extends Controller
 
         public function updateProfile(Request $request){
             // dd($request->all());
+            $request->validate([
+                'name' => [
+                    'required','string','max:50',
+                ],
+              ]);
             $data = Admin_user::first();
             if($request->new_password !== null && $request->current_password !== null ){
                 if (Hash::check($request->current_password, $data->password)) {
+                    $request->validate([
+                        'new_password' => ['required', 'string', 'min:8', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/'],
+
+                      ]);
                     $hashedPassword = Hash::make($request->new_password);
                     $section = $data->update([
                         'name'=>$request->name,
@@ -1423,9 +1432,10 @@ class AdminController extends Controller
                         'password'=>$hashedPassword,
                         'status'=>1,
                         ]);
+            return redirect()->back()->with('success','Profile Updated Successfully.');
+
                 } else {
-                    dd('test');
-                    return redirect()->back()->with('error','Current password not match');
+                    return redirect()->back()->with('error','Current password not match.');
                 }
 
             }
@@ -1435,7 +1445,7 @@ class AdminController extends Controller
                 'password'=>$data->password,
                 'status'=>1,
                 ]);
-            return redirect()->back();
+            return redirect()->back()->with('success','Profile Updated Successfully.');
 
         }
 

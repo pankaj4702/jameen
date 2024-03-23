@@ -3869,6 +3869,13 @@ footer {
     background: rgb(255, 192, 203) !important;
     border: 2px solid red !important;
     color: black !important;
+    /* height:50px; */
+}
+.admin-alert-success{
+    background: rgb(210, 248, 210) !important;
+    border: 2px solid rgb(126, 230, 85) !important;
+    color: black !important;
+    /* height:50px; */
 }
 
 .slidecontainer {
